@@ -1,4 +1,1 @@
 # Aurora
-
-Overview
-
