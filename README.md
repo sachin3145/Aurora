@@ -1,8 +1,7 @@
 # Aurora
-A project by 
-  1. Aarav Sharma 
-  2. Gongiti Rahul Naraian
-  3. Sachin Yadav
+A project by  
+1. Gongiti Rahul Naraian
+2. Sachin Yadav
 # Workspace
 1. MySQL 8.0
 2. Python 3.8
