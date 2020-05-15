@@ -4,10 +4,14 @@ USE AURORA;
 CREATE TABLE IF NOT EXISTS PLAYER_STATS(
     PLAYER_ID CHAR(10) PRIMARY KEY,
     PLAYER_NAME VARCHAR(30),
-    SCORE INT,
-    BADGES TEXT,
-    PROGRESS CHAR(3)
+    SCORE INT DEFAULT 0,
+    BADGES TEXT DEFAULT 'No badges earned yet!',
+    PROGRESS VARCHAR(3) DEFAULT '0%'
                                        );
+
+-- The table definitions below are incomplete,
+-- more data fields are required to complete them.
+
 
 CREATE TABLE IF NOT EXISTS PLAYER_ARSENAL(
     PLAYER_ID CHAR(10) NOT NULL UNIQUE,
@@ -20,7 +24,7 @@ CREATE TABLE IF NOT EXISTS PLAYER_ARSENAL(
 CREATE TABLE IF NOT EXISTS PLANETS(
     PLANET_ID CHAR(10) PRIMARY KEY,
     NAME VARCHAR(10),
-    RADIUS FLOAT
+    RADIUS FLOAT DEFAULT 1
     /*
      MORE CODE HERE
      */
