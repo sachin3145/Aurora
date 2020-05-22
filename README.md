@@ -7,7 +7,7 @@ A project by
 2. Python 3.8
 3. mysql-connector-python
 4. dnspython
-5. protobuff 3.6.1
+5. protobuf 3.6.1
 6. pythonsql
 7. mysql
 
