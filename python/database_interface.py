@@ -8,7 +8,7 @@ try:
     if db.is_connected():
         print('Successfully connected')
     p = db.cursor()
-    p.execute(open('SQL/script002.sql').read())
+    p.execute(open('../SQL/script002.sql').read())
     p.close()
 
 except:
