@@ -5,7 +5,7 @@ import pygame
 pygame.init()
 
 # create screen
-screen = pygame.display.set_mode((1024, 720))
+screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
 # title and icon
 pygame.display.set_caption("The helios attack")
@@ -20,4 +20,5 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     screen.fill((240, 248, 255))
+
     pygame.display.update()
