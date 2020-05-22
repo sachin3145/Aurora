@@ -5,7 +5,7 @@ import pygame
 pygame.init()
 
 # create screen
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((1024, 720))
 
 # title and icon
 pygame.display.set_caption("The helios attack")
