@@ -13,5 +13,5 @@ try:
 
 except:
     print('Connection Failed!')
-    if eval(input('Enter 0 to exit or 1 to troubleshoot : ')) == 1:
+    if eval(input('Enter 1 to troubleshoot or any other key to exit : ')) == 1:
         raise
