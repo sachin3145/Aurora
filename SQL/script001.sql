@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS player_troops(
     FOREIGN KEY (PLAYER_ID) REFERENCES GAME_STATS(PLAYER_ID)
                                          );
 
-
 -- this table holds data for spells that player has unlocked
 CREATE TABLE IF NOT EXISTS player_spells(
     PLAYER_ID CHAR(10) NOT NULL UNIQUE,
@@ -37,21 +36,39 @@ CREATE TABLE IF NOT EXISTS player_spells(
     FOREIGN KEY (PLAYER_ID) REFERENCES GAME_STATS(PLAYER_ID)
                                          );
 
+#details of troops and spells attack defence and spells
+CREATE TABLE IF NOT EXISTS STATS(
+    NAME VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HP INT
+);
+INSERT INTO STATS VALUES ('DELTA', 0, 0, 0),
+                         ('TARDIS', 0, 0, 0),
+                         ('BENZAMITE', 0, 0, 0),
+                         ('MANDALORE', 0, 0, 0),
+                         ('NEMESIS', 0, 0, 0),
+                         ('ARMADA', 0, 0, 0),
+                         ('ELSYIUM', 0, 0, 0),
+                         ('DEMOGORGON', 0, 0, 0),
+                         ('RAY_OF_SICKNESS', 0, 0, NULL),
+                         ('INCINERATE', 0, 0, NULL),
+                         ('PLASMA_DISCHARGE', 0, 0, NULL),
+                         ('GOD_OF_CHAOS', 0, 0, NULL);
+
 -- Table holds data of enemy planets
 CREATE TABLE IF NOT EXISTS PLANETS(
     PLANET_ID CHAR(10) PRIMARY KEY,
     NAME VARCHAR(10),
-    HP INT,
     ATTACK INT,
-    DEFENCE INT
+    DEFENCE INT,
+    HP INT
                                   );
-
 INSERT INTO PLANETS VALUES (1, 'Mercury', 0, 0,0),
-                           (2, 'Venus', 0, 0, 0)
+                           (2, 'Venus', 0, 0, 0),
                            (3, 'Earth', 0, 0,0),
                            (1, 'Mars', 0, 0,0),
                            (1, 'Jupiter', 0, 0,0),
                            (1, 'Saturn', 0, 0,0),
                            (1, 'Uranus', 0, 0,0),
                            (1, 'Neptune', 0, 0,0);
-
