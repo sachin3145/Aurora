@@ -1,7 +1,5 @@
-# importing pygame library
+# initializing pygame
 import pygame
-
-# initialize pygame
 pygame.init()
 
 # create screen
@@ -12,25 +10,45 @@ pygame.display.set_caption("The helios attack")
 icon = pygame.image.load('image/icon.png')
 pygame.display.set_icon(icon)
 
-# Game loop
-running = True
-
-poison = pygame.image.load('Image/32px/poison.png')
-fire = pygame.image.load('Image/32px/fire.png')
-plasma = pygame.image.load('Image/32px/plasma_small.png')
-goc = pygame.image.load('Image/32px/space.png')
+# loading images
+poison_ = pygame.image.load('Image/32px/poison.png')
+fire_ = pygame.image.load('Image/32px/fire.png')
+plasma_ = pygame.image.load('Image/32px/plasma_small.png')
+goc_ = pygame.image.load('Image/32px/space.png')
 
 
+# putting images on screen
 def spells():
-    screen.blit(poison, (10, 660))
-    screen.blit(fire, (50, 660))
-    screen.blit(plasma, (90, 660))
-    screen.blit(goc, (130, 660))
+    screen.blit(poison_, (10, 660))
+    screen.blit(fire_, (50, 660))
+    screen.blit(plasma_, (90, 660))
+    screen.blit(goc_, (130, 660))
 
 
 def troops():
     pass
 
+
+# mouse click events
+
+def poison():
+    pass
+
+
+def fire():
+    pass
+
+
+def plasma():
+    pass
+
+
+def goc():
+    pass
+
+
+# Game loop
+running = True
 
 while running:
 
@@ -39,6 +57,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos()
+            print(x, y)
+
+            # calling function if mouse is clicked when cursor is over dimensions of specific image
+            if 10+32 > x > 10 and 660+32 > y > 660:
+                poison()
+            if 50+32 > x > 10 and 660+32 > y > 660:
+                fire()
+            if 90+32 > x > 10 and 660+32 > y > 660:
+                plasma()
+            if 130+32 > x > 10 and 660+32 > y > 660:
+                goc()
 
     spells()
     pygame.display.update()
