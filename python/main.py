@@ -9,21 +9,27 @@ screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
 # title and icon
 pygame.display.set_caption("The helios attack")
-icon = pygame.image.load('icon.png')
+icon = pygame.image.load('image/icon.png')
 pygame.display.set_icon(icon)
 
 # Game loop
 running = True
 
+poison = pygame.image.load('Image/32px/poison.png')
+fire = pygame.image.load('Image/32px/fire.png')
+plasma = pygame.image.load('Image/32px/plasma_small.png')
+goc = pygame.image.load('Image/32px/space.png')
 
-planet_img = pygame.image.load('plasma_small.png')
-planetX = 625
-planetY = 100
-position = planetX, planetY
+
+def spells():
+    screen.blit(poison, (10, 660))
+    screen.blit(fire, (50, 660))
+    screen.blit(plasma, (90, 660))
+    screen.blit(goc, (130, 660))
 
 
-def planet():
-    screen.blit(planet_img, tuple(position))
+def troops():
+    pass
 
 
 while running:
@@ -34,5 +40,5 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    planet()
+    spells()
     pygame.display.update()
