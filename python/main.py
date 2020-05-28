@@ -32,22 +32,22 @@ def troops():
 # mouse click events
 
 def poison():
-    print('poison')
+    print('Ray of sickness')
     pass
 
 
 def fire():
-    print('fire')
+    print('Incinerate')
     pass
 
 
 def plasma():
-    print('plasma')
+    print('Plasma')
     pass
 
 
 def goc():
-    print('god of chaos')
+    print('God of Chaos')
     pass
 
 
@@ -77,3 +77,5 @@ while running:
 
     spells()
     pygame.display.update()
+
+#
