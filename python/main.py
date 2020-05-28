@@ -15,10 +15,24 @@ pygame.display.set_icon(icon)
 # Game loop
 running = True
 
+
+planet_img = pygame.image.load('plasma_small.png')
+planetX = 625
+planetY = 100
+position = planetX, planetY
+
+
+def planet():
+    screen.blit(planet_img, tuple(position))
+
+
 while running:
+
+    screen.fill((0, 0, 40))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    screen.fill((0, 0, 40))
 
+    planet()
     pygame.display.update()
