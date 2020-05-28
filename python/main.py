@@ -24,8 +24,11 @@ def spells():
     screen.blit(plasma_, (90, 660))
     screen.blit(goc_, (130, 660))
 
-
 def troops():
+    pass
+
+
+def controls():
     pass
 
 
@@ -64,6 +67,17 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+                if 619+128 > x > 619 and 384+64 > y > 384:
+                    game()
+                    active = False
+
+        pygame.draw.rect(screen, (0, 255, 0), (619, 384, 128, 64))
+        pygame.display.update()
+
+
 
 
 # Main loop
@@ -97,4 +111,6 @@ def game():
 '''
 GAMES FLOW OF CONTROL
 '''
+menu()
+
 pygame.quit()
