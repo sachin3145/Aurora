@@ -32,7 +32,7 @@ def troops():
 # mouse click events
 
 def poison():
-    print('Ray of sickness')
+    print('Poison')
     pass
 
 
@@ -51,31 +51,50 @@ def goc():
     pass
 
 
-# Game loop
-running = True
+"""
+GAME LOOPS BELOW
+"""
 
-while running:
 
-    screen.fill((0, 0, 40))
+# Menu Loop
+def menu():
+    active = True
+    while active:
+        screen.fill((0, 0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                active = False
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = pygame.mouse.get_pos()
-            print(x, y)
 
-            # calling function if mouse is clicked when cursor is over dimensions of specific image
-            if 10+32 > x > 10 and 660+32 > y > 660:
-                poison()
-            elif 50+32 > x > 10 and 660+32 > y > 660:
-                fire()
-            elif 90+32 > x > 10 and 660+32 > y > 660:
-                plasma()
-            elif 130+32 > x > 10 and 660+32 > y > 660:
-                goc()
+# Main loop
+def game():
+    running = True
+    while running:
 
-    spells()
-    pygame.display.update()
+        screen.fill((0, 0, 40))
 
-#
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+
+                # calling function if mouse is clicked when cursor is over dimensions of specific image
+                if 10+32 > x > 10 and 660+32 > y > 660:
+                    poison()
+                elif 50+32 > x > 10 and 660+32 > y > 660:
+                    fire()
+                elif 90+32 > x > 10 and 660+32 > y > 660:
+                    plasma()
+                elif 130+32 > x > 10 and 660+32 > y > 660:
+                    goc()
+
+        spells()
+        pygame.display.update()
+
+
+'''
+GAMES FLOW OF CONTROL
+'''
+pygame.quit()
