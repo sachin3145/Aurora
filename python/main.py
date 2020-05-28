@@ -32,18 +32,22 @@ def troops():
 # mouse click events
 
 def poison():
+    print('poison')
     pass
 
 
 def fire():
+    print('fire')
     pass
 
 
 def plasma():
+    print('plasma')
     pass
 
 
 def goc():
+    print('god of chaos')
     pass
 
 
@@ -64,11 +68,11 @@ while running:
             # calling function if mouse is clicked when cursor is over dimensions of specific image
             if 10+32 > x > 10 and 660+32 > y > 660:
                 poison()
-            if 50+32 > x > 10 and 660+32 > y > 660:
+            elif 50+32 > x > 10 and 660+32 > y > 660:
                 fire()
-            if 90+32 > x > 10 and 660+32 > y > 660:
+            elif 90+32 > x > 10 and 660+32 > y > 660:
                 plasma()
-            if 130+32 > x > 10 and 660+32 > y > 660:
+            elif 130+32 > x > 10 and 660+32 > y > 660:
                 goc()
 
     spells()
