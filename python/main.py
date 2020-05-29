@@ -1,5 +1,29 @@
-# initializing pygame
 import pygame
+from ctypes import windll
+
+
+user32 = windll.user32
+screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1) - 40
+screensize = screen_width, screen_height
+
+
+def sh(percentage):
+    return int(percentage*screen_height/100)
+
+
+def sw(percentage):
+    return int(percentage*screen_width/100)
+
+
+def pix_w(pix):
+    return pix*(100/screen_width)
+
+
+def pix_h(pix):
+    return pix*(100/screen_height-40)
+
+
+# initializing pygame
 pygame.init()
 
 # create screen
@@ -19,10 +43,11 @@ goc_ = pygame.image.load('Image/32px/space.png')
 
 # putting images on screen
 def spells():
-    screen.blit(poison_, (10, 660))
-    screen.blit(fire_, (50, 660))
-    screen.blit(plasma_, (90, 660))
-    screen.blit(goc_, (130, 660))
+    screen.blit(poison_, (sw(0.73), sh(90.66)))
+    screen.blit(fire_, (sw(3.66), sh(90.66)))
+    screen.blit(plasma_, (sw(6.59), sh(90.66)))
+    screen.blit(goc_, (sw(9.51), sh(90.66)))
+
 
 def troops():
     pass
@@ -78,8 +103,6 @@ def menu():
         pygame.display.update()
 
 
-
-
 # Main loop
 def game():
     running = True
@@ -95,13 +118,13 @@ def game():
                 print(x, y)
 
                 # calling function if mouse is clicked when cursor is over dimensions of specific image
-                if 10+32 > x > 10 and 660+32 > y > 660:
+                if sw(0.73)+32 > x > sw(0.73) and sh(90.66)+32 > y > sh(90.66):
                     poison()
-                elif 50+32 > x > 10 and 660+32 > y > 660:
+                elif sw(3.66)+32 > x > sw(3.66) and sh(90.66)+32 > y > sh(90.66):
                     fire()
-                elif 90+32 > x > 10 and 660+32 > y > 660:
+                elif sw(6.59)+32 > x > sw(6.59) and sh(90.66)+32 > y > sh(90.66):
                     plasma()
-                elif 130+32 > x > 10 and 660+32 > y > 660:
+                elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
                     goc()
 
         spells()

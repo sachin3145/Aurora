@@ -37,3 +37,9 @@ Negative buffs :
 ...
 
 
+# relative positioning approach
+- find dimensions of screen
+- using arithmetic operations to place objects
+
+
+
