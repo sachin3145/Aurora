@@ -43,10 +43,10 @@ plasma_ = pygame.image.load('Image/32px/plasma_small.png')
 goc_ = pygame.image.load('Image/32px/space.png')
 start_ = pygame.image.load('Image/start_icon.png')
 startH_ = pygame.image.load('Image/start_icon_hover.png')
-high_ = pygame.image.load('Image/start_icon_hover.png')
-highH_ = pygame.image.load('Image/start_icon_hover.png')
+high_ = pygame.image.load('Image/highscores_icon.png')
+highH_ = pygame.image.load('Image/highscores_icon_hover.png')
 htp_ = pygame.image.load('Image/how_to_play_icon.png')
-htpH_ = pygame.image.load('Image/start_icon_hover.png')
+htpH_ = pygame.image.load('Image/how_to_play_icon_hover.png')
 
 # ----------------------------------------------------------------------------------------------------------
 
@@ -64,7 +64,8 @@ def troops():
 
 
 def controls():
-    screen.blit(start_, (sw(50)-148, sh(50)-132))
+    # screen.blit(start_, (sw(50)-148, sh(50)-132))
+    screen.blit(htp_, (sw(50) - 163, sh(50) - 133))
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -105,13 +106,12 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
                 if sw(45.31)+296 > x > sw(45.31) and sh(28.11)+294 > y > sh(28.11):
-                    game()
-                    active = False
-
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        game()
+                        active = False
 
         controls()
         pygame.display.update()
