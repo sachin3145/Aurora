@@ -1,4 +1,4 @@
-from .screendimensions import *
+from .screen_dimensions import *
 
 # initializing pygame
 import pygame
@@ -21,10 +21,10 @@ goc_ = pygame.image.load('Image/32px/space.png')
 
 # putting images on screen
 def spells():
-    screen.blit(poison_, (sw(0.73), 90.66))
-    screen.blit(fire_, (sw(3.66), 90.66))
-    screen.blit(plasma_, (sw(6.59), 90.66))
-    screen.blit(goc_, (sw(9.51), 90.66))
+    screen.blit(poison_, (sw(0.73), sh(90.66)))
+    screen.blit(fire_, (sw(3.66), sh(90.66)))
+    screen.blit(plasma_, (sw(6.59), sh(90.66)))
+    screen.blit(goc_, (sw(9.51), sh(90.66)))
 
 
 def troops():
