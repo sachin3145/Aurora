@@ -43,10 +43,11 @@ plasma_ = pygame.image.load('Image/32px/plasma_small.png')
 goc_ = pygame.image.load('Image/32px/space.png')
 start_ = pygame.image.load('Image/start_icon.png')
 startH_ = pygame.image.load('Image/start_icon_hover.png')
-high_ = pygame.image.load('Image/start_icon_hover.png')
-highH_ = pygame.image.load('Image/start_icon_hover.png')
+high_ = pygame.image.load('Image/highscores_icon'
+                          '.png')
+highH_ = pygame.image.load('Image/highscores_icon_hover.png')
 htp_ = pygame.image.load('Image/how_to_play_icon.png')
-htpH_ = pygame.image.load('Image/start_icon_hover.png')
+htpH_ = pygame.image.load('Image/how_to_play_icon_hover.png')
 
 # ----------------------------------------------------------------------------------------------------------
 
