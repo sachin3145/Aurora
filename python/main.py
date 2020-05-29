@@ -1,7 +1,7 @@
 import pygame
 from ctypes import windll
 
-
+# --------------------------------------------------------------------------------------------------------
 user32 = windll.user32
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1) - 40
 screensize = screen_width, screen_height
@@ -20,8 +20,9 @@ def pix_w(pix):
 
 
 def pix_h(pix):
-    return pix*(100/screen_height-40)
+    return pix*(100/screen_height)
 
+# -----------------------------------------------------------------------------------------------------------
 
 # initializing pygame
 pygame.init()
@@ -39,6 +40,10 @@ poison_ = pygame.image.load('Image/32px/poison.png')
 fire_ = pygame.image.load('Image/32px/fire.png')
 plasma_ = pygame.image.load('Image/32px/plasma_small.png')
 goc_ = pygame.image.load('Image/32px/space.png')
+start_ = pygame.image.load('Image/start_icon.png')
+startH_ = pygame.image.load('Image/start_icon_hover.png')
+
+# ----------------------------------------------------------------------------------------------------------
 
 
 # putting images on screen
@@ -54,7 +59,7 @@ def troops():
 
 
 def controls():
-    pass
+    screen.blit(start_, (sw(50)-148, sh(50)-132))
 
 
 # mouse click events
@@ -95,11 +100,12 @@ def menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
-                if 619+128 > x > 619 and 384+64 > y > 384:
+                if sw(45.31)+296 > x > sw(45.31) and sh(28.11)+294 > y > sh(28.11):
                     game()
                     active = False
 
-        pygame.draw.rect(screen, (0, 255, 0), (619, 384, 128, 64))
+
+        controls()
         pygame.display.update()
 
 
