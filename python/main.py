@@ -93,7 +93,7 @@ GAME LOOPS BELOW
 def menu():
     active = True
     while active:
-        screen.fill((0, 0, 0))
+        screen.fill((0, 0, 40))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
