@@ -42,11 +42,8 @@ fire_ = pygame.image.load('Image/32px/fire.png')
 plasma_ = pygame.image.load('Image/32px/plasma_small.png')
 goc_ = pygame.image.load('Image/32px/space.png')
 start_ = pygame.image.load('Image/start_icon.png')
-startH_ = pygame.image.load('Image/start_icon_hover.png')
 high_ = pygame.image.load('Image/highscores_icon.png')
-highH_ = pygame.image.load('Image/highscores_icon_hover.png')
 htp_ = pygame.image.load('Image/how_to_play_icon.png')
-htpH_ = pygame.image.load('Image/how_to_play_icon_hover.png')
 
 # ----------------------------------------------------------------------------------------------------------
 
@@ -106,12 +103,12 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
-                if sw(45.31)+296 > x > sw(45.31) and sh(28.11)+294 > y > sh(28.11):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        game()
-                        active = False
+                if sw(50)+168 > x > sw(50)-168 and sh(50)+132 > y > sh(50)-132:
+                    game()
+                    active = False
 
         controls()
         pygame.display.update()
