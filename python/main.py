@@ -98,13 +98,13 @@ def game():
                 print(x, y)
 
                 # calling function if mouse is clicked when cursor is over dimensions of specific image
-                if 10+32 > x > 10 and 660+32 > y > 660:
+                if sw(0.73)+32 > x > sw(0.73) and sh(90.66)+32 > y > sh(90.66):
                     poison()
-                elif 50+32 > x > 10 and 660+32 > y > 660:
+                elif sw(3.66)+32 > x > sw(3.66) and sh(90.66)+32 > y > sh(90.66):
                     fire()
-                elif 90+32 > x > 10 and 660+32 > y > 660:
+                elif sw(6.59)+32 > x > sw(6.59) and sh(90.66)+32 > y > sh(90.66):
                     plasma()
-                elif 130+32 > x > 10 and 660+32 > y > 660:
+                elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
                     goc()
 
         spells()
