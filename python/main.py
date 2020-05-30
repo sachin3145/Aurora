@@ -61,9 +61,9 @@ def troops():
 
 
 def controls():
-    screen.blit(start_, (sw(50)-132, sh(50)-172))
-    screen.blit(high_, (sw(50)-149, sh(50)-55))
-    screen.blit(htp_, (sw(50)-168, sh(50)+75))
+    screen.blit(start_, (sw(50)-132, sh(50)-167))
+    screen.blit(high_, (sw(50)-149, sh(50)-50))
+    screen.blit(htp_, (sw(50)-168, sh(50)+71))
 
 # -----------------------------------------------------------------------------------------------------------
 
@@ -99,20 +99,22 @@ GAME LOOPS BELOW
 # Menu Loop
 def menu():
     active = True
+
     while active:
+
         screen.fill((0, 0, 40))
+        controls()
+        pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
-                if sw(50)+168 > x > sw(50)-168 and sh(50)+132 > y > sh(50)-132:
+                if sw(50)+132 > x > sw(50)-132 and sh(50)-167+97 > y > sh(50)-167:
                     game()
                     active = False
-
-        controls()
-        pygame.display.update()
 
 
 # Main loop
@@ -121,6 +123,8 @@ def game():
     while running:
 
         screen.fill((0, 0, 40))
+        spells()
+        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -138,9 +142,6 @@ def game():
                     plasma()
                 elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
                     goc()
-
-        spells()
-        pygame.display.update()
 
 # -------------------------------------------------------------------------------------------------------------------
 
