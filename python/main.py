@@ -78,7 +78,6 @@ def controls():
     screen.blit(start_, (sw(50)-132, sh(50)-167))
     screen.blit(high_, (sw(50)-149, sh(50)-50))
     screen.blit(htp_, (sw(50)-168, sh(50)+71))
-
 # -----------------------------------------------------------------------------------------------------------
 
 
@@ -102,6 +101,45 @@ def goc():
     print('God of Chaos')
     pass
 
+
+def demogorgon():
+    print("demogorgon")
+    pass
+
+
+def elysium():
+    print("elysium")
+    pass
+
+
+def armada():
+    print("armada")
+    pass
+
+
+def nemesis():
+    print("nemesis")
+    pass
+
+
+def mandalore():
+    print("mandalore")
+    pass
+
+
+def benzamite():
+    print("benzamite")
+    pass
+
+
+def tardis():
+    print("tardis")
+    pass
+
+
+def delta():
+    print("delta")
+    pass
 # -------------------------------------------------------------------------------------------------------------------
 
 
@@ -125,7 +163,7 @@ def menu():
                 active = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                print(x, y)
+#                print(x, y)
                 if sw(50)+132 > x > sw(50)-132 and sh(50)-167+97 > y > sh(50)-167:
                     game()
                     active = False
@@ -146,7 +184,7 @@ def game():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                print(x, y)
+#                print(x, y)
 
                 # calling function if mouse is clicked when cursor is over dimensions of specific image
                 if sw(0.73)+32 > x > sw(0.73) and sh(90.66)+32 > y > sh(90.66):
