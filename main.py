@@ -1,9 +1,7 @@
 import pygame
 from ctypes import windll
 # --------------------------------------------------------------------------------------------------------
-'''
-adding sfx
-'''
+
 
 from pygame import mixer
 
@@ -11,7 +9,6 @@ pygame.init()
 
 mixer.music.load('background.wav')
 mixer.music.play()
-
 
 # --------------------------------------------------------------------------------------------------------
 user32 = windll.user32
