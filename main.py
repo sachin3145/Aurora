@@ -33,7 +33,7 @@ screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
 # title and icon
 pygame.display.set_caption("The Helios Attack")
-icon = pygame.image.load('image/icon.png')
+icon = pygame.image.load('Images/icon.png')
 pygame.display.set_icon(icon)
 
 # loading images
