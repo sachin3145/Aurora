@@ -61,11 +61,12 @@ def troops():
 
 
 def controls():
-    screen.blit(start_, (sw(50)-148, sh(50)-264))
-    screen.blit(high_, (sw(50)-153, sh(50)-132))
-    screen.blit(htp_, (sw(50)-168, sh(50)+46))
+    screen.blit(start_, (sw(50)-132, sh(50)-172))
+    screen.blit(high_, (sw(50)-149, sh(50)-55))
+    screen.blit(htp_, (sw(50)-168, sh(50)+75))
 
 # -----------------------------------------------------------------------------------------------------------
+
 
 # mouse click events
 def poison():
