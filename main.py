@@ -1,16 +1,5 @@
 import pygame
 from ctypes import windll
-# --------------------------------------------------------------------------------------------------------
-'''
-adding sfx
-'''
-
-from pygame import mixer
-
-pygame.init()
-
-mixer.music.load('background.wav')
-mixer.music.play()
 
 # --------------------------------------------------------------------------------------------------------
 user32 = windll.user32
@@ -48,21 +37,21 @@ icon = pygame.image.load('image/icon.png')
 pygame.display.set_icon(icon)
 
 # loading images
-poison_ = pygame.image.load('Image/32px/poison.png')
-fire_ = pygame.image.load('Image/32px/fire.png')
-plasma_ = pygame.image.load('Image/32px/plasma_small.png')
-goc_ = pygame.image.load('Image/32px/space.png')
-start_ = pygame.image.load('Image/start_icon.png')
-high_ = pygame.image.load('Image/highscores_icon.png')
-htp_ = pygame.image.load('Image/how_to_play_icon.png')
-demogorgon_ = pygame.image.load('Image/32px/demogorgonx32.png')
-elysium_ = pygame.image.load('Image/32px/elysiumx32.png')
-armada_ = pygame.image.load('Image/32px/armadax32.png')
-nemesis_ = pygame.image.load('Image/32px/nemesisx32.png')
-mandalore_ = pygame.image.load('Image/32px/mandalorex32.png')
-benzamite_ = pygame.image.load('Image/32px/benzamitex32.png')
-tardis_ = pygame.image.load('Image/32px/tardisx32.png')
-delta_ = pygame.image.load('Image/32px/deltax32.png')
+poison_ = pygame.image.load('Images/32px/poison.png')
+fire_ = pygame.image.load('Images/32px/fire.png')
+plasma_ = pygame.image.load('Images/32px/plasma_small.png')
+goc_ = pygame.image.load('Images/32px/space.png')
+start_ = pygame.image.load('Images/start_icon.png')
+high_ = pygame.image.load('Images/highscores_icon.png')
+htp_ = pygame.image.load('Images/how_to_play_icon.png')
+demogorgon_ = pygame.image.load('Images/32px/demogorgonx32.png')
+elysium_ = pygame.image.load('Images/32px/elysiumx32.png')
+armada_ = pygame.image.load('Images/32px/armadax32.png')
+nemesis_ = pygame.image.load('Images/32px/nemesisx32.png')
+mandalore_ = pygame.image.load('Images/32px/mandalorex32.png')
+benzamite_ = pygame.image.load('Images/32px/benzamitex32.png')
+tardis_ = pygame.image.load('Images/32px/tardisx32.png')
+delta_ = pygame.image.load('Images/32px/deltax32.png')
 # ----------------------------------------------------------------------------------------------------------
 
 
