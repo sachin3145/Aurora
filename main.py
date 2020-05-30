@@ -1,15 +1,17 @@
 import pygame
 from ctypes import windll
 # --------------------------------------------------------------------------------------------------------
-
-
+''' 
+background music
+'''
+'''
 from pygame import mixer
 
 pygame.init()
 
 mixer.music.load('background.wav')
 mixer.music.play()
-
+'''
 # --------------------------------------------------------------------------------------------------------
 user32 = windll.user32
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1) - 40
