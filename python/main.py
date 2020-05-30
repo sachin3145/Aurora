@@ -44,7 +44,14 @@ goc_ = pygame.image.load('Image/32px/space.png')
 start_ = pygame.image.load('Image/start_icon.png')
 high_ = pygame.image.load('Image/highscores_icon.png')
 htp_ = pygame.image.load('Image/how_to_play_icon.png')
-
+demogorgon_ = pygame.image.load('Image/32px/demogorgonx32.png')
+elysium_ = pygame.image.load('Image/32px/elysiumx32.png')
+armada_ = pygame.image.load('Image/32px/armadax32.png')
+nemesis_ = pygame.image.load('Image/32px/nemesisx32.png')
+mandalore_ = pygame.image.load('Image/32px/mandalorex32.png')
+benzamite_ = pygame.image.load('Image/32px/benzamitex32.png')
+tardis_ = pygame.image.load('Image/32px/tardisx32.png')
+delta_ = pygame.image.load('Image/32px/deltax32.png')
 # ----------------------------------------------------------------------------------------------------------
 
 
@@ -57,7 +64,14 @@ def spells():
 
 
 def troops():
-    pass
+    screen.blit(demogorgon_, (sw(87.55), sh(84.89)))
+    screen.blit(elysium_, (sw(90.48), sh(84.89)))
+    screen.blit(armada_, (sw(93.41), sh(84.89)))
+    screen.blit(nemesis_, (sw(96.34), sh(84.89)))
+    screen.blit(mandalore_, (sw(87.55), sh(90.66)))
+    screen.blit(benzamite_, (sw(90.48), sh(90.66)))
+    screen.blit(tardis_, (sw(93.41), sh(90.66)))
+    screen.blit(delta_, (sw(96.34), sh(90.66)))
 
 
 def controls():
@@ -124,6 +138,7 @@ def game():
 
         screen.fill((0, 0, 40))
         spells()
+        troops()
         pygame.display.update()
 
         for event in pygame.event.get():
