@@ -85,6 +85,15 @@ def controls():
     screen.blit(start_, (sw(50)-132, sh(50)-167))
     screen.blit(high_, (sw(50)-149, sh(50)-50))
     screen.blit(htp_, (sw(50)-168, sh(50)+71))
+
+
+# -----------------------------------------------------------------------------------------------------------
+def place(name, side):
+    """PLEASE DONT USE TO PLACE SUN"""
+    x = int(sw(50) - (side/2))
+    y = int(sh(10) + 128 - (side/2))
+    screen.blit(name, (x, y))
+
 # -----------------------------------------------------------------------------------------------------------
 
 
@@ -184,8 +193,8 @@ def game():
         screen.fill((0, 0, 40))
         spells()
         troops()
+        place(mercury_, 64)
         pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
