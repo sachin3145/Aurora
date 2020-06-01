@@ -42,6 +42,15 @@ mandalore_ = pygame.image.load('Images/32px/mandalorex32.png')
 benzamite_ = pygame.image.load('Images/32px/benzamitex32.png')
 tardis_ = pygame.image.load('Images/32px/tardisx32.png')
 delta_ = pygame.image.load('Images/32px/deltax32.png')
+mercury_ = pygame.image.load('Images/Planet/mercury.png')
+venus_ = pygame.image.load('Images/Planet/venus.png')
+earth_ = pygame.image.load('Images/Planet/earth.png')
+mars_ = pygame.image.load('Images/Planet/mars.png')
+jupiter_ = pygame.image.load('Images/Planet/jupiter.png')
+saturn_ = pygame.image.load('Images/Planet/saturn.png')
+uranus_ = pygame.image.load('Images/Planet/uranus.png')
+neptune_ = pygame.image.load('Images/Planet/neptune.png')
+sun_ = pygame.image.load('Images/Planet/sun.png')
 # ----------------------------------------------------------------------------------------------------------
 
 
