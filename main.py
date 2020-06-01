@@ -51,6 +51,14 @@ saturn_ = pygame.image.load('Images/Planet/saturn.png')
 uranus_ = pygame.image.load('Images/Planet/uranus.png')
 neptune_ = pygame.image.load('Images/Planet/neptune.png')
 sun_ = pygame.image.load('Images/Planet/sun.png')
+demogorgonT = pygame.image.load('Images/64px/demogorgonx64.png')
+elysiumT = pygame.image.load('Images/64px/elysiumx64.png')
+armadaT = pygame.image.load('Images/64px/armadax64.png')
+nemesisT = pygame.image.load('Images/64px/nemesisx64.png')
+mandaloreT = pygame.image.load('Images/64px/mandalorex64.png')
+benzamiteT = pygame.image.load('Images/64px/benzamitex64.png')
+tardisT = pygame.image.load('Images/64px/tardisx64.png')
+deltaT = pygame.image.load('Images/64px/deltax64.png')
 # ----------------------------------------------------------------------------------------------------------
 
 
