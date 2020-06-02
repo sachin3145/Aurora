@@ -91,7 +91,7 @@ def controls():
 def place(name, side):
     """PLEASE DONT USE TO PLACE SUN"""
     x = int(sw(50) - (side/2))
-    y = int(sh(10) + 128 - (side/2))
+    y = int(sh(2) + 128 - (side/2))
     screen.blit(name, (x, y))
 
 # -----------------------------------------------------------------------------------------------------------
