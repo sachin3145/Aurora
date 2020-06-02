@@ -1,9 +1,7 @@
-import ctypes
-
-
-user32 = ctypes.windll.user32
-screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1) - 40
-screensize = screen_width, screen_height
+import pygame
+screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
+screen_height = screen.get_height() - 40
+screen_width = screen.get_width()
 
 
 def sh(percentage):

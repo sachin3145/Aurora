@@ -1,4 +1,3 @@
-import pygame
 from Aurora.Packages.screen_dimensions import *
 
 # --------------------------------------------------------------------------------------------------------
@@ -88,10 +87,10 @@ def controls():
 
 
 # -----------------------------------------------------------------------------------------------------------
-def place(name, side):
+def place(name):
     """PLEASE DONT USE TO PLACE SUN"""
-    x = int(sw(50) - (side/2))
-    y = int(sh(2) + 128 - (side/2))
+    x = int(sw(50) - (name.get_width()/2))
+    y = int(sh(2) + 128 - (name.get_width()/2))
     screen.blit(name, (x, y))
 
 # -----------------------------------------------------------------------------------------------------------
@@ -193,7 +192,7 @@ def game():
         screen.fill((0, 0, 40))
         spells()
         troops()
-        place(mercury_, 64)
+        place(mercury_)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
