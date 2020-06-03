@@ -22,9 +22,6 @@ neptune = Planet('Images/Planet/neptune.png')
 
 # loading images
 
-start_ = pygame.image.load('Images/start_icon.png')
-high_ = pygame.image.load('Images/highscores_icon.png')
-htp_ = pygame.image.load('Images/how_to_play_icon.png')
 demogorgon_ = pygame.image.load('Images/32px/demogorgonx32.png')
 elysium_ = pygame.image.load('Images/32px/elysiumx32.png')
 armada_ = pygame.image.load('Images/32px/armadax32.png')
@@ -65,21 +62,12 @@ def troops():
 
 
 def controls():
-    screen.blit(start_, (sw(50)-132, sh(50)-167))
-    screen.blit(high_, (sw(50)-149, sh(50)-50))
-    screen.blit(htp_, (sw(50)-168, sh(50)+71))
-
-
+    start = Control(sh(50)-167, 'Images/start_icon.png')
+    high = Control(sh(50)-50, 'Images/highscores_icon.png')
+    htp = Control(sh(50)+71, 'Images/how_to_play_icon.png')
 
 
 # mouse click events
-"""
-def poison():
-    print('Poison')
-    pass
-"""
-
-
 def demogorgon():
     print("demogorgon")
     pass

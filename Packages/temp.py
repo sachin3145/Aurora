@@ -29,3 +29,11 @@ class Planet(object):
 
     def attack(self):
         pass
+
+
+class Control(object):
+    def __init__(self, y, address):
+        self.icon = pygame.image.load(address)
+        self.x = int(sw(50) - (self.icon.get_width() / 2))
+        self.y = y
+        screen.blit(self.icon, (self.x, self.y,))
