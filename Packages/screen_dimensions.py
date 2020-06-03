@@ -1,4 +1,4 @@
-from .dependencies import *
+from Aurora.Packages.dependencies import *
 screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 screen_height = screen.get_height() - 40
 screen_width = screen.get_width()

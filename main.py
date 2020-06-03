@@ -1,35 +1,19 @@
 from Aurora.Packages.screen_dimensions import *
+from Aurora.Packages.temp import *
 
-# --------------------------------------------------------------------------------------------------------
-''' 
-background music
-'''
-'''
-from pygame import mixer
-
-pygame.init()
-
-mixer.music.load('background.wav')
-mixer.music.play()
-'''
-# ----------------------------------------------------------------------------------------------------------
-
-# initializing pygame
-pygame.init()
-
-# create screen
-screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
 # title and icon
 pygame.display.set_caption("The Helios Attack")
 icon = pygame.image.load('Images/icon.png')
 pygame.display.set_icon(icon)
 
+poison = Spells(sw(0.73), sh(90.66), 'Poison', 'Images/32px/poison.png')
+fire = Spells(sw(3.66), sh(90.66), 'Incinerate', 'Images/32px/fire.png')
+plasma = Spells(sw(6.59), sh(90.66), 'Plasma', 'Images/32px/plasma_small.png')
+goc = Spells(sw(9.51), sh(90.66), 'God of Chaos', 'Images/32px/space.png')
+
 # loading images
-poison_ = pygame.image.load('Images/32px/poison.png')
-fire_ = pygame.image.load('Images/32px/fire.png')
-plasma_ = pygame.image.load('Images/32px/plasma_small.png')
-goc_ = pygame.image.load('Images/32px/space.png')
+
 start_ = pygame.image.load('Images/start_icon.png')
 high_ = pygame.image.load('Images/highscores_icon.png')
 htp_ = pygame.image.load('Images/how_to_play_icon.png')
@@ -63,10 +47,10 @@ deltaT = pygame.image.load('Images/64px/deltax64.png')
 
 # putting images on screen
 def spells():
-    screen.blit(poison_, (sw(0.73), sh(90.66)))
-    screen.blit(fire_, (sw(3.66), sh(90.66)))
-    screen.blit(plasma_, (sw(6.59), sh(90.66)))
-    screen.blit(goc_, (sw(9.51), sh(90.66)))
+    poison.place()
+    fire.place()
+    plasma.place()
+    goc.place()
 
 
 def troops():
@@ -97,24 +81,11 @@ def place(name):
 
 
 # mouse click events
+"""
 def poison():
     print('Poison')
     pass
-
-
-def fire():
-    print('Incinerate')
-    pass
-
-
-def plasma():
-    print('Plasma')
-    pass
-
-
-def goc():
-    print('God of Chaos')
-    pass
+"""
 
 
 def demogorgon():
@@ -156,6 +127,7 @@ def delta():
     print("delta")
     pass
 # -------------------------------------------------------------------------------------------------------------------
+
 
 
 """
@@ -203,13 +175,13 @@ def game():
 
                 # calling function if mouse is clicked when cursor is over dimensions of specific image
                 if sw(0.73)+32 > x > sw(0.73) and sh(90.66)+32 > y > sh(90.66):
-                    poison()
+                    poison.attack()
                 elif sw(3.66)+32 > x > sw(3.66) and sh(90.66)+32 > y > sh(90.66):
-                    fire()
+                    fire.attack()
                 elif sw(6.59)+32 > x > sw(6.59) and sh(90.66)+32 > y > sh(90.66):
-                    plasma()
+                    plasma.attack()
                 elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
-                    goc()
+                    goc.attack()
                 elif sw(87.55) + 32 > x > sw(87.55) and sh(84.89) + 32 > y > sh(84.89):
                     demogorgon()
                 elif sw(90.48) + 32 > x > sw(90.48) and sh(84.89) + 32 > y > sh(84.89):
