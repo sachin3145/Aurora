@@ -1,4 +1,3 @@
-from Aurora.Packages.screen_dimensions import *
 from Aurora.Packages.temp import *
 
 
@@ -7,10 +6,19 @@ pygame.display.set_caption("The Helios Attack")
 icon = pygame.image.load('Images/icon.png')
 pygame.display.set_icon(icon)
 
-poison = Spells(sw(0.73), sh(90.66), 'Poison', 'Images/32px/poison.png')
-fire = Spells(sw(3.66), sh(90.66), 'Incinerate', 'Images/32px/fire.png')
-plasma = Spells(sw(6.59), sh(90.66), 'Plasma', 'Images/32px/plasma_small.png')
-goc = Spells(sw(9.51), sh(90.66), 'God of Chaos', 'Images/32px/space.png')
+poison = Spell(sw(0.73), sh(90.66), 'Poison', 'Images/32px/poison.png')
+fire = Spell(sw(3.66), sh(90.66), 'Incinerate', 'Images/32px/fire.png')
+plasma = Spell(sw(6.59), sh(90.66), 'Plasma', 'Images/32px/plasma_small.png')
+goc = Spell(sw(9.51), sh(90.66), 'God of Chaos', 'Images/32px/space.png')
+
+mercury = Planet('Images/Planet/mercury.png')
+venus = Planet('Images/Planet/venus.png')
+earth = Planet('Images/Planet/earth.png')
+mars = Planet('Images/Planet/mars.png')
+jupiter = Planet('Images/Planet/jupiter.png')
+saturn = Planet('Images/Planet/saturn.png')
+uranus = Planet('Images/Planet/uranus.png')
+neptune = Planet('Images/Planet/neptune.png')
 
 # loading images
 
@@ -25,14 +33,6 @@ mandalore_ = pygame.image.load('Images/32px/mandalorex32.png')
 benzamite_ = pygame.image.load('Images/32px/benzamitex32.png')
 tardis_ = pygame.image.load('Images/32px/tardisx32.png')
 delta_ = pygame.image.load('Images/32px/deltax32.png')
-mercury_ = pygame.image.load('Images/Planet/mercury.png')
-venus_ = pygame.image.load('Images/Planet/venus.png')
-earth_ = pygame.image.load('Images/Planet/earth.png')
-mars_ = pygame.image.load('Images/Planet/mars.png')
-jupiter_ = pygame.image.load('Images/Planet/jupiter.png')
-saturn_ = pygame.image.load('Images/Planet/saturn.png')
-uranus_ = pygame.image.load('Images/Planet/uranus.png')
-neptune_ = pygame.image.load('Images/Planet/neptune.png')
 sun_ = pygame.image.load('Images/Planet/sun.png')
 demogorgonT = pygame.image.load('Images/64px/demogorgonx64.png')
 elysiumT = pygame.image.load('Images/64px/elysiumx64.png')
@@ -70,14 +70,6 @@ def controls():
     screen.blit(htp_, (sw(50)-168, sh(50)+71))
 
 
-# -----------------------------------------------------------------------------------------------------------
-def place(name):
-    """PLEASE DONT USE TO PLACE SUN"""
-    x = int(sw(50) - (name.get_width()/2))
-    y = int(sh(2) + 128 - (name.get_width()/2))
-    screen.blit(name, (x, y))
-
-# -----------------------------------------------------------------------------------------------------------
 
 
 # mouse click events
@@ -164,7 +156,7 @@ def game():
         screen.fill((0, 0, 40))
         spells()
         troops()
-        place(mercury_)
+        mercury.place()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
