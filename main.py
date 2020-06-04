@@ -20,16 +20,17 @@ saturn = Planet('Images/Planet/saturn.png')
 uranus = Planet('Images/Planet/uranus.png')
 neptune = Planet('Images/Planet/neptune.png')
 
+demogorgon = Troop(sw(87.55), sh(84.89), 'Images/32px/demogorgonx32.png')
+elysium = Troop(sw(90.48), sh(84.89), 'Images/32px/elysiumx32.png')
+armada = Troop(sw(93.41), sh(84.89), 'Images/32px/armadax32.png')
+nemesis = Troop(sw(96.34), sh(84.89), 'Images/32px/nemesisx32.png')
+mandalore = Troop(sw(87.55), sh(90.66),'Images/32px/mandalorex32.png')
+benzamite = Troop(sw(90.48), sh(90.66), 'Images/32px/benzamitex32.png')
+tardis = Troop(sw(93.41), sh(90.66), 'Images/32px/tardisx32.png')
+delta = Troop(sw(96.34), sh(90.66), 'Images/32px/deltax32.png')
+
 # loading images
 
-demogorgon_ = pygame.image.load('Images/32px/demogorgonx32.png')
-elysium_ = pygame.image.load('Images/32px/elysiumx32.png')
-armada_ = pygame.image.load('Images/32px/armadax32.png')
-nemesis_ = pygame.image.load('Images/32px/nemesisx32.png')
-mandalore_ = pygame.image.load('Images/32px/mandalorex32.png')
-benzamite_ = pygame.image.load('Images/32px/benzamitex32.png')
-tardis_ = pygame.image.load('Images/32px/tardisx32.png')
-delta_ = pygame.image.load('Images/32px/deltax32.png')
 sun_ = pygame.image.load('Images/Planet/sun.png')
 demogorgonT = pygame.image.load('Images/64px/demogorgonx64.png')
 elysiumT = pygame.image.load('Images/64px/elysiumx64.png')
@@ -51,14 +52,14 @@ def spells():
 
 
 def troops():
-    screen.blit(demogorgon_, (sw(87.55), sh(84.89)))
-    screen.blit(elysium_, (sw(90.48), sh(84.89)))
-    screen.blit(armada_, (sw(93.41), sh(84.89)))
-    screen.blit(nemesis_, (sw(96.34), sh(84.89)))
-    screen.blit(mandalore_, (sw(87.55), sh(90.66)))
-    screen.blit(benzamite_, (sw(90.48), sh(90.66)))
-    screen.blit(tardis_, (sw(93.41), sh(90.66)))
-    screen.blit(delta_, (sw(96.34), sh(90.66)))
+    demogorgon.place()
+    elysium.place()
+    armada.place()
+    nemesis.place()
+    mandalore.place()
+    benzamite.place()
+    tardis.place()
+    delta.place()
 
 
 def controls():
@@ -67,46 +68,6 @@ def controls():
     htp = Control(sh(50)+71, 'Images/how_to_play_icon.png')
 
 
-# mouse click events
-def demogorgon():
-    print("demogorgon")
-    pass
-
-
-def elysium():
-    print("elysium")
-    pass
-
-
-def armada():
-    print("armada")
-    pass
-
-
-def nemesis():
-    print("nemesis")
-    pass
-
-
-def mandalore():
-    print("mandalore")
-    pass
-
-
-def benzamite():
-    print("benzamite")
-    pass
-
-
-def tardis():
-    print("tardis")
-    pass
-
-
-def delta():
-    print("delta")
-    pass
-# -------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -163,21 +124,21 @@ def game():
                 elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
                     goc.attack()
                 elif sw(87.55) + 32 > x > sw(87.55) and sh(84.89) + 32 > y > sh(84.89):
-                    demogorgon()
+                    demogorgon.attack()
                 elif sw(90.48) + 32 > x > sw(90.48) and sh(84.89) + 32 > y > sh(84.89):
-                    elysium()
+                    elysium.attack()
                 elif sw(93.41) + 32 > x > sw(93.41) and sh(84.89) + 32 > y > sh(84.89):
-                    armada()
+                    armada.attack()
                 elif sw(96.34) + 32 > x > sw(96.34) and sh(84.89) + 32 > y > sh(84.89):
-                    nemesis()
+                    nemesis.attack()
                 elif sw(87.55) + 32 > x > sw(87.55) and sh(90.66) + 32 > y > sh(90.66):
-                    mandalore()
+                    mandalore.attack()
                 elif sw(90.48) + 32 > x > sw(90.48) and sh(90.66) + 32 > y > sh(90.66):
-                    benzamite()
+                    benzamite.attack()
                 elif sw(93.41) + 32 > x > sw(93.41) and sh(90.66) + 32 > y > sh(90.66):
-                    tardis()
+                    tardis.attack()
                 elif sw(96.34) + 32 > x > sw(96.34) and sh(90.66) + 32 > y > sh(90.66):
-                    delta()
+                    delta.attack()
 
 
 # -------------------------------------------------------------------------------------------------------------------
