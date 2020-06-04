@@ -2,10 +2,9 @@ from Aurora.Packages.screen_dimensions import *
 
 
 class Spell(object):
-    def __init__(self, x, y, name, address):
+    def __init__(self, x, y, address):
         self.x = x
         self.y = y
-        self.name = name
         self.icon = pygame.image.load(address)
 
     def place(self):
@@ -13,7 +12,7 @@ class Spell(object):
         screen.blit(self.icon, (self.x, self.y,))
 
     def attack(self):
-        print(self.name)
+        print(self)
         pass
 
 
@@ -37,3 +36,18 @@ class Control(object):
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = y
         screen.blit(self.icon, (self.x, self.y,))
+
+
+class Troop(object):
+    def __init__(self, x, y, address):
+        self.x = x
+        self.y = y
+        self.icon = pygame.image.load(address)
+
+    def place(self):
+        rect = self.icon.get_rect()
+        screen.blit(self.icon, (self.x, self.y,))
+
+    def attack(self):
+        print(self)
+        pass
