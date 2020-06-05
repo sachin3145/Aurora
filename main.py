@@ -91,9 +91,10 @@ def game():
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
 
-'''
+
+"""
 GAMES FLOW OF CONTROL
-'''
+"""
 menu()
 
 pygame.quit()
