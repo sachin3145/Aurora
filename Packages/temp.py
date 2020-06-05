@@ -62,3 +62,15 @@ class Troop(object):
     def attack(self):
         print(self)
         pass
+
+
+def clicked(attacks, x, y):
+    for i in range(len(attacks)):
+        if attacks[i].rect.collidepoint(x, y):
+            attacks[i].attack()
+            break
+
+
+def place(seq):
+    for i in range(len(seq)):
+        seq[i].place()
