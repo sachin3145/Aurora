@@ -9,7 +9,9 @@ class Spell(object):
 
     def place(self):
         rect = self.icon.get_rect()
-        screen.blit(self.icon, (self.x, self.y,))
+        rect.top = self.y
+        rect.left = self.x
+        screen.blit(self.icon, rect)
 
     def attack(self):
         print(self)
@@ -24,7 +26,9 @@ class Planet(object):
 
     def place(self):
         rect = self.icon.get_rect()
-        screen.blit(self.icon, (self.x, self.y,))
+        rect.top = self.y
+        rect.left = self.x
+        screen.blit(self.icon, rect)
 
     def attack(self):
         pass
@@ -35,7 +39,10 @@ class Control(object):
         self.icon = pygame.image.load(address).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = y
-        screen.blit(self.icon, (self.x, self.y,))
+        rect = self.icon.get_rect()
+        rect.top = self.y
+        rect.left = self.x
+        screen.blit(self.icon, rect)
 
 
 class Troop(object):
@@ -46,7 +53,9 @@ class Troop(object):
 
     def place(self):
         rect = self.icon.get_rect()
-        screen.blit(self.icon, (self.x, self.y,))
+        rect.top = self.y
+        rect.left = self.x
+        screen.blit(self.icon, rect)
 
     def attack(self):
         print(self)
