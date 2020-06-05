@@ -6,12 +6,12 @@ class Spell(object):
         self.x = x
         self.y = y
         self.icon = pygame.image.load(address).convert_alpha()
+        self.rect = self.icon.get_rect()
 
     def place(self):
-        rect = self.icon.get_rect()
-        rect.top = self.y
-        rect.left = self.x
-        screen.blit(self.icon, rect)
+        self.rect.top = self.y
+        self.rect.left = self.x
+        screen.blit(self.icon, self.rect)
 
     def attack(self):
         print(self)
@@ -23,12 +23,12 @@ class Planet(object):
         self.icon = pygame.image.load(address).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = int(sh(2) + 128 - (self.icon.get_height() / 2))
+        self.rect = self.icon.get_rect()
 
     def place(self):
-        rect = self.icon.get_rect()
-        rect.top = self.y
-        rect.left = self.x
-        screen.blit(self.icon, rect)
+        self.rect.top = self.y
+        self.rect.left = self.x
+        screen.blit(self.icon, self.rect)
 
     def attack(self):
         pass
@@ -39,10 +39,12 @@ class Control(object):
         self.icon = pygame.image.load(address).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = y
-        rect = self.icon.get_rect()
-        rect.top = self.y
-        rect.left = self.x
-        screen.blit(self.icon, rect)
+        self.rect = self.icon.get_rect()
+
+    def place(self):
+        self.rect.top = self.y
+        self.rect.left = self.x
+        screen.blit(self.icon, self.rect)
 
 
 class Troop(object):
@@ -50,12 +52,12 @@ class Troop(object):
         self.x = x
         self.y = y
         self.icon = pygame.image.load(address).convert_alpha()
+        self.rect = self.icon.get_rect()
 
     def place(self):
-        rect = self.icon.get_rect()
-        rect.top = self.y
-        rect.left = self.x
-        screen.blit(self.icon, rect)
+        self.rect.top = self.y
+        self.rect.left = self.x
+        screen.blit(self.icon, self.rect)
 
     def attack(self):
         print(self)

@@ -20,6 +20,11 @@ saturn = Planet('Images/Planet/saturn.png')
 uranus = Planet('Images/Planet/uranus.png')
 neptune = Planet('Images/Planet/neptune.png')
 
+start = Control(sh(50)-167, 'Images/start_icon.png')
+high = Control(sh(50)-50, 'Images/highscores_icon.png')
+htp = Control(sh(50)+71, 'Images/how_to_play_icon.png')
+
+
 demogorgon = Troop(sw(87.55), sh(84.89), 'Images/32px/demogorgonx32.png')
 elysium = Troop(sw(90.48), sh(84.89), 'Images/32px/elysiumx32.png')
 armada = Troop(sw(93.41), sh(84.89), 'Images/32px/armadax32.png')
@@ -63,9 +68,10 @@ def troops():
 
 
 def controls():
-    start = Control(sh(50)-167, 'Images/start_icon.png')
-    high = Control(sh(50)-50, 'Images/highscores_icon.png')
-    htp = Control(sh(50)+71, 'Images/how_to_play_icon.png')
+    global start, high, htp
+    start.place()
+    high.place()
+    htp.place()
 
 
 
@@ -91,8 +97,7 @@ def menu():
                 active = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-#                print(x, y)
-                if sw(50)+132 > x > sw(50)-132 and sh(50)-167+97 > y > sh(50)-167:
+                if start.rect.collidepoint(x, y):
                     game()
                     active = False
 
@@ -112,32 +117,30 @@ def game():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-#                print(x, y)
 
-                # calling function if mouse is clicked when cursor is over dimensions of specific image
-                if sw(0.73)+32 > x > sw(0.73) and sh(90.66)+32 > y > sh(90.66):
+                if poison.rect.collidepoint(x, y):
                     poison.attack()
-                elif sw(3.66)+32 > x > sw(3.66) and sh(90.66)+32 > y > sh(90.66):
+                elif fire.rect.collidepoint(x, y):
                     fire.attack()
-                elif sw(6.59)+32 > x > sw(6.59) and sh(90.66)+32 > y > sh(90.66):
+                elif plasma.rect.collidepoint(x, y):
                     plasma.attack()
-                elif sw(9.51)+32 > x > sw(9.51) and sh(90.66)+32 > y > sh(90.66):
+                elif goc.rect.collidepoint(x, y):
                     goc.attack()
-                elif sw(87.55) + 32 > x > sw(87.55) and sh(84.89) + 32 > y > sh(84.89):
+                elif demogorgon.rect.collidepoint(x, y):
                     demogorgon.attack()
-                elif sw(90.48) + 32 > x > sw(90.48) and sh(84.89) + 32 > y > sh(84.89):
+                elif elysium.rect.collidepoint(x, y):
                     elysium.attack()
-                elif sw(93.41) + 32 > x > sw(93.41) and sh(84.89) + 32 > y > sh(84.89):
+                elif armada.rect.collidepoint(x, y):
                     armada.attack()
-                elif sw(96.34) + 32 > x > sw(96.34) and sh(84.89) + 32 > y > sh(84.89):
+                elif nemesis.rect.collidepoint(x, y):
                     nemesis.attack()
-                elif sw(87.55) + 32 > x > sw(87.55) and sh(90.66) + 32 > y > sh(90.66):
+                elif mandalore.rect.collidepoint(x, y):
                     mandalore.attack()
-                elif sw(90.48) + 32 > x > sw(90.48) and sh(90.66) + 32 > y > sh(90.66):
+                elif benzamite.rect.collidepoint(x, y):
                     benzamite.attack()
-                elif sw(93.41) + 32 > x > sw(93.41) and sh(90.66) + 32 > y > sh(90.66):
+                elif tardis.rect.collidepoint(x, y):
                     tardis.attack()
-                elif sw(96.34) + 32 > x > sw(96.34) and sh(90.66) + 32 > y > sh(90.66):
+                elif delta.rect.collidepoint(x, y):
                     delta.attack()
 
 
