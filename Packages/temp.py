@@ -90,3 +90,20 @@ def clicked(attacks, x, y):
 def place(seq):
     for i in range(len(seq)):
         seq[i].place()
+
+
+class Text(object):
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.font = pygame.font.Font(None, 32)
+        self.text = ''
+        self.color = (255, 255, 255)
+
+    def write(self, txt):
+        self.text += txt
+
+    def render(self):
+        text_surface = self.font.render(self.text, True, self.color)
+        screen.blit(text_surface, (self.x, self.y))
