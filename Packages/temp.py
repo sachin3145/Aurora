@@ -1,6 +1,15 @@
 from Aurora.Packages.screen_dimensions import *
 
 
+def hover_place(icon, rect):
+    if rect.collidepoint(pygame.mouse.get_pos()):
+        hicon = icon.copy()
+        hicon.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
+        screen.blit(hicon, rect)
+    else:
+        screen.blit(icon, rect)
+
+
 class Spell(object):
     def __init__(self, x, y, file):
         base_dir = 'Images/32px/'
@@ -8,11 +17,11 @@ class Spell(object):
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
-
-    def place(self):
         self.rect.top = self.y
         self.rect.left = self.x
-        screen.blit(self.icon, self.rect)
+
+    def place(self):
+        hover_place(self.icon, self.rect)
 
     def attack(self):
         print(self)
@@ -26,10 +35,10 @@ class Planet(object):
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = int(sh(2) + 128 - (self.icon.get_height() / 2))
         self.rect = self.icon.get_rect()
-
-    def place(self):
         self.rect.top = self.y
         self.rect.left = self.x
+
+    def place(self):
         screen.blit(self.icon, self.rect)
 
     def attack(self):
@@ -43,11 +52,11 @@ class Control(object):
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = y
         self.rect = self.icon.get_rect()
-
-    def place(self):
         self.rect.top = self.y
         self.rect.left = self.x
-        screen.blit(self.icon, self.rect)
+
+    def place(self):
+        hover_place(self.icon, self.rect)
 
 
 class Troop(object):
@@ -57,14 +66,14 @@ class Troop(object):
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
+        self.rect.top = self.y
+        self.rect.left = self.x
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
 
     def place(self):
-        self.rect.top = self.y
-        self.rect.left = self.x
-        screen.blit(self.icon, self.rect)
+        hover_place(self.icon, self.rect)
 
     def attack(self):
         print(self)
