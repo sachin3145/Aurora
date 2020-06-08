@@ -3,7 +3,7 @@ from Aurora.Packages.temp import *
 
 # title and icon
 pygame.display.set_caption("The Helios Attack")
-icon = pygame.image.load('Images/icon.png')
+icon = pygame.image.load('Images/icons/icon.png')
 pygame.display.set_icon(icon)
 
 poison = Spell(sw(0.73), sh(90.66), 'poison.png')

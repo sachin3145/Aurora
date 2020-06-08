@@ -47,7 +47,7 @@ class Planet(object):
 
 class Control(object):
     def __init__(self, y, file):
-        base_dir = 'Images/'
+        base_dir = 'Images/icons/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
         self.y = y
