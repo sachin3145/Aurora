@@ -55,7 +55,6 @@ def menu():
         screen.fill((0, 0, 40))
         place(controls)
         pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
