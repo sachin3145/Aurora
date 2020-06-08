@@ -107,3 +107,18 @@ class Text(object):
     def render(self):
         text_surface = self.font.render(self.text, True, self.color)
         screen.blit(text_surface, (self.x, self.y))
+
+
+class GameLoop(object):
+    def __init__(self):
+        self.running  = True
+        self.color = (0, 0, 40)
+
+    def if_quit(self):
+        if pygame.event.type == pygame.QUIT:
+            self.running = False
+
+    def execute(self):
+        while self.running:
+            screen.fill(self.color)
+            pygame.display.update()
