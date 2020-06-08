@@ -21,8 +21,8 @@ uranus = Planet('uranus.png')
 neptune = Planet('neptune.png')
 
 start = Control(sh(50)-167, 'start_icon.png')
-high = Control(sh(50)-50, 'highscores_icon.png')
-htp = Control(sh(50)+71, 'how_to_play_icon.png')
+high = Control(sh(50)-50, 'high.png')
+htp = Control(sh(50)+71, 'htp.png')
 
 demogorgon = Troop(sw(87.55), sh(84.89), 'demogorgon.png')
 elysium = Troop(sw(90.48), sh(84.89), 'elysium.png')
