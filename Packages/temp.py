@@ -94,10 +94,11 @@ def place(seq):
 
 class Text(object):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, size):
         self.x = x
         self.y = y
-        self.font = pygame.font.Font(None, 32)
+        self.size = size
+        self.font = pygame.font.Font(None, self.size)
         self.text = ''
         self.color = (255, 255, 255)
 
@@ -111,7 +112,7 @@ class Text(object):
 
 class GameLoop(object):
     def __init__(self):
-        self.running  = True
+        self.running = True
         self.color = (0, 0, 40)
 
     def if_quit(self):
