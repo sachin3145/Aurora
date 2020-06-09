@@ -71,7 +71,7 @@ class Text(object):
 
 # -----------------------------------------------------------------
 class Planet(object):
-    def __init__(self, file, base_rating=0):
+    def __init__(self, file, base_rating):
         self.base_rating = base_rating
         base_dir = 'Images/Planet/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
@@ -90,39 +90,37 @@ class Planet(object):
 
 
 class Attacks(object):
-    def __init__(self, x, y, file, base_dir):
+    def __init__(self, x, y, file, base_dir, base_rating):
         self.x = x
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
+        self.base_Rating = base_rating
+        self.damage = self.base_Rating
 
     def place(self):
         hover_place(self.icon, self.rect)
 
-
-class Spell(Attacks):
-    def __init__(self, x, y, file, base_rating=0):
-        self.base_Rating = base_rating
-        base_dir = 'Images/32px/'
-        super().__init__(x, y, file, base_dir)
-
     def attack(self):
         print(self)
         pass
 
 
-class Troop(Attacks):
+class Spell(Attacks):
     def __init__(self, x, y, file, base_rating=0):
-        self.base_rating = base_rating
         base_dir = 'Images/32px/'
-        super().__init__(x, y, file, base_dir)
+        super().__init__(x, y, file, base_dir, base_rating)
+
+
+class Troop(Attacks):
+    def __init__(self, x, y, file, base_rating):
+        base_dir = 'Images/32px/'
+        super().__init__(x, y, file, base_dir, base_rating)
+        self.defence = self.base_Rating*0.5
+        self.health = self.base_Rating*0.75
 
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
-
-    def attack(self):
-        print(self)
-        pass
