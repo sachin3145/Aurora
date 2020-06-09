@@ -90,16 +90,9 @@ class Planet(object):
 
 
 class Attacks(object):
-    def __init__(self, x, y):
+    def __init__(self, x, y, file, base_dir):
         self.x = x
         self.y = y
-
-
-class Spell(Attacks):
-    def __init__(self, x, y, file, base_rating=0):
-        super().__init__(x, y)
-        self.base_Rating = base_rating
-        base_dir = 'Images/32px/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
@@ -107,6 +100,13 @@ class Spell(Attacks):
 
     def place(self):
         hover_place(self.icon, self.rect)
+
+
+class Spell(Attacks):
+    def __init__(self, x, y, file, base_rating=0):
+        self.base_Rating = base_rating
+        base_dir = 'Images/32px/'
+        super().__init__(x, y, file, base_dir)
 
     def attack(self):
         print(self)
@@ -115,19 +115,13 @@ class Spell(Attacks):
 
 class Troop(Attacks):
     def __init__(self, x, y, file, base_rating=0):
-        super().__init__(x, y)
         self.base_rating = base_rating
         base_dir = 'Images/32px/'
-        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
+        super().__init__(x, y, file, base_dir)
+
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
-
-    def place(self):
-        hover_place(self.icon, self.rect)
 
     def attack(self):
         print(self)
