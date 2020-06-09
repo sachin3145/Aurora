@@ -1,4 +1,28 @@
-from Aurora.Packages.screen_dimensions import *
+from Aurora.Packages.dependencies import *
+
+# -------------------------------------------------------------
+
+screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
+screen_height = screen.get_height() - 40
+screen_width = screen.get_width()
+
+
+def sh(percentage):
+    return int(percentage*screen_height/100)
+
+
+def sw(percentage):
+    return int(percentage*screen_width/100)
+
+
+def pix_w(pix):
+    return pix*(100/screen_width)
+
+
+def pix_h(pix):
+    return pix*(100/screen_height)
+
+# ----------------------------------------------------------
 
 
 def hover_place(icon, rect):
@@ -22,6 +46,7 @@ def place(seq):
         seq[i].place()
 
 
+# ----------------------------------------------------------
 class GameLoop(object):
     def __init__(self):
         self.running = True
@@ -69,7 +94,6 @@ class Text(object):
         screen.blit(text_surface, (self.x, self.y))
 
 
-# -----------------------------------------------------------------
 class Planet(object):
     def __init__(self, file, base_rating):
         self.base_rating = base_rating
@@ -86,7 +110,6 @@ class Planet(object):
 
     def attack(self):
         pass
-# ----------------------------------------------
 
 
 class Attacks(object):
