@@ -10,39 +10,31 @@ def hover_place(icon, rect):
         screen.blit(icon, rect)
 
 
-class Spell(object):
-    def __init__(self, x, y, file):
-        base_dir = 'Images/32px/'
-        self.x = x
-        self.y = y
-        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
-
-    def place(self):
-        hover_place(self.icon, self.rect)
-
-    def attack(self):
-        print(self)
-        pass
+def clicked(attacks, x, y):
+    for i in range(len(attacks)):
+        if attacks[i].rect.collidepoint(x, y):
+            attacks[i].attack()
+            break
 
 
-class Planet(object):
-    def __init__(self, file):
-        base_dir = 'Images/Planet/'
-        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.x = int(sw(50) - (self.icon.get_width() / 2))
-        self.y = int(sh(2) + 128 - (self.icon.get_height() / 2))
-        self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
+def place(seq):
+    for i in range(len(seq)):
+        seq[i].place()
 
-    def place(self):
-        screen.blit(self.icon, self.rect)
 
-    def attack(self):
-        pass
+class GameLoop(object):
+    def __init__(self):
+        self.running = True
+        self.color = (0, 0, 40)
+
+    def if_quit(self):
+        if pygame.event.type == pygame.QUIT:
+            self.running = False
+
+    def execute(self):
+        while self.running:
+            screen.fill(self.color)
+            pygame.display.update()
 
 
 class Control(object):
@@ -57,39 +49,6 @@ class Control(object):
 
     def place(self):
         hover_place(self.icon, self.rect)
-
-
-class Troop(object):
-    def __init__(self, x, y, file):
-        base_dir = 'Images/32px/'
-        self.x = x
-        self.y = y
-        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
-        troop_dir = 'Images/64px/'
-        self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
-        self.rectT = self.img.get_rect()
-
-    def place(self):
-        hover_place(self.icon, self.rect)
-
-    def attack(self):
-        print(self)
-        pass
-
-
-def clicked(attacks, x, y):
-    for i in range(len(attacks)):
-        if attacks[i].rect.collidepoint(x, y):
-            attacks[i].attack()
-            break
-
-
-def place(seq):
-    for i in range(len(seq)):
-        seq[i].place()
 
 
 class Text(object):
@@ -110,16 +69,66 @@ class Text(object):
         screen.blit(text_surface, (self.x, self.y))
 
 
-class GameLoop(object):
-    def __init__(self):
-        self.running = True
-        self.color = (0, 0, 40)
+# -----------------------------------------------------------------
+class Planet(object):
+    def __init__(self, file, base_rating=0):
+        self.base_rating = base_rating
+        base_dir = 'Images/Planet/'
+        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
+        self.x = int(sw(50) - (self.icon.get_width() / 2))
+        self.y = int(sh(2) + 128 - (self.icon.get_height() / 2))
+        self.rect = self.icon.get_rect()
+        self.rect.top = self.y
+        self.rect.left = self.x
 
-    def if_quit(self):
-        if pygame.event.type == pygame.QUIT:
-            self.running = False
+    def place(self):
+        screen.blit(self.icon, self.rect)
 
-    def execute(self):
-        while self.running:
-            screen.fill(self.color)
-            pygame.display.update()
+    def attack(self):
+        pass
+# ----------------------------------------------
+
+
+class Attacks(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Spell(Attacks):
+    def __init__(self, x, y, file, base_rating=0):
+        super().__init__(x, y)
+        self.base_Rating = base_rating
+        base_dir = 'Images/32px/'
+        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
+        self.rect = self.icon.get_rect()
+        self.rect.top = self.y
+        self.rect.left = self.x
+
+    def place(self):
+        hover_place(self.icon, self.rect)
+
+    def attack(self):
+        print(self)
+        pass
+
+
+class Troop(Attacks):
+    def __init__(self, x, y, file, base_rating=0):
+        super().__init__(x, y)
+        self.base_rating = base_rating
+        base_dir = 'Images/32px/'
+        self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
+        self.rect = self.icon.get_rect()
+        self.rect.top = self.y
+        self.rect.left = self.x
+        troop_dir = 'Images/64px/'
+        self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
+        self.rectT = self.img.get_rect()
+
+    def place(self):
+        hover_place(self.icon, self.rect)
+
+    def attack(self):
+        print(self)
+        pass
