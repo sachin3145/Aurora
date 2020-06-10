@@ -67,7 +67,7 @@ class Control(object):
         base_dir = 'Images/icons/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
-        self.y = y
+        self.y = int(y - (self.icon.get_height() / 2))
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
