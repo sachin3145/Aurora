@@ -96,7 +96,6 @@ class Text(object):
 
 class Planet(object):
     def __init__(self, file, base_rating):
-        self.base_rating = base_rating
         base_dir = 'Images/Planet/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.x = int(sw(50) - (self.icon.get_width() / 2))
@@ -104,6 +103,11 @@ class Planet(object):
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
+
+        self.base_rating = base_rating
+        self.damage = base_rating*0.1
+        self.health = base_rating
+        self.defence = base_rating*0.01
 
     def place(self):
         screen.blit(self.icon, self.rect)
