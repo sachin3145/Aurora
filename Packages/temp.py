@@ -77,12 +77,11 @@ class Control(object):
 
 
 class Text(object):
-
     def __init__(self, x, y, size):
         self.x = x
         self.y = y
         self.size = size
-        self.font = pygame.font.Font(None, self.size)
+        self.font = pygame.font.SysFont('showcardgothic', self.size)
         self.text = ''
         self.color = (255, 255, 255)
 
