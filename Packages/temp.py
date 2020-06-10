@@ -121,8 +121,8 @@ class Attacks(object):
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
+        self.rect.top = self.y - self.icon.get_width()/2
+        self.rect.left = self.x - self.icon.get_height()/2
         self.base_Rating = base_rating
         self.damage = self.base_Rating
 
