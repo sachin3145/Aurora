@@ -48,18 +48,12 @@ def place(seq):
 
 # ----------------------------------------------------------
 class GameLoop(object):
-    def __init__(self):
-        self.running = True
-        self.color = (0, 0, 40)
+    running = True
 
-    def if_quit(self):
-        if pygame.event.type == pygame.QUIT:
-            self.running = False
-
-    def execute(self):
-        while self.running:
-            screen.fill(self.color)
-            pygame.display.update()
+    @staticmethod
+    def check_quit():
+        if event.type == pygame.QUIT:
+            running = False
 
 
 class Control(object):
