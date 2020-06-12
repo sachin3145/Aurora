@@ -8,7 +8,7 @@ pygame.display.set_icon(icon)
 
 poison = Spell(sw(1.83), sh(92.86), 'poison.png')
 fire = Spell(sw(4.76), sh(92.86), 'fire.png')
-plasma = Spell(sw(7.76), sh(92.86), 'plasma_small.png')
+plasma = Spell(sw(7.66), sh(92.86), 'plasma_small.png')
 goc = Spell(sw(10.61), sh(92.86), 'space.png')
 
 mercury = Planet('mercury.png', 1000)
