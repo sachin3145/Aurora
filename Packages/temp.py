@@ -109,6 +109,7 @@ class Text(object):
 
 
 class Planet(object):
+    """Class to manage Planets"""
     def __init__(self, file, base_rating):
         base_dir = 'Images/Planet/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
@@ -131,6 +132,7 @@ class Planet(object):
 
 
 class Attacks(object):
+    """Parent class for Troop and Spell class"""
     def __init__(self, x, y, file, base_dir, base_rating):
         self.x = x
         self.y = y
@@ -150,18 +152,24 @@ class Attacks(object):
 
 
 class Spell(Attacks):
+    """Class to manage Spells
+    Parent class : Attacks"""
     def __init__(self, x, y, file, base_rating=0):
         base_dir = 'Images/32px/'
         super().__init__(x, y, file, base_dir, base_rating)
 
 
 class Troop(Attacks):
+    """Class to manage Troops
+    Parent class : Attacks"""
     def __init__(self, x, y, file, base_rating):
         base_dir = 'Images/32px/'
+        # calling initializer of parent class to set common variables up
         super().__init__(x, y, file, base_dir, base_rating)
         self.defence = self.base_Rating*0.5
         self.health = self.base_Rating*0.75
 
+        # loading corresponding troop images
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
