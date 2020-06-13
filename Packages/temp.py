@@ -108,6 +108,40 @@ class Text(object):
         screen.blit(text_surface, (self.x, self.y))
 
 
+class TextInput(Text):
+    def __init__(self, x, y, size):
+        super().__init__(x, y, size)
+        self.rect = pygame.Rect(self.x, self.y, 200, size+3)
+        self.active_color = pygame.Color('lightskyblue3')
+        self.passive_color = pygame.Color('grey15')
+        self.color = self.passive_color
+        self.is_selected = False
+
+    def try_selecting(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos()
+            if self.rect.collidepoint(x, y):
+                self.is_selected = True
+                self.color = self.active_color
+            else:
+                self.is_selected = False
+                self.color = self.passive_color
+
+    def take_input(self, event):
+        if event.type == pygame.KEYDOWN:
+            if self.is_selected:
+                if event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.write(event.unicode)
+
+    def render(self):
+        pygame.draw.rect(screen, self.color, self.rect, 1)
+        text_surface = self.font.render(self.text, True, (255, 255, 255))
+        screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 3))
+        self.rect.w = max(100, text_surface.get_width() + 10)
+
+
 class Planet(object):
     """Class to manage Planets"""
     def __init__(self, file, base_rating):
