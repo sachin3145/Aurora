@@ -53,7 +53,7 @@ def menu():
 
     while active:
         screen.fill((0, 0, 40))
-        place(controls)
+        mass_place(controls)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -70,7 +70,7 @@ def game():
     while running:
 
         screen.fill((0, 0, 40))
-        place(attacks)
+        mass_place(attacks)
         mercury.place()
         pygame.display.update()
         for event in pygame.event.get():

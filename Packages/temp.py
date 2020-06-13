@@ -25,8 +25,8 @@ def pix_h(pix):
 # ----------------------------------------------------------
 
 
-def hover_place(icon, rect):
-    if rect.collidepoint(pygame.mouse.get_pos()):
+def hover_place(icon, rect, hover=True):
+    if hover and rect.collidepoint(pygame.mouse.get_pos()):
         hicon = icon.copy()
         hicon.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
         screen.blit(hicon, rect)
@@ -41,7 +41,7 @@ def clicked(attacks, x, y):
             break
 
 
-def place(seq):
+def mass_place(seq):
     for i in range(len(seq)):
         seq[i].place()
 
