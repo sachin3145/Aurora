@@ -8,18 +8,26 @@ screen_width = screen.get_width()
 
 
 def sh(percentage):
+    """Takes fraction of screen height in percentage
+     and returns the corresponding value in pixels."""
     return int(percentage*screen_height/100)
 
 
 def sw(percentage):
+    """Takes fraction of screen width in percentage
+    and returns the corresponding value in pixels."""
     return int(percentage*screen_width/100)
 
 
 def pix_w(pix):
+    """Takes fraction of screen width in pixels
+    and returns the corresponding value in percentage."""
     return pix*(100/screen_width)
 
 
 def pix_h(pix):
+    """Takes fraction of screen height in pixels
+    and returns the corresponding value in percentage."""
     return pix*(100/screen_height)
 
 # ----------------------------------------------------------
