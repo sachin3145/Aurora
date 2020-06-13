@@ -59,8 +59,7 @@ def menu():
             if event.type == pygame.QUIT:
                 active = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                if start.rect.collidepoint(x, y):
+                if start.rect.collidepoint(pygame.mouse.get_pos()):
                     game()
                     active = False
 
