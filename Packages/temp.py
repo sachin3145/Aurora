@@ -50,10 +50,10 @@ def place(seq):
 class GameLoop(object):
     running = True
 
-    @staticmethod
-    def check_quit():
+    @classmethod
+    def handle_quit(cls, event):
         if event.type == pygame.QUIT:
-            running = False
+            cls.running = False
 
 
 class Control(object):
