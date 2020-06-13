@@ -34,6 +34,8 @@ def pix_h(pix):
 
 
 def hover_place(icon, rect, hover=True):
+    """This function places an image over a rect,
+    The images placed have a default hover effect which can be removed."""
     if hover and rect.collidepoint(pygame.mouse.get_pos()):
         hicon = icon.copy()
         hicon.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
@@ -43,6 +45,7 @@ def hover_place(icon, rect, hover=True):
 
 
 def clicked(attacks, x, y):
+    """Calls the attack method of a image in a given sequence if it has been clicked"""
     for i in range(len(attacks)):
         if attacks[i].rect.collidepoint(x, y):
             attacks[i].attack()
@@ -50,6 +53,7 @@ def clicked(attacks, x, y):
 
 
 def mass_place(seq):
+    """Places an array of images on screen"""
     for i in range(len(seq)):
         seq[i].place()
 
@@ -65,6 +69,7 @@ class GameLoop(object):
 
 
 class Control(object):
+    """Class to manage all control icons"""
     def __init__(self, y, file):
         base_dir = 'Images/icons/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
@@ -75,10 +80,12 @@ class Control(object):
         self.rect.left = self.x
 
     def place(self):
+        """Place an instance of the class on specified rect"""
         hover_place(self.icon, self.rect)
 
 
 class Text(object):
+    """Class to handle to Text Output"""
     def __init__(self, x, y, size):
         self.x = x
         self.y = y
@@ -88,9 +95,15 @@ class Text(object):
         self.color = (255, 255, 255)
 
     def write(self, txt):
+        """Add to string"""
         self.text += txt
 
+    def clear(self):
+        """Clear the text string"""
+        self.text = ''
+
     def render(self):
+        """Renders text on the screen"""
         text_surface = self.font.render(self.text, True, self.color)
         screen.blit(text_surface, (self.x, self.y))
 
