@@ -49,33 +49,54 @@ GAME LOOPS BELOW
 
 # Menu Loop
 def menu():
-    active = True
-
-    while active:
+    loop = GameLoop()
+    while loop.running:
         screen.fill((0, 0, 40))
-        mass_place(controls)
+
+        if loop.phase == 0:
+            mass_place(controls)
+        elif loop.phase == 'htp':
+            pass
+            # code to get text from htp file and render it over screen
+
         pygame.display.update()
+
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                active = False
+            loop.handle_quit(event)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start.rect.collidepoint(pygame.mouse.get_pos()):
-                    game()
-                    active = False
+                    auth()
+                    loop.running = False
+                elif htp.rect.collidepoint(pygame.mouse.get_pos()):
+                    loop.phase = 'htp'
+
+
+def auth():
+    """UNDER DEVELOPMENT NOT YET READY EVEN FOR BETA TESTS"""
+    name = TextInput(10, 20, 32)
+    loop = GameLoop()
+    while loop.running:
+        screen.fill((0, 0, 40))
+        name.render()
+        pygame.display.update()
+        for event in pygame.event.get():
+            loop.handle_quit(event)
+            name.handle_events(event)
+        if name.text.upper() == 'GO':
+            game()
+            loop.running = False
 
 
 # Main loop
 def game():
-    running = True
-    while running:
-
+    loop = GameLoop()
+    while loop.running:
         screen.fill((0, 0, 40))
         mass_place(attacks)
         mercury.place()
         pygame.display.update()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+            loop.handle_quit(event)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)

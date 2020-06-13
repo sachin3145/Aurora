@@ -60,12 +60,13 @@ def mass_place(seq):
 
 # ----------------------------------------------------------
 class GameLoop(object):
-    running = True
+    def __init__(self):
+        self.running = True
+        self.phase = 0
 
-    @classmethod
-    def handle_quit(cls, event):
+    def handle_quit(self, event):
         if event.type == pygame.QUIT:
-            cls.running = False
+            self.running = False
 
 
 class Control(object):
@@ -111,7 +112,7 @@ class Text(object):
 class TextInput(Text):
     def __init__(self, x, y, size):
         super().__init__(x, y, size)
-        self.rect = pygame.Rect(self.x, self.y, 200, size+3)
+        self.rect = pygame.Rect(self.x, self.y, 200, size+2)
         self.active_color = pygame.Color('lightskyblue3')
         self.passive_color = pygame.Color('grey15')
         self.color = self.passive_color
@@ -134,6 +135,10 @@ class TextInput(Text):
                     self.text = self.text[:-1]
                 else:
                     self.write(event.unicode)
+
+    def handle_events(self, event):
+        self.try_selecting(event)
+        self.take_input(event)
 
     def render(self):
         pygame.draw.rect(screen, self.color, self.rect, 1)
