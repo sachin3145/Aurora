@@ -52,7 +52,7 @@ def clicked(attacks, x, y):
             break
 
 
-def mass_place(seq):
+def batch_place(seq):
     """Places an array of images on screen"""
     for i in range(len(seq)):
         seq[i].place()

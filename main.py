@@ -23,6 +23,10 @@ neptune = Planet('neptune.png', 10000)
 start = Control(sh(50)-118, 'start_icon.png')
 high = Control(sh(50), 'high.png')
 htp = Control(sh(50)+129, 'htp.png')
+login = Control(sh(50)-100, 'login.png')
+register = Control(sh(50), 'register.png')
+play_as_guest = Control(sh(50)+100, 'play_as_guest.png')
+cont = Control(sh(80), 'continue.png')
 
 demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png', 1500)
 elysium = Troop(sw(91.58), sh(85.99), 'elysium.png', 1200)
@@ -35,6 +39,7 @@ delta = Troop(sw(97.51), sh(92.86), 'delta.png', 100)
 
 
 controls = [start, high, htp]
+auth_controls = [login, register, play_as_guest]
 attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
 
 
@@ -54,7 +59,7 @@ def menu():
         screen.fill((0, 0, 40))
 
         if loop.phase == 0:
-            mass_place(controls)
+            batch_place(controls)
         elif loop.phase == 'htp':
             pass
             # code to get text from htp file and render it over screen
@@ -77,14 +82,16 @@ def auth():
     loop = GameLoop()
     while loop.running:
         screen.fill((0, 0, 40))
+        batch_place(auth_controls)
         name.render()
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)
             name.handle_events(event)
-        if name.text.upper() == 'GO':
-            game()
-            loop.running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_as_guest.rect.collidepoint(pygame.mouse.get_pos()):
+                    game()
+                    loop.running = False
 
 
 # Main loop
@@ -92,7 +99,7 @@ def game():
     loop = GameLoop()
     while loop.running:
         screen.fill((0, 0, 40))
-        mass_place(attacks)
+        batch_place(attacks)
         mercury.place()
         pygame.display.update()
         for event in pygame.event.get():
