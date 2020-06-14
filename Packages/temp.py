@@ -58,11 +58,20 @@ def batch_place(seq):
         seq[i].place()
 
 
+def change_active_state(seq, val):
+    for x in seq:
+        x.is_active = val
+
+
 # ----------------------------------------------------------
 class GameLoop(object):
     def __init__(self):
         self.running = True
-        self.phase = 0
+        self.index = 'home'
+        self.color = (0, 0, 40)
+
+    def set_screen(self):
+        screen.fill(self.color)
 
     def handle_quit(self, event):
         if event.type == pygame.QUIT:
@@ -71,14 +80,15 @@ class GameLoop(object):
 
 class Control(object):
     """Class to manage all control icons"""
-    def __init__(self, y, file):
+    def __init__(self, y, file, x=sw(50)):
         base_dir = 'Images/icons/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.x = int(sw(50) - (self.icon.get_width() / 2))
+        self.x = int(x - (self.icon.get_width() / 2))
         self.y = int(y - (self.icon.get_height() / 2))
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
+        self.is_active = True
 
     def place(self):
         """Place an instance of the class on specified rect"""
@@ -112,7 +122,8 @@ class Text(object):
 class TextInput(Text):
     def __init__(self, x, y, size):
         super().__init__(x, y, size)
-        self.rect = pygame.Rect(self.x, self.y, 200, size+2)
+        self.width = 300
+        self.rect = pygame.Rect(self.x, self.y, self.width, size+2)
         self.active_color = pygame.Color('lightskyblue3')
         self.passive_color = pygame.Color('grey15')
         self.color = self.passive_color
@@ -144,7 +155,7 @@ class TextInput(Text):
         pygame.draw.rect(screen, self.color, self.rect, 1)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
         screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 3))
-        self.rect.w = max(100, text_surface.get_width() + 10)
+        self.rect.w = max(self.width, text_surface.get_width() + 15)
 
 
 class Planet(object):

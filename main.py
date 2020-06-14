@@ -56,11 +56,11 @@ GAME LOOPS BELOW
 def menu():
     loop = GameLoop()
     while loop.running:
-        screen.fill((0, 0, 40))
+        loop.set_screen()
 
-        if loop.phase == 0:
+        if loop.index == 'home':
             batch_place(controls)
-        elif loop.phase == 'htp':
+        elif loop.index == 'htp':
             pass
             # code to get text from htp file and render it over screen
 
@@ -73,23 +73,39 @@ def menu():
                     auth()
                     loop.running = False
                 elif htp.rect.collidepoint(pygame.mouse.get_pos()):
-                    loop.phase = 'htp'
+                    loop.index = 'htp'
 
 
 def auth():
     """UNDER DEVELOPMENT NOT YET READY EVEN FOR BETA TESTS"""
-    name = TextInput(10, 20, 32)
+    nickname = TextInput(sw(50), sh(30), 64)
+    capt = Text(sw(10), sh(30), 64)
+    capt.write('NICKNAME')
     loop = GameLoop()
     while loop.running:
-        screen.fill((0, 0, 40))
-        batch_place(auth_controls)
-        name.render()
+        loop.set_screen()
+        if loop.index == 'home':
+            change_active_state(auth_controls, True)
+            batch_place(auth_controls)
+        elif loop.index == 'login':
+            change_active_state(auth_controls, False)
+            capt.render()
+            nickname.render()
+        elif loop.index == 'register':
+            change_active_state(auth_controls, False)
+            pass
+
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)
-            name.handle_events(event)
+            nickname.handle_events(event)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if play_as_guest.rect.collidepoint(pygame.mouse.get_pos()):
+                x, y = pygame.mouse.get_pos()
+                if login.is_active and login.rect.collidepoint(x, y):
+                    loop.index = 'login'
+                elif register.is_active and register.rect.collidepoint(x, y):
+                    loop.index = 'register'
+                elif play_as_guest.is_active and play_as_guest.rect.collidepoint(x, y):
                     game()
                     loop.running = False
 
@@ -98,7 +114,7 @@ def auth():
 def game():
     loop = GameLoop()
     while loop.running:
-        screen.fill((0, 0, 40))
+        loop.set_screen()
         batch_place(attacks)
         mercury.place()
         pygame.display.update()
