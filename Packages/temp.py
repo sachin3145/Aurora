@@ -122,10 +122,10 @@ class Text(object):
 class TextInput(Text):
     def __init__(self, x, y, size):
         super().__init__(x, y, size)
-        self.width = 300
+        self.width = 500
         self.rect = pygame.Rect(self.x, self.y, self.width, size+2)
-        self.active_color = pygame.Color('lightskyblue3')
-        self.passive_color = pygame.Color('grey15')
+        self.active_color = pygame.Color('green')
+        self.passive_color = pygame.Color('lightskyblue')
         self.color = self.passive_color
         self.is_selected = False
 

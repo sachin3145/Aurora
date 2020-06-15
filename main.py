@@ -91,6 +91,7 @@ def auth():
             change_active_state(auth_controls, False)
             capt.render()
             nickname.render()
+            cont.place()
         elif loop.index == 'register':
             change_active_state(auth_controls, False)
             pass
