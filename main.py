@@ -38,14 +38,14 @@ benzamite = Troop(sw(91.58), sh(92.86), 'benzamite.png', 400)
 tardis = Troop(sw(94.51), sh(92.86), 'tardis.png', 200)
 delta = Troop(sw(97.51), sh(92.86), 'delta.png', 100)
 
+# loading images
+sun = pygame.image.load('Images/Planet/sun.png')
+
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
 attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
-
-
-# loading images
-sun_ = pygame.image.load('Images/Planet/sun.png')
+levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
 
 """
@@ -117,7 +117,7 @@ def game():
     while loop.running:
         loop.set_screen()
         batch_place(attacks)
-        mercury.place()
+        set_level(levels, 0)
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)

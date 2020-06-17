@@ -35,6 +35,10 @@ def position_troop(x):
     """This function should return coordinates where a troop should be placed by taking its x co-ordinate
     formula to be referred : y = -sqrt{r^{2}-x^{2}}"""
     pass
+
+
+def set_level(levels, n):
+    levels[n].place()
 # ----------------------------------------------------------
 
 
