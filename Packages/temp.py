@@ -68,6 +68,7 @@ def batch_place(seq):
 
 
 def change_active_state(seq, val):
+    """Changes .is_active attribute of a controls into a sequence to specified value"""
     for x in seq:
         x.is_active = val
 

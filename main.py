@@ -71,7 +71,7 @@ def menu():
             pass
         elif loop.index == 'high':
             pass
-        elif loop.index == 'auth':
+        elif loop.index == 'start':
             change_active_state(controls, False)
             change_active_state(auth_controls, True)
             batch_place(auth_controls)
@@ -90,7 +90,7 @@ def menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if start.is_active and start.rect.collidepoint(x, y):
-                    loop.index = 'auth'
+                    loop.index = 'start'
                 elif htp.is_active and htp.rect.collidepoint(x, y):
                     loop.index = 'htp'
                 elif high.is_active and high.rect.collidepoint(x, y):
