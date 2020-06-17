@@ -30,6 +30,12 @@ def pix_h(pix):
     and returns the corresponding value in percentage."""
     return pix*(100/screen_height)
 
+
+def position_troop(x):
+    """This function returns coordinates where a troop should be placed by taking its x co-ordinate
+    formula used : y = -sqrt{r^{2}-x^{2}}
+    Not yet suited for use"""
+    return x, int(math.sqrt(sw(25)**2 - x**2))
 # ----------------------------------------------------------
 
 
