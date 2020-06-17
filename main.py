@@ -59,7 +59,7 @@ GAME LOOPS BELOW
 
 def menu():
 
-    loop = GameLoop()
+    loop = MenuLoop()
     while loop.running:
         loop.set_screen()
 

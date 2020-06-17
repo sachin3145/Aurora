@@ -74,7 +74,7 @@ def change_active_state(seq, val):
 
 
 # ----------------------------------------------------------
-class GameLoop(object):
+class MenuLoop(object):
     def __init__(self):
         self.running = True
         self.index = 'home'
@@ -86,6 +86,11 @@ class GameLoop(object):
     def handle_quit(self, event):
         if event.type == pygame.QUIT:
             self.running = False
+
+
+class GameLoop(MenuLoop):
+    def __init__(self, profile=None):
+        super().__init__()
 
 
 class Control(object):
