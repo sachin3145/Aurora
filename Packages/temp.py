@@ -32,10 +32,9 @@ def pix_h(pix):
 
 
 def position_troop(x):
-    """This function returns coordinates where a troop should be placed by taking its x co-ordinate
-    formula used : y = -sqrt{r^{2}-x^{2}}
-    Not yet suited for use"""
-    return x, int(math.sqrt(sw(25)**2 - x**2))
+    """This function should return coordinates where a troop should be placed by taking its x co-ordinate
+    formula to be referred : y = -sqrt{r^{2}-x^{2}}"""
+    pass
 # ----------------------------------------------------------
 
 
