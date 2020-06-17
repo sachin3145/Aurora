@@ -27,6 +27,7 @@ login = Control(sh(50)-100, 'login.png')
 register = Control(sh(50), 'register.png')
 play_as_guest = Control(sh(50)+100, 'play_as_guest.png')
 cont = Control(sh(80), 'continue.png')
+back = Control(sh(3), 'back.png', sw(97))
 
 demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png', 1500)
 elysium = Troop(sw(91.58), sh(85.99), 'elysium.png', 1200)
@@ -84,17 +85,16 @@ def auth():
     loop = GameLoop()
     while loop.running:
         loop.set_screen()
+        if not loop.index == 'home':
+            change_active_state(auth_controls, False)
+
         if loop.index == 'home':
             change_active_state(auth_controls, True)
             batch_place(auth_controls)
         elif loop.index == 'login':
-            change_active_state(auth_controls, False)
             capt.render()
             nickname.render()
             cont.place()
-        elif loop.index == 'register':
-            change_active_state(auth_controls, False)
-            pass
 
         pygame.display.update()
         for event in pygame.event.get():
