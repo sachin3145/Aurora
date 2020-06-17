@@ -97,7 +97,7 @@ class Control(object):
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
-        self.is_active = True
+        self.is_active = False
 
     def place(self):
         """Place an instance of the class on specified rect"""
