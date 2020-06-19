@@ -20,13 +20,14 @@ saturn = Planet('saturn.png', 12000)
 uranus = Planet('uranus.png', 8000)
 neptune = Planet('neptune.png', 10000)
 
-start = Control(sh(50)-118, 'start_icon.png')
+start = Control(sh(50)-100, 'start_icon.png')
 high = Control(sh(50), 'high.png')
-htp = Control(sh(50)+129, 'htp.png')
+htp = Control(sh(50)+100, 'htp.png')
 login = Control(sh(50)-100, 'login.png')
 register = Control(sh(50), 'register.png')
 play_as_guest = Control(sh(50)+100, 'play_as_guest.png')
 cont = Control(sh(80), 'continue.png')
+back = Control(sh(3), 'back.png', sw(97))
 
 demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png', 1500)
 elysium = Troop(sw(91.58), sh(85.99), 'elysium.png', 1200)
@@ -37,72 +38,64 @@ benzamite = Troop(sw(91.58), sh(92.86), 'benzamite.png', 400)
 tardis = Troop(sw(94.51), sh(92.86), 'tardis.png', 200)
 delta = Troop(sw(97.51), sh(92.86), 'delta.png', 100)
 
+# loading images
+sun = pygame.image.load('Images/Planet/sun.png')
+
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
 attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
+levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
-
-# loading images
-sun_ = pygame.image.load('Images/Planet/sun.png')
-
+# authentication labels
+nickname = TextInput(sw(50), sh(30), 64)
+capt = Text(sw(10), sh(30), 64)
+capt.write('NICKNAME')
 
 """
 GAME LOOPS BELOW
 """
 
 
-# Menu Loop
 def menu():
-    loop = GameLoop()
+
+    loop = MenuLoop()
     while loop.running:
         loop.set_screen()
 
         if loop.index == 'home':
+            change_active_state(controls, True)
+            change_active_state(auth_controls, False)
             batch_place(controls)
         elif loop.index == 'htp':
             pass
-            # code to get text from htp file and render it over screen
-
-        pygame.display.update()
-
-        for event in pygame.event.get():
-            loop.handle_quit(event)
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if start.rect.collidepoint(pygame.mouse.get_pos()):
-                    auth()
-                    loop.running = False
-                elif htp.rect.collidepoint(pygame.mouse.get_pos()):
-                    loop.index = 'htp'
-
-
-def auth():
-    """UNDER DEVELOPMENT NOT YET READY EVEN FOR BETA TESTS"""
-    nickname = TextInput(sw(50), sh(30), 64)
-    capt = Text(sw(10), sh(30), 64)
-    capt.write('NICKNAME')
-    loop = GameLoop()
-    while loop.running:
-        loop.set_screen()
-        if loop.index == 'home':
+        elif loop.index == 'high':
+            pass
+        elif loop.index == 'start':
+            change_active_state(controls, False)
             change_active_state(auth_controls, True)
             batch_place(auth_controls)
         elif loop.index == 'login':
-            change_active_state(auth_controls, False)
             capt.render()
             nickname.render()
             cont.place()
-        elif loop.index == 'register':
-            change_active_state(auth_controls, False)
-            pass
 
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)
-            nickname.handle_events(event)
+
+            if loop.index == 'login':
+                nickname.handle_events(event)
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                if login.is_active and login.rect.collidepoint(x, y):
+                if start.is_active and start.rect.collidepoint(x, y):
+                    loop.index = 'start'
+                elif htp.is_active and htp.rect.collidepoint(x, y):
+                    loop.index = 'htp'
+                elif high.is_active and high.rect.collidepoint(x, y):
+                    loop.index = 'high'
+                elif login.is_active and login.rect.collidepoint(x, y):
                     loop.index = 'login'
                 elif register.is_active and register.rect.collidepoint(x, y):
                     loop.index = 'register'
@@ -117,7 +110,7 @@ def game():
     while loop.running:
         loop.set_screen()
         batch_place(attacks)
-        mercury.place()
+        set_level(levels, 0)
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)

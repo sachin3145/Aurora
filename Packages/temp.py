@@ -30,6 +30,15 @@ def pix_h(pix):
     and returns the corresponding value in percentage."""
     return pix*(100/screen_height)
 
+
+def position_troop(x):
+    """This function should return coordinates where a troop should be placed by taking its x co-ordinate
+    formula to be referred : y = -sqrt{r^{2}-x^{2}}"""
+    pass
+
+
+def set_level(levels, n):
+    levels[n].place()
 # ----------------------------------------------------------
 
 
@@ -59,12 +68,13 @@ def batch_place(seq):
 
 
 def change_active_state(seq, val):
+    """Changes .is_active attribute of a controls into a sequence to specified value"""
     for x in seq:
         x.is_active = val
 
 
 # ----------------------------------------------------------
-class GameLoop(object):
+class MenuLoop(object):
     def __init__(self):
         self.running = True
         self.index = 'home'
@@ -78,6 +88,11 @@ class GameLoop(object):
             self.running = False
 
 
+class GameLoop(MenuLoop):
+    def __init__(self, profile=None):
+        super().__init__()
+
+
 class Control(object):
     """Class to manage all control icons"""
     def __init__(self, y, file, x=sw(50)):
@@ -88,7 +103,7 @@ class Control(object):
         self.rect = self.icon.get_rect()
         self.rect.top = self.y
         self.rect.left = self.x
-        self.is_active = True
+        self.is_active = False
 
     def place(self):
         """Place an instance of the class on specified rect"""
