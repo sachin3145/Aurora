@@ -50,7 +50,7 @@ levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # su
 # authentication labels
 nickname = TextInput(sw(50), sh(30), 64)
 capt = Text(sw(10), sh(30), 64)
-capt.write('NICKNAME')
+capt.write('USERNAME')
 
 """
 GAME LOOPS BELOW
