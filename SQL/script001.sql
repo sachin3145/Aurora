@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS player_spells(
     FOREIGN KEY (PLAYER_ID) REFERENCES GAME_STATS(PLAYER_ID)
                                          );
 
-#details of troops and spells attack defence and spells
+-- details of troops and spells attack defence and spells
 CREATE TABLE IF NOT EXISTS STATS(
     NAME VARCHAR(20) UNIQUE,
     ATTACK INT,
@@ -67,8 +67,73 @@ CREATE TABLE IF NOT EXISTS PLANETS(
 INSERT INTO PLANETS VALUES (1, 'Mercury', 0, 0,0),
                            (2, 'Venus', 0, 0, 0),
                            (3, 'Earth', 0, 0,0),
-                           (1, 'Mars', 0, 0,0),
-                           (1, 'Jupiter', 0, 0,0),
-                           (1, 'Saturn', 0, 0,0),
-                           (1, 'Uranus', 0, 0,0),
-                           (1, 'Neptune', 0, 0,0);
+                           (4, 'Mars', 0, 0,0),
+                           (5, 'Jupiter', 0, 0,0),
+                           (6, 'Saturn', 0, 0,0),
+                           (7, 'Uranus', 0, 0,0),
+                           (8, 'Neptune', 0, 0,0);
+
+
+CREATE TABLE IF NOT EXISTS SPELLS(
+    PLAYER VARCHAR(20) UNIQUE,
+    RAY_OF_SICKNESS INT,
+    INCINERATE INT,
+    PLASMA_DISCHARGE INT,
+    GOD_OF_CHAOS INT
+);
+
+CREATE TABLE IF NOT EXISTS DELTA(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS TARDIS(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS BENZAMITE(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS MANDALORE(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS NEMESIS(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS ELYSIUM(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS ARMADA(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);
+
+CREATE TABLE IF NOT EXISTS DEMOGORGON(
+    PLAYER VARCHAR(20) UNIQUE,
+    ATTACK INT,
+    DEFENCE INT,
+    HEALTH INT
+);

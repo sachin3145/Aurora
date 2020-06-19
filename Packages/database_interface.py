@@ -19,10 +19,9 @@ p = db.cursor()
 #    p.execute(open('../SQL/script002.sql').read())
 
 
-def execute(code):
+def execute_sql(code):
     p.execute(code)
     return p.fetchall()
 
 
-print(execute('Select CURDATE();'))
 p.close()
