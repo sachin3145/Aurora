@@ -10,12 +10,13 @@ try:
     p = db.cursor(buffered=True)
 
     def execute_sql(query):
-        """can be used to execute sql query"""
+        """used to execute sql query and fetch the complete result set"""
         p.execute(query)
         if p.rowcount > 0:
             return p.fetchall()
 
     def execute_sql_from_file(path):
+        """used to execute a sql file"""
         sql_file = open(path)
         sql_code = sql_file.read()
         sql_file.close()
