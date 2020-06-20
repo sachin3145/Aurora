@@ -110,7 +110,7 @@ def game():
     while loop.running:
         loop.set_screen()
         batch_place(attacks)
-        set_level(levels, 0)
+        set_level(levels, 1)
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)

@@ -38,7 +38,7 @@ def position_troop(x):
 
 
 def set_level(levels, n):
-    levels[n].place()
+    levels[n-1].place()
 # ----------------------------------------------------------
 
 
