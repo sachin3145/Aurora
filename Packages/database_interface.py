@@ -7,14 +7,13 @@ try:
     del key
     if db.is_connected():
         print('Successfully connected')
-    p = db.cursor()
+    p = db.cursor(buffered=True)
 
     def execute_sql(query):
-        """can be used to execute sql query within Database : Aurora"""
+        """can be used to execute sql query"""
         p.execute(query)
         if p.rowcount > 0:
             return p.fetchall()
-
 
     def execute_sql_from_file(path):
         sql_file = open(path)
@@ -24,39 +23,52 @@ try:
         for command in sql_commands:
             p.execute(command)
 
+    def create_player_id(player_name):
+        p.execute('USE AURORA')
+        p.execute("SELECT * FROM game_stats;")
+        return f'{player_name[0]}{player_name[-1]}{p.rowcount:08}'
+
+    def get_player_id(player_name):
+        p.execute('USE AURORA;')
+        player_id = execute_sql(f'SELECT PLAYER_ID FROM game_stats WHERE PLAYER_NAME = "{player_name}"')[0][0]
+        return player_id
 
     def is_unlocked(player_name, name, a_type):
-        execute_sql('USE AURORA;')
+        p.execute('USE AURORA;')
         if a_type == 'spell':
             a_type = 'player_spells'
         elif a_type == 'troop':
             a_type = 'player_troops'
         else:
             return
-        data_set = execute_sql(f'SELECT {name} FROM {a_type} WHERE PLAYER_NAME = {player_name};')
+        data_set = execute_sql(f'SELECT {name} FROM {a_type} WHERE PLAYER_ID = "{get_player_id(player_name)}";')
         if data_set is not None and data_set[0][0] == 1:
             return True
         return False
 
-
     def create_player(player_name):
-        execute_sql('USE AURORA;')
-        tables = ['game_stats', 'player_troops' 'player_spells', 'spells',
+        p.execute('USE AURORA;')
+        if (player_name,) in execute_sql('SELECT PLAYER_NAME FROM game_stats;'):
+            raise Exception('duplicate_player_name')
+
+        tables = ['player_troops', 'player_spells', 'spells',
                   'delta', 'tardis', 'benzamite', 'mandalore', 'nemesis', 'armada', 'elysium', 'demogorgon']
+
+        player_id = create_player_id(player_name)
+        p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name}");')
+
         for table in tables:
-            execute_sql(f'INSERT INTO {table} (PLAYER_NAME) VALUES {player_name};')
+            p.execute(f'INSERT INTO {table} (PLAYER_ID) VALUES ("{player_id}");')
+
+        p.execute('COMMIT;')
 
     execute_sql_from_file('../SQL/script001.sql')
-    create_player('player_1')
 
-#    if __name__ == '__main__':
-#        p.close()
-#        db.close()
+    if __name__ == '__main__':
+        p.close()
+        db.close()
 
 
-#except mysql.connector.Error as err:
-#    print(f"Something went wrong: {err}")
-#    exit()
-
-finally:
-    print('Hello world')
+except mysql.connector.Error as err:
+    print(f"Something went wrong: {err}")
+    exit()
