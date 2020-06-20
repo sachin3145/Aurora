@@ -48,21 +48,31 @@ try:
         return False
 
     def create_player(player_name):
+        """This function creates a player_profile"""
+
+        # initializing database and checking that no player with same name exists
+        # here name refers to players username
         p.execute('USE AURORA;')
         if (player_name,) in execute_sql('SELECT PLAYER_NAME FROM game_stats;'):
             raise Exception('duplicate_player_name')
 
+        # child tables
         tables = ['player_troops', 'player_spells', 'spells',
                   'delta', 'tardis', 'benzamite', 'mandalore', 'nemesis', 'armada', 'elysium', 'demogorgon']
 
+        # generating player_id using player_name
         player_id = create_player_id(player_name)
+
+        # adding data into parent tables
         p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name}");')
 
+        # adding data into child tables
         for table in tables:
             p.execute(f'INSERT INTO {table} (PLAYER_ID) VALUES ("{player_id}");')
 
         p.execute('COMMIT;')
 
+    # running default sql file that contains the structure of games database
     execute_sql_from_file('../SQL/script001.sql')
 
     if __name__ == '__main__':
