@@ -74,6 +74,13 @@ def change_active_state(seq, val):
         x.is_active = val
 
 
+def render_text(text, x, y, size=32):
+    """this function is used to display text on screen"""
+    text_object = Text(x, y, size)
+    text_object.write(text)
+    text_object.render()
+
+
 # ----------------------------------------------------------
 class MenuLoop(object):
     def __init__(self):
@@ -280,10 +287,3 @@ class Troop(Attacks):
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
-
-
-def render_text(text, x, y, size=32):
-    """this function is used to display text on screen"""
-    text_object = Text(x, y, size)
-    text_object.write(text)
-    text_object.render()
