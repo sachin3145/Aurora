@@ -45,6 +45,16 @@ try:
             return True
         return False
 
+    def get_troop(troop_name, player_id):
+        execute_sql('USE AURORA')
+        data = execute_sql(f'SELECT * FROM {troop_name} WHERE PLAYER_ID  = "{player_id}";')[0]
+        return {'attack': data[1], 'defence': data[2], 'health': data[3]}
+
+    def get_spell(spell, player_id):
+        execute_sql('USE AURORA')
+        data = execute_sql(f'SELECT {spell} FROM spells WHERE PLAYER_ID  = "{player_id}";')[0][0]
+        return data
+
     def player_exists(player_name):
         execute_sql('USE AURORA')
         if (player_name,) in execute_sql('SELECT PLAYER_NAME FROM game_stats;'):
