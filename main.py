@@ -47,11 +47,8 @@ auth_controls = [login, register, play_as_guest]
 attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
 levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
-# authentication labels
-nickname = TextInput(sw(50), sh(30), 64)
-capt = Text(sw(10), sh(30), 64)
-capt.write('USERNAME')
-
+# authentication input box
+username = TextInput(sw(50), sh(30), 64)
 """
 GAME LOOPS BELOW
 """
@@ -76,16 +73,25 @@ def menu():
             change_active_state(auth_controls, True)
             batch_place(auth_controls)
         elif loop.index == 'login':
-            capt.render()
-            nickname.render()
+            change_active_state(auth_controls, False)
+            render_text('USERNAME', sw(10), sh(30), 64)
+            username.render()
             cont.place()
+        elif loop.index == 'register':
+            change_active_state(auth_controls, False)
+            render_text('USERNAME', sw(10), sh(30), 64)
+            username.render()
+            if not player_exists(username.text.upper()):
+                cont.place()
+            else:
+                render_text('USERNAME NOT AVAILABLE', cont.x, cont.y, 32)
 
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)
 
-            if loop.index == 'login':
-                nickname.handle_events(event)
+            if loop.index in ('login', 'register'):
+                username.handle_events(event)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()

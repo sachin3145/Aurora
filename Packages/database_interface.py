@@ -1,7 +1,5 @@
 import mysql.connector
-
 key = input('Please Enter mysql root password : ')
-
 try:
     db = mysql.connector.connect(host='localhost', user='root', passwd=key)
     del key
@@ -47,24 +45,29 @@ try:
             return True
         return False
 
+    def player_exists(player_name):
+        execute_sql('USE AURORA')
+        if (player_name,) in execute_sql('SELECT PLAYER_NAME FROM game_stats;'):
+            return True
+
     def create_player(player_name):
         """This function creates a player_profile"""
 
         # initializing database and checking that no player with same name exists
         # here name refers to players username
         p.execute('USE AURORA;')
-        if (player_name,) in execute_sql('SELECT PLAYER_NAME FROM game_stats;'):
-            raise Exception('duplicate_player_name')
+        if player_exists(player_name.upper()):
+            return
 
         # child tables
         tables = ['player_troops', 'player_spells', 'spells',
                   'delta', 'tardis', 'benzamite', 'mandalore', 'nemesis', 'armada', 'elysium', 'demogorgon']
 
         # generating player_id using player_name
-        player_id = create_player_id(player_name)
+        player_id = create_player_id(player_name.upper())
 
         # adding data into parent tables
-        p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name}");')
+        p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name.upper()}");')
 
         # adding data into child tables
         for table in tables:
@@ -72,10 +75,9 @@ try:
 
         p.execute('COMMIT;')
 
-    # running default sql file that contains the structure of games database
-    execute_sql_from_file('../SQL/script001.sql')
-
     if __name__ == '__main__':
+        execute_sql_from_file('../SQL/script001.sql')
+        create_player("magneto")
         p.close()
         db.close()
 

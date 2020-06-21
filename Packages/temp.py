@@ -1,5 +1,6 @@
 from Aurora.Packages.dependencies import *
 
+
 # -------------------------------------------------------------
 
 screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
@@ -238,3 +239,9 @@ class Troop(Attacks):
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
+
+
+def render_text(text, x, y, size=32):
+    text_object = Text(x, y, size)
+    text_object.write(text)
+    text_object.render()
