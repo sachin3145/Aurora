@@ -243,4 +243,6 @@ def render_text(text, x, y, size=32):
     text_object.write(text)
     text_object.render()
 
-def set_attributes(seq, atype):
+
+def set_attributes(seq, a_type):
+    pass
