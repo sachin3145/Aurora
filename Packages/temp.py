@@ -242,6 +242,7 @@ class Troop(Attacks):
 
 
 def render_text(text, x, y, size=32):
+    """this function is used to display text on screen"""
     text_object = Text(x, y, size)
     text_object.write(text)
     text_object.render()
