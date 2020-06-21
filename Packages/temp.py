@@ -206,6 +206,7 @@ class Attacks(object):
         self.rect = self.icon.get_rect()
         self.rect.top = self.y - self.icon.get_width()/2
         self.rect.left = self.x - self.icon.get_height()/2
+        self.name = file
 
     def place(self):
         hover_place(self.icon, self.rect)
@@ -244,5 +245,13 @@ def render_text(text, x, y, size=32):
     text_object.render()
 
 
-def set_attributes(seq, a_type):
-    pass
+def set_attributes(seq, category, player_name):
+    for attack in seq:
+        if category == 'spell':
+            attack.damage = get_spell(attack.name[:-4], get_player_id(player_name))
+        elif category == 'troop':
+            data = get_troop(attack.name[:-4], get_player_id(player_name))
+            attack.damage = data['attack']
+            attack.defence = data['defence']
+            attack.health = data['health']
+

@@ -32,6 +32,11 @@ try:
         player_id = execute_sql(f'SELECT PLAYER_ID FROM game_stats WHERE PLAYER_NAME = "{player_name}"')[0][0]
         return player_id
 
+    def get_player_info(info_type, player_name):
+        p.execute('USE AURORA;')
+        info = execute_sql(f'SELECT {info_type} FROM game_stats WHERE PLAYER_NAME = "{player_name}"')[0][0]
+        return info
+
     def is_unlocked(player_name, name, a_type):
         p.execute('USE AURORA;')
         if a_type == 'spell':
@@ -46,14 +51,19 @@ try:
         return False
 
     def get_troop(troop_name, player_id):
-        execute_sql('USE AURORA')
+        execute_sql('USE AURORA;')
         data = execute_sql(f'SELECT * FROM {troop_name} WHERE PLAYER_ID  = "{player_id}";')[0]
         return {'attack': data[1], 'defence': data[2], 'health': data[3]}
 
     def get_spell(spell, player_id):
-        execute_sql('USE AURORA')
+        execute_sql('USE AURORA;')
         data = execute_sql(f'SELECT {spell} FROM spells WHERE PLAYER_ID  = "{player_id}";')[0][0]
         return data
+
+    def update(table_name, column, value, player_id):
+        p.execute('USE AURORA;')
+        p.execute(f'UPDATE {table_name} SET {column} = {value} WHERE PLAYER_ID = "{player_id}";')
+        p.execute('COMMIT;')
 
     def player_exists(player_name):
         execute_sql('USE AURORA')

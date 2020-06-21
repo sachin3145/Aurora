@@ -6,10 +6,10 @@ pygame.display.set_caption("The Helios Attack")
 icon = pygame.image.load('Images/icons/icon.png')
 pygame.display.set_icon(icon)
 
-poison = Spell(sw(1.83), sh(92.86), 'poison.png')
-fire = Spell(sw(4.76), sh(92.86), 'fire.png')
-plasma = Spell(sw(7.66), sh(92.86), 'plasma_small.png')
-goc = Spell(sw(10.61), sh(92.86), 'space.png')
+ray_of_sickness = Spell(sw(1.83), sh(92.86), 'ray_of_sickness.png')
+incinerate = Spell(sw(4.76), sh(92.86), 'incinerate.png')
+plasma_discharge = Spell(sw(7.66), sh(92.86), 'plasma_discharge.png')
+god_of_chaos = Spell(sw(10.61), sh(92.86), 'god_of_chaos.png')
 
 mercury = Planet('mercury.png', 1000)
 venus = Planet('venus.png', 2000)
@@ -44,7 +44,11 @@ sun = pygame.image.load('Images/Planet/sun.png')
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
-attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
+troops = [demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta]
+spells = [ray_of_sickness, incinerate, plasma_discharge, god_of_chaos]
+attacks = spells + troops
+attacks = attacks[::-1]
+
 levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
 # authentication input box
@@ -109,11 +113,17 @@ def menu():
                 elif register.is_active and register.rect.collidepoint(x, y):
                     loop.index = 'register'
                 elif play_as_guest.is_active and play_as_guest.rect.collidepoint(x, y):
+                    set_attributes(troops, 'troop', 'GUEST')
+                    set_attributes(spells, 'spell', 'GUEST')
                     game()
                     loop.running = False
                 elif cont.is_active and cont.rect.collidepoint(x, y):
                     if loop.index == 'register':
                         create_player(username.text)
+                    set_attributes(troops, 'troop', username.text.upper())
+                    set_attributes(spells, 'spell', username.text.upper())
+                    game()
+                    loop.running = False
 
 
 # Main loop
