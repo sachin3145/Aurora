@@ -76,8 +76,11 @@ def menu():
             change_active_state(auth_controls, False)
             render_text('USERNAME', sw(10), sh(30), 64)
             username.render()
-            cont.place()
+            if player_exists(username.text.upper()):
+                cont.is_active = True
+                cont.place()
         elif loop.index == 'register':
+            cont.is_active = True
             change_active_state(auth_controls, False)
             render_text('USERNAME', sw(10), sh(30), 64)
             username.render()
@@ -108,6 +111,9 @@ def menu():
                 elif play_as_guest.is_active and play_as_guest.rect.collidepoint(x, y):
                     game()
                     loop.running = False
+                elif cont.is_active and cont.rect.collidepoint(x, y):
+                    if loop.index == 'register':
+                        create_player(username.text)
 
 
 # Main loop
