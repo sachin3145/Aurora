@@ -90,8 +90,52 @@ class MenuLoop(object):
 
 
 class GameLoop(MenuLoop):
-    def __init__(self, profile=None):
+    def __init__(self, player_name):
         super().__init__()
+        self.player_name = player_name
+        self.player_id = get_player_id(player_name)
+        self.player_level = get_player_info('PLAYER_LEVEL', player_name)
+        self.score = get_player_info('SCORE', player_name)
+        self.badges = 'NO BADGES UNLOCKED YET'
+        self.progress = get_player_info('PROGRESS', player_name)
+
+    def set_attributes(self, seq, category):
+        if category == 'spell':
+            for spell in seq:
+                spell.damage = get_spell(spell.name[:-4], self.player_id)
+        elif category == 'troop':
+            for troop in seq:
+                data = get_troop(troop.name[:-4], self.player_id)
+                troop.damage = data['attack']
+                troop.defence = data['defence']
+                troop.health = data['health']
+
+    def save_progress(self, category, seq=None):
+        if seq is None:
+            seq = []
+
+        if category == 'spell':
+            for spell in seq:
+                update('spells', f'{spell.name[:-4]}', f'"{spell.damage}"', self.player_id)
+        elif category == 'troop':
+            for troop in seq:
+                update(f'{troop.name[:-4]}', 'ATTACK', f'"{troop.damage}"', self.player_id)
+                update(f'{troop.name[:-4]}', 'DEFENCE', f'"{troop.defence}"', self.player_id)
+                update(f'{troop.name[:-4]}', 'HEALTH', f'"{troop.health}"', self.player_id)
+        elif category == 'overall':
+            update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
+            update('game_stats', 'SCORE', f'"{self.score}"', self.player_id)
+            update('game_stats', 'BADGES', f'"{self.badges}"', self.player_id)
+            update('game_stats', 'PROGRESS', f'"{self.progress}"', self.player_id)
+
+    def unlocked_troop(self, troop_name):
+        update('player_troops', f'"{troop_name}"', 1, self.player_id)
+
+    def unlocked_spell(self, spell_name):
+        update('player_spells', f'"{spell_name}"', 1, self.player_id)
+
+    def unlocked_badge(self, badge_name):
+        self.badges = badge_name
 
 
 class Control(object):
@@ -243,15 +287,3 @@ def render_text(text, x, y, size=32):
     text_object = Text(x, y, size)
     text_object.write(text)
     text_object.render()
-
-
-def set_attributes(seq, category, player_name):
-    for attack in seq:
-        if category == 'spell':
-            attack.damage = get_spell(attack.name[:-4], get_player_id(player_name))
-        elif category == 'troop':
-            data = get_troop(attack.name[:-4], get_player_id(player_name))
-            attack.damage = data['attack']
-            attack.defence = data['defence']
-            attack.health = data['health']
-

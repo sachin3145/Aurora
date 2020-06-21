@@ -113,30 +113,32 @@ def menu():
                 elif register.is_active and register.rect.collidepoint(x, y):
                     loop.index = 'register'
                 elif play_as_guest.is_active and play_as_guest.rect.collidepoint(x, y):
-                    set_attributes(troops, 'troop', 'GUEST')
-                    set_attributes(spells, 'spell', 'GUEST')
                     game()
                     loop.running = False
                 elif cont.is_active and cont.rect.collidepoint(x, y):
                     if loop.index == 'register':
                         create_player(username.text)
-                    set_attributes(troops, 'troop', username.text.upper())
-                    set_attributes(spells, 'spell', username.text.upper())
-                    game()
+                    game(username.text)
                     loop.running = False
 
 
 # Main loop
-def game():
-    loop = GameLoop()
+def game(player_name='GUEST'):
+    loop = GameLoop(player_name)
+    loop.set_attributes(spells, 'spell')
+    loop.set_attributes(troops, 'troop')
     while loop.running:
         loop.set_screen()
         batch_place(attacks)
-        set_level(levels, 1)
+        set_level(levels, loop.player_level)
         pygame.display.update()
         for event in pygame.event.get():
-            loop.handle_quit(event)
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.QUIT:
+                loop.save_progress('troop', troops)
+                loop.save_progress('spell', spells)
+                loop.save_progress('overall')
+                loop.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
 
