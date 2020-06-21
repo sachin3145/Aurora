@@ -199,15 +199,13 @@ class Planet(object):
 
 class Attacks(object):
     """Parent class for Troop and Spell class"""
-    def __init__(self, x, y, file, base_dir, base_rating):
+    def __init__(self, x, y, file, base_dir):
         self.x = x
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
         self.rect.top = self.y - self.icon.get_width()/2
         self.rect.left = self.x - self.icon.get_height()/2
-        self.base_Rating = base_rating
-        self.damage = self.base_Rating
 
     def place(self):
         hover_place(self.icon, self.rect)
@@ -220,20 +218,18 @@ class Attacks(object):
 class Spell(Attacks):
     """Class to manage Spells
     Parent class : Attacks"""
-    def __init__(self, x, y, file, base_rating=0):
+    def __init__(self, x, y, file):
         base_dir = 'Images/32px/'
-        super().__init__(x, y, file, base_dir, base_rating)
+        super().__init__(x, y, file, base_dir)
 
 
 class Troop(Attacks):
     """Class to manage Troops
     Parent class : Attacks"""
-    def __init__(self, x, y, file, base_rating):
+    def __init__(self, x, y, file):
         base_dir = 'Images/32px/'
         # calling initializer of parent class to set common variables up
-        super().__init__(x, y, file, base_dir, base_rating)
-        self.defence = self.base_Rating*0.5
-        self.health = self.base_Rating*0.75
+        super().__init__(x, y, file, base_dir)
 
         # loading corresponding troop images
         troop_dir = 'Images/64px/'
@@ -246,3 +242,5 @@ def render_text(text, x, y, size=32):
     text_object = Text(x, y, size)
     text_object.write(text)
     text_object.render()
+
+def set_attributes(seq, atype):
