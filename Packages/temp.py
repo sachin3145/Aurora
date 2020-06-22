@@ -82,9 +82,9 @@ def render_text(text, x, y, size=32):
 
 
 def pos(degree, x_radius, y_radius):
-    # pygame.draw.ellipse(screen, (255, 255, 255), (sw(12.5), sh(12.5), sw(75), sh(75)), 1)
+    # pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
     x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
-    y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50)
+    y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 64
     return x1, y1
 
 
@@ -237,11 +237,8 @@ class Planet(object):
     def __init__(self, file, base_rating):
         base_dir = 'Images/Planet/'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
-        self.x = int(sw(50) - (self.icon.get_width() / 2))
-        self.y = int(sh(2) + 128 - (self.icon.get_height() / 2))
         self.rect = self.icon.get_rect()
-        self.rect.top = self.y
-        self.rect.left = self.x
+        self.rect.center = (sw(50), sh(2)+128)
 
         self.base_rating = base_rating
         self.damage = base_rating*0.1
@@ -262,8 +259,7 @@ class Attacks(object):
         self.y = y
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
-        self.rect.top = self.y - self.icon.get_width()/2
-        self.rect.left = self.x - self.icon.get_height()/2
+        self.rect.center = (self.x, self.y)
         self.name = file
 
     def place(self):
@@ -297,13 +293,18 @@ class Troop(Attacks):
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
 
+    @staticmethod
+    def rotate(image, angle):
+        x, y = pos(Troop.deg, sw(45), sh(65))
+        rotated_image = pygame.transform.rotozoom(image, -angle, 1)
+        rotated_rect = rotated_image.get_rect(center=(x, y))
+        return rotated_image, rotated_rect
+
     def spawn(self):
         if Troop.deg < 180-18:
             Troop.deg += 18
-            self.rectT.left, self.rectT.top = pos(Troop.deg, sw(37.5), sh(37.5))
-            self.rectT.top -= self.img.get_height()/2
-            self.rectT.left -= self.img.get_width()/2
-            screen.blit(self.img, self.rectT)
+            rotated_img_data = self.rotate(self.img, Troop.deg-90)
+            screen.blit(rotated_img_data[0], rotated_img_data[1])
 
     def attack(self):
         print(self)
