@@ -134,9 +134,12 @@ def game(player_name='GUEST'):
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                loop.save_progress('troop', troops)
-                loop.save_progress('spell', spells)
-                loop.save_progress('overall')
+                if loop.player_name != 'GUEST':
+                    loop.save_progress('troop', troops)
+                    loop.save_progress('spell', spells)
+                    loop.save_progress('overall')
+                p.close()
+                db.close()
                 loop.running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
