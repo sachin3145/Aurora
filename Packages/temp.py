@@ -81,6 +81,13 @@ def render_text(text, x, y, size=32):
     text_object.render()
 
 
+def pos(degree, x_radius, y_radius):
+    # pygame.draw.ellipse(screen, (255, 255, 255), (sw(12.5), sh(12.5), sw(75), sh(75)), 1)
+    x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
+    y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50)
+    return x1, y1
+
+
 # ----------------------------------------------------------
 class MenuLoop(object):
     def __init__(self):
@@ -262,10 +269,6 @@ class Attacks(object):
     def place(self):
         hover_place(self.icon, self.rect)
 
-    def attack(self):
-        print(self)
-        pass
-
 
 class Spell(Attacks):
     """Class to manage Spells
@@ -274,10 +277,16 @@ class Spell(Attacks):
         base_dir = 'Images/32px/'
         super().__init__(x, y, file, base_dir)
 
+    def attack(self):
+        print(self)
+        pass
+
 
 class Troop(Attacks):
     """Class to manage Troops
     Parent class : Attacks"""
+    deg = 0
+
     def __init__(self, x, y, file):
         base_dir = 'Images/32px/'
         # calling initializer of parent class to set common variables up
@@ -287,3 +296,16 @@ class Troop(Attacks):
         troop_dir = 'Images/64px/'
         self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
         self.rectT = self.img.get_rect()
+
+    def spawn(self):
+        if Troop.deg < 180-18:
+            Troop.deg += 18
+            self.rectT.left, self.rectT.top = pos(Troop.deg, sw(37.5), sh(37.5))
+            self.rectT.top -= self.img.get_height()/2
+            self.rectT.left -= self.img.get_width()/2
+            screen.blit(self.img, self.rectT)
+
+    def attack(self):
+        print(self)
+        self.spawn()
+        pass

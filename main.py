@@ -127,8 +127,8 @@ def game(player_name='GUEST'):
     loop = GameLoop(player_name)
     loop.set_attributes(spells, 'spell')
     loop.set_attributes(troops, 'troop')
+    loop.set_screen()
     while loop.running:
-        loop.set_screen()
         batch_place(attacks)
         set_level(levels, loop.player_level)
         pygame.display.update()
@@ -149,6 +149,6 @@ def game(player_name='GUEST'):
 """
 GAMES FLOW OF CONTROL
 """
-menu()
+game()
 
 pygame.quit()
