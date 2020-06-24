@@ -6,10 +6,10 @@ pygame.display.set_caption("The Helios Attack")
 icon = pygame.image.load('Images/icons/icon.png')
 pygame.display.set_icon(icon)
 
-poison = Spell(sw(1.83), sh(92.86), 'poison.png')
-fire = Spell(sw(4.76), sh(92.86), 'fire.png')
-plasma = Spell(sw(7.66), sh(92.86), 'plasma_small.png')
-goc = Spell(sw(10.61), sh(92.86), 'space.png')
+ray_of_sickness = Spell(sw(1.83), sh(92.86), 'ray_of_sickness.png')
+incinerate = Spell(sw(4.76), sh(92.86), 'incinerate.png')
+plasma_discharge = Spell(sw(7.66), sh(92.86), 'plasma_discharge.png')
+god_of_chaos = Spell(sw(10.61), sh(92.86), 'god_of_chaos.png')
 
 mercury = Planet('mercury.png', 1000)
 venus = Planet('venus.png', 2000)
@@ -29,14 +29,14 @@ play_as_guest = Control(sh(50)+100, 'play_as_guest.png')
 cont = Control(sh(80), 'continue.png')
 back = Control(sh(3), 'back.png', sw(97))
 
-demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png', 1500)
-elysium = Troop(sw(91.58), sh(85.99), 'elysium.png', 1200)
-armada = Troop(sw(94.51), sh(85.99), 'armada.png', 1000)
-nemesis = Troop(sw(97.51), sh(85.99), 'nemesis.png', 800)
-mandalore = Troop(sw(88.65), sh(92.86), 'mandalore.png', 600)
-benzamite = Troop(sw(91.58), sh(92.86), 'benzamite.png', 400)
-tardis = Troop(sw(94.51), sh(92.86), 'tardis.png', 200)
-delta = Troop(sw(97.51), sh(92.86), 'delta.png', 100)
+demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png')
+elysium = Troop(sw(91.58), sh(85.99), 'elysium.png')
+armada = Troop(sw(94.51), sh(85.99), 'armada.png')
+nemesis = Troop(sw(97.51), sh(85.99), 'nemesis.png')
+mandalore = Troop(sw(88.65), sh(92.86), 'mandalore.png')
+benzamite = Troop(sw(91.58), sh(92.86), 'benzamite.png')
+tardis = Troop(sw(94.51), sh(92.86), 'tardis.png')
+delta = Troop(sw(97.51), sh(92.86), 'delta.png')
 
 # loading images
 sun = pygame.image.load('Images/Planet/sun.png')
@@ -44,14 +44,15 @@ sun = pygame.image.load('Images/Planet/sun.png')
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
-attacks = [poison, fire, plasma, goc, demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta][::-1]
+troops = [demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta]
+spells = [ray_of_sickness, incinerate, plasma_discharge, god_of_chaos]
+attacks = spells + troops
+attacks = attacks[::-1]
+
 levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
-# authentication labels
-nickname = TextInput(sw(50), sh(30), 64)
-capt = Text(sw(10), sh(30), 64)
-capt.write('USERNAME')
-
+# authentication input box
+username = TextInput(sw(50), sh(30), 64)
 """
 GAME LOOPS BELOW
 """
@@ -76,16 +77,28 @@ def menu():
             change_active_state(auth_controls, True)
             batch_place(auth_controls)
         elif loop.index == 'login':
-            capt.render()
-            nickname.render()
-            cont.place()
+            change_active_state(auth_controls, False)
+            render_text('USERNAME', sw(10), sh(30), 64)
+            username.render()
+            if player_exists(username.text.upper()):
+                cont.is_active = True
+                cont.place()
+        elif loop.index == 'register':
+            cont.is_active = True
+            change_active_state(auth_controls, False)
+            render_text('USERNAME', sw(10), sh(30), 64)
+            username.render()
+            if not player_exists(username.text.upper()):
+                cont.place()
+            else:
+                render_text('USERNAME NOT AVAILABLE', cont.x, cont.y, 32)
 
         pygame.display.update()
         for event in pygame.event.get():
             loop.handle_quit(event)
 
-            if loop.index == 'login':
-                nickname.handle_events(event)
+            if loop.index in ('login', 'register'):
+                username.handle_events(event)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
@@ -102,19 +115,33 @@ def menu():
                 elif play_as_guest.is_active and play_as_guest.rect.collidepoint(x, y):
                     game()
                     loop.running = False
+                elif cont.is_active and cont.rect.collidepoint(x, y):
+                    if loop.index == 'register':
+                        create_player(username.text)
+                    game(username.text)
+                    loop.running = False
 
 
 # Main loop
-def game():
-    loop = GameLoop()
+def game(player_name='GUEST'):
+    loop = GameLoop(player_name)
+    loop.set_attributes(spells, 'spell')
+    loop.set_attributes(troops, 'troop')
+    loop.set_screen()
     while loop.running:
-        loop.set_screen()
         batch_place(attacks)
-        set_level(levels, 0)
+        set_level(levels, loop.player_level)
         pygame.display.update()
         for event in pygame.event.get():
-            loop.handle_quit(event)
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.QUIT:
+                if loop.player_name != 'GUEST':
+                    loop.save_progress('troop', troops)
+                    loop.save_progress('spell', spells)
+                    loop.save_progress('overall')
+                p.close()
+                db.close()
+                loop.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
 
@@ -122,6 +149,6 @@ def game():
 """
 GAMES FLOW OF CONTROL
 """
-menu()
+game()
 
 pygame.quit()
