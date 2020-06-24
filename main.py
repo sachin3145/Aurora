@@ -83,13 +83,17 @@ def menu():
             if player_exists(username.text.upper()):
                 cont.is_active = True
                 cont.place()
+            else:
+                render_text('PLEASE ENTER YOUR USERNAME', cont.x, cont.y, 32)
         elif loop.index == 'register':
             cont.is_active = True
             change_active_state(auth_controls, False)
             render_text('USERNAME', sw(10), sh(30), 64)
             username.render()
-            if not player_exists(username.text.upper()):
+            if username.text.upper() != '' and not player_exists(username.text.upper()):
                 cont.place()
+            elif username.text.upper() == '':
+                render_text('PLEASE CHOOSE A USERNAME', cont.x, cont.y, 32)
             else:
                 render_text('USERNAME NOT AVAILABLE', cont.x, cont.y, 32)
 
@@ -149,6 +153,6 @@ def game(player_name='GUEST'):
 """
 GAMES FLOW OF CONTROL
 """
-game()
+menu()
 
 pygame.quit()
