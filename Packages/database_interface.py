@@ -1,5 +1,6 @@
+from getpass import getpass
 import mysql.connector
-key = input('Please Enter mysql root password : ')
+key = getpass('Please Enter mysql root password : ')
 try:
     db = mysql.connector.connect(host='localhost', user='root', passwd=key)
     del key
