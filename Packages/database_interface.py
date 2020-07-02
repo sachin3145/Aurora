@@ -16,9 +16,8 @@ try:
 
     def execute_sql_from_file(path):
         """used to execute a sql file"""
-        sql_file = open(path)
-        sql_code = sql_file.read()
-        sql_file.close()
+        with open(path) as sql_file:
+            sql_code = sql_file.read()
         sql_commands = sql_code.split(';')
         for command in sql_commands:
             p.execute(command)
@@ -64,7 +63,7 @@ try:
     def update(table_name, column, value, player_id):
         p.execute('USE AURORA;')
         p.execute(f'UPDATE {table_name} SET {column} = {value} WHERE PLAYER_ID = "{player_id}";')
-        p.execute('COMMIT;')
+        db.commit()
 
     def player_exists(player_name):
         execute_sql('USE AURORA')
@@ -94,7 +93,7 @@ try:
         for table in tables:
             p.execute(f'INSERT INTO {table} (PLAYER_ID) VALUES ("{player_id}");')
 
-        p.execute('COMMIT;')
+        db.commit()
 
     if __name__ == '__main__':
         execute_sql_from_file('../SQL/script001.sql')
