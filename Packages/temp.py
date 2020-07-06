@@ -317,8 +317,9 @@ class Troop(Attacks):
         def spawn(self):
             screen.blit(self.rotate(self.img)[0], self.rotate(self.img)[1])
 
-    def attack(self):
+    def troopers(self):
         print(self)
-        for i in range(0, 181, 18):
-            self.BattleTroop(self.file, i, self.damage, self.defence, self.health).spawn()
+        return dict([(f't{i//18}', self.BattleTroop(self.file, i, self.damage, self.defence, self.health)) for i in range(0, 181, 18)])
+
+    def attack(self):
         pass
