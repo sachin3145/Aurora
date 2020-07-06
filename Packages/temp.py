@@ -285,18 +285,15 @@ class Troop(Attacks):
         self.health = 0
         self.file = file
 
-    class Spawned:
-        def __init__(self, file, damage, defence, health):
+    class BattleTroop:
+        def __init__(self, file, angle, damage, defence, health):
             troop_dir = 'Images/64px/'
             self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
             self.rectT = self.img.get_rect()
             self.damage = damage
             self.defence = defence
             self.health = health
-            print('troop health:', self.health)
-
-        def refresh(self, x, y):
-            screen.blit(self.img, )
+            self.angle = angle
 
         def destroy(self):
             pass
@@ -311,20 +308,17 @@ class Troop(Attacks):
             y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 16
             return x1, y1
 
-        def rotate(self, image, angle):
-            x, y = self.pos(Troop.deg, sw(45), sh(65))
-            rotated_image = pygame.transform.rotozoom(image, -angle, 1)
+        def rotate(self, image,):
+            x, y = self.pos(self.angle, sw(45), sh(65))
+            rotated_image = pygame.transform.rotozoom(image, -self.angle+90, 1)
             rotated_rect = rotated_image.get_rect(center=(x, y))
             return rotated_image, rotated_rect
 
         def spawn(self):
-            if Troop.deg <= 180:
-                rotated_img_data = self.rotate(self.img, Troop.deg - 90)
-                screen.blit(rotated_img_data[0], rotated_img_data[1])
-                Troop.deg += 18
+            screen.blit(self.rotate(self.img)[0], self.rotate(self.img)[1])
 
     def attack(self):
         print(self)
-        t1 = self.Spawned(self.file, self.damage, self.defence, self.health)
-        t1.spawn()
+        for i in range(0, 181, 18):
+            self.BattleTroop(self.file, i, self.damage, self.defence, self.health).spawn()
         pass
