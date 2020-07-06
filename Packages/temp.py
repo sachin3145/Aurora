@@ -81,13 +81,6 @@ def render_text(text, x, y, size=32):
     text_object.render()
 
 
-def pos(degree, x_radius, y_radius):
-    # pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
-    x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
-    y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 64
-    return x1, y1
-
-
 # ----------------------------------------------------------
 class MenuLoop(object):
     def __init__(self):
@@ -287,26 +280,51 @@ class Troop(Attacks):
         base_dir = 'Images/32px/'
         # calling initializer of parent class to set common variables up
         super().__init__(x, y, file, base_dir)
+        self.damage = 0
+        self.defence = 0
+        self.health = 0
+        self.file = file
 
-        # loading corresponding troop images
-        troop_dir = 'Images/64px/'
-        self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
-        self.rectT = self.img.get_rect()
+    class Spawned:
+        def __init__(self, file, damage, defence, health):
+            troop_dir = 'Images/64px/'
+            self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
+            self.rectT = self.img.get_rect()
+            self.damage = damage
+            self.defence = defence
+            self.health = health
+            print('troop health:', self.health)
 
-    @staticmethod
-    def rotate(image, angle):
-        x, y = pos(Troop.deg, sw(45), sh(65))
-        rotated_image = pygame.transform.rotozoom(image, -angle, 1)
-        rotated_rect = rotated_image.get_rect(center=(x, y))
-        return rotated_image, rotated_rect
+        def refresh(self, x, y):
+            screen.blit(self.img, )
 
-    def spawn(self):
-        if Troop.deg < 180-18:
-            Troop.deg += 18
-            rotated_img_data = self.rotate(self.img, Troop.deg-90)
-            screen.blit(rotated_img_data[0], rotated_img_data[1])
+        def destroy(self):
+            pass
+
+        def fire(self):
+            pass
+
+        @staticmethod
+        def pos(degree, x_radius, y_radius):
+            # pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
+            x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
+            y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 16
+            return x1, y1
+
+        def rotate(self, image, angle):
+            x, y = self.pos(Troop.deg, sw(45), sh(65))
+            rotated_image = pygame.transform.rotozoom(image, -angle, 1)
+            rotated_rect = rotated_image.get_rect(center=(x, y))
+            return rotated_image, rotated_rect
+
+        def spawn(self):
+            if Troop.deg <= 180:
+                rotated_img_data = self.rotate(self.img, Troop.deg - 90)
+                screen.blit(rotated_img_data[0], rotated_img_data[1])
+                Troop.deg += 18
 
     def attack(self):
         print(self)
-        self.spawn()
+        t1 = self.Spawned(self.file, self.damage, self.defence, self.health)
+        t1.spawn()
         pass
