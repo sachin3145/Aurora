@@ -154,5 +154,5 @@ def game(player_name='GUEST'):
 GAMES FLOW OF CONTROL
 """
 
-print(nemesis.troopers())
+menu()
 pygame.quit()

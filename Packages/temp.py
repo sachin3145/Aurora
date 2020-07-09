@@ -322,4 +322,5 @@ class Troop(Attacks):
         return dict([(f't{i//18}', self.BattleTroop(self.file, i, self.damage, self.defence, self.health)) for i in range(0, 181, 18)])
 
     def attack(self):
+
         pass
