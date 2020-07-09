@@ -319,8 +319,17 @@ class Troop(Attacks):
 
     def troopers(self):
         print(self)
-        return dict([(f't{i//18}', self.BattleTroop(self.file, i, self.damage, self.defence, self.health)) for i in range(0, 181, 18)])
+        return [self.BattleTroop(self.file, i, self.damage, self.defence, self.health) for i in range(0, 181, 18)]
+
+    active_troops = []
 
     def attack(self):
+        self.troopers()
+        for i in self.troopers():
+            if i not in Troop.active_troops:
+                Troop.active_troops.append(i)
+                i.spawn()
+                break
+
 
         pass

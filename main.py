@@ -53,6 +53,7 @@ levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # su
 
 # authentication input box
 username = TextInput(sw(50), sh(30), 64)
+
 """
 GAME LOOPS BELOW
 """
