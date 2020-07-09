@@ -317,17 +317,15 @@ class Troop(Attacks):
         def spawn(self):
             screen.blit(self.rotate(self.img)[0], self.rotate(self.img)[1])
 
-    def troopers(self):
-        print(self)
-        return [self.BattleTroop(self.file, i, self.damage, self.defence, self.health) for i in range(0, 181, 18)]
-
+    angles = list(range(0, 181, 18))
+    # Occupied pos = angles/18
     occupied_pos = []
 
     def attack(self):
-        self.troopers()
-        # for i in self.troopers():
-        #     if i not in Troop.active_troops:
-        #         Troop.active_troops.append(i)
-        #         i.spawn()
-        #         break
+        for i in Troop.angles:
+            if i//18 not in Troop.occupied_pos:
+                Troop.occupied_pos.append(i // 18)
+                trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
+                trooper.spawn()
+                break
         pass
