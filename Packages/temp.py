@@ -321,15 +321,13 @@ class Troop(Attacks):
         print(self)
         return [self.BattleTroop(self.file, i, self.damage, self.defence, self.health) for i in range(0, 181, 18)]
 
-    active_troops = []
+    occupied_pos = []
 
     def attack(self):
         self.troopers()
-        for i in self.troopers():
-            if i not in Troop.active_troops:
-                Troop.active_troops.append(i)
-                i.spawn()
-                break
-
-
+        # for i in self.troopers():
+        #     if i not in Troop.active_troops:
+        #         Troop.active_troops.append(i)
+        #         i.spawn()
+        #         break
         pass
