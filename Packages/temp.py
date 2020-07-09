@@ -320,12 +320,18 @@ class Troop(Attacks):
     angles = list(range(0, 181, 18))
     # Occupied pos = angles/18
     occupied_pos = []
+    active_troops = []
+
+    @classmethod
+    def update_troops(cls):
+        for i in cls.active_troops:
+            i.spawn()
 
     def attack(self):
         for i in Troop.angles:
             if i//18 not in Troop.occupied_pos:
                 Troop.occupied_pos.append(i // 18)
                 trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
-                trooper.spawn()
+                Troop.active_troops.append(trooper)
                 break
         pass
