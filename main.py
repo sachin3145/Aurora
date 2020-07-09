@@ -54,6 +54,12 @@ levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # su
 # authentication input box
 username = TextInput(sw(50), sh(30), 64)
 
+# how to play text
+with open('./Documentation/HOWTOPLAY.txt') as text:
+    htp_text_list = text.read()
+
+htp_text_list = htp_text_list.splitlines()
+
 """
 GAME LOOPS BELOW
 """
@@ -70,7 +76,11 @@ def menu():
             change_active_state(auth_controls, False)
             batch_place(controls)
         elif loop.index == 'htp':
-            pass
+            change_active_state(controls, False)
+            y = 75
+            for htp_text in htp_text_list:
+                render_text(htp_text, 100, y)
+                y += 40
         elif loop.index == 'high':
             pass
         elif loop.index == 'start':
@@ -156,5 +166,5 @@ def game(player_name='GUEST'):
 GAMES FLOW OF CONTROL
 """
 
-game()
+menu()
 pygame.quit()
