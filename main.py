@@ -3,7 +3,7 @@ from Aurora.Packages.temp import *
 
 # title and icon
 pygame.display.set_caption("The Helios Attack")
-icon = pygame.image.load('Images/icons/icon.png')
+icon = pygame.image.load('Images\\icons\\icon.png')
 pygame.display.set_icon(icon)
 
 ray_of_sickness = Spell(sw(1.83), sh(92.86), 'ray_of_sickness.png')
@@ -39,7 +39,7 @@ tardis = Troop(sw(94.51), sh(92.86), 'tardis.png')
 delta = Troop(sw(97.51), sh(92.86), 'delta.png')
 
 # loading images
-sun = pygame.image.load('Images/Planet/sun.png')
+sun = pygame.image.load('Images\\Planet\\sun.png')
 
 
 controls = [start, high, htp]
