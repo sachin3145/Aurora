@@ -27,7 +27,6 @@ login = Control(sh(50)-100, 'login.png')
 register = Control(sh(50), 'register.png')
 play_as_guest = Control(sh(50)+100, 'play_as_guest.png')
 cont = Control(sh(80), 'continue.png')
-back = Control(sh(3), 'back.png', sw(97))
 
 demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png')
 elysium = Troop(sw(91.58), sh(85.99), 'elysium.png')
@@ -75,9 +74,9 @@ def menu():
             batch_place(controls)
         elif loop.index == 'htp':
             change_active_state(controls, False)
-            y = 75
+            y = sw(5)
             for htp_text in htp_text_list:
-                render_text(htp_text, 100, y)
+                render_text(htp_text, sw(9), y)
                 y += 40
         elif loop.index == 'high':
             pass
@@ -133,6 +132,12 @@ def menu():
                         create_player(username.text)
                     game(username.text)
                     loop.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    if loop.index in ['start', 'high', 'htp']:
+                        loop.index = 'home'
+                    elif loop.index in ['login', 'register']:
+                        loop.index = 'start'
 
 
 # Main loop
