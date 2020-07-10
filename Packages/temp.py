@@ -245,6 +245,21 @@ class Planet(object):
         pass
 
 
+class Bullet:
+
+    def __init__(self, file):
+        self.icon = pygame.image.load(os.path.join("Images\\icons\\", file)).convert_alpha()
+        self.rect = self.icon.get_rect()
+
+        self.is_active = False
+
+    def update_pos(self, angle, new_y):
+        angle = 90 - angle
+        x, y = self.rect.center
+        if angle != 0:
+            self.rect.center = x - (y - new_y)/math.tan(angle), new_y
+
+
 class Attacks(object):
     """Parent class for Troop and Spell class"""
     def __init__(self, x, y, file, base_dir):
@@ -294,11 +309,11 @@ class Troop(Attacks):
             self.defence = defence
             self.health = health
             self.angle = angle
+            self.x = 0
+            self.y = 0
+            self.bullet = Bullet('bullet_icon.png')
 
         def destroy(self):
-            pass
-
-        def fire(self):
             pass
 
         @staticmethod
@@ -308,14 +323,25 @@ class Troop(Attacks):
             y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 16
             return x1, y1
 
-        def rotate(self, image,):
+        def rotate(self, image):
             x, y = self.pos(self.angle, sw(45), sh(65))
             rotated_image = pygame.transform.rotozoom(image, -self.angle+90, 1)
             rotated_rect = rotated_image.get_rect(center=(x, y))
+            self.x, self.y = x, y
             return rotated_image, rotated_rect
 
         def spawn(self):
             screen.blit(self.rotate(self.img)[0], self.rotate(self.img)[1])
+            self.fire()
+
+        def fire(self):
+            if not self.bullet.is_active:
+                self.bullet.is_active = True
+                self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
+            elif self.bullet.is_active:
+                pygame.time.wait(10)
+                self.bullet.update_pos(self.angle, self.bullet.rect.y+1)
+                screen.blit(self.bullet.icon, self.bullet.rect)
 
     angles = list(range(0, 181, 18))
     # Occupied pos = angles/18
