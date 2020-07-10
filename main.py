@@ -56,9 +56,7 @@ username = TextInput(sw(50), sh(30), 64)
 
 # how to play text
 with open('./Documentation/HOWTOPLAY.txt') as text:
-    htp_text_list = text.read()
-
-htp_text_list = htp_text_list.splitlines()
+    htp_text_list = text.read().splitlines()
 
 """
 GAME LOOPS BELOW

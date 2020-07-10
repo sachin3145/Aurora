@@ -148,7 +148,7 @@ class GameLoop(MenuLoop):
 class Control(object):
     """Class to manage all control icons"""
     def __init__(self, y, file, x=sw(50)):
-        base_dir = 'Images/icons/'
+        base_dir = 'Images\\icons\\'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.x = int(x - (self.icon.get_width() / 2))
         self.y = int(y - (self.icon.get_height() / 2))
@@ -228,7 +228,7 @@ class TextInput(Text):
 class Planet(object):
     """Class to manage Planets"""
     def __init__(self, file, base_rating):
-        base_dir = 'Images/Planet/'
+        base_dir = 'Images\\Planet\\'
         self.icon = pygame.image.load(os.path.join(base_dir, file)).convert_alpha()
         self.rect = self.icon.get_rect()
         self.rect.center = (sw(50), sh(2)+128)
@@ -263,7 +263,7 @@ class Spell(Attacks):
     """Class to manage Spells
     Parent class : Attacks"""
     def __init__(self, x, y, file):
-        base_dir = 'Images/32px/'
+        base_dir = 'Images\\32px\\'
         super().__init__(x, y, file, base_dir)
 
     def attack(self):
@@ -277,7 +277,7 @@ class Troop(Attacks):
     deg = 0
 
     def __init__(self, x, y, file):
-        base_dir = 'Images/32px/'
+        base_dir = 'Images\\32px\\'
         # calling initializer of parent class to set common variables up
         super().__init__(x, y, file, base_dir)
         self.damage = 0
@@ -287,7 +287,7 @@ class Troop(Attacks):
 
     class BattleTroop:
         def __init__(self, file, angle, damage, defence, health):
-            troop_dir = 'Images/64px/'
+            troop_dir = 'Images\\64px\\'
             self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
             self.rectT = self.img.get_rect()
             self.damage = damage

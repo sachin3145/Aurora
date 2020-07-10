@@ -96,7 +96,7 @@ try:
         db.commit()
 
     if __name__ == '__main__':
-        execute_sql_from_file('../SQL/script001.sql')
+        execute_sql_from_file('..\\SQL\\script001.sql')
         create_player("magneto")
         p.close()
         db.close()
