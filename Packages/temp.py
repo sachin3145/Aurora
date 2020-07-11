@@ -304,14 +304,13 @@ class Troop(Attacks):
         def __init__(self, file, angle, damage, defence, health):
             troop_dir = 'Images\\64px\\'
             self.img = pygame.image.load(os.path.join(troop_dir, file)).convert_alpha()
-            self.rectT = self.img.get_rect()
             self.damage = damage
             self.defence = defence
             self.health = health
             self.angle = angle
-            self.x = 0
-            self.y = 0
+            self.img, self.rectT = self.rotate(self.img)
             self.bullet = Bullet('bullet_icon.png')
+            self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
 
         def destroy(self):
             pass
@@ -327,21 +326,23 @@ class Troop(Attacks):
             x, y = self.pos(self.angle, sw(45), sh(65))
             rotated_image = pygame.transform.rotozoom(image, -self.angle+90, 1)
             rotated_rect = rotated_image.get_rect(center=(x, y))
-            self.x, self.y = x, y
             return rotated_image, rotated_rect
 
         def spawn(self):
-            screen.blit(self.rotate(self.img)[0], self.rotate(self.img)[1])
             self.fire()
+            screen.blit(self.img, self.rectT)
 
         def fire(self):
             if not self.bullet.is_active:
                 self.bullet.is_active = True
-                self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
             elif self.bullet.is_active:
-                pygame.time.wait(10)
+                pygame.time.wait(8)
                 self.bullet.update_pos(self.angle, self.bullet.rect.y+1)
                 screen.blit(self.bullet.icon, self.bullet.rect)
+
+            if self.bullet.rect.y < 0 or self.bullet.rect.x < 0 or self.bullet.rect.x > sw(100):
+                self.bullet.is_active = False
+                self.bullet.rect.center = self.rectT.center
 
     angles = list(range(0, 181, 18))
     # Occupied pos = angles/18
