@@ -255,9 +255,14 @@ class Bullet:
 
     def update_pos(self, angle, new_y):
         angle = 90 - angle
-        x, y = self.rect.center
-        if angle != 0:
-            self.rect.center = x - (y - new_y)/math.tan(angle), new_y
+
+        a, b = self.rect.center              # TROOPS POSITION
+        x, y = sw(50), sh(2)+128             # PLANETS POSITION
+
+        if x-a != 0:
+            self.rect.center = (x-a)*(new_y-y)/(y-b) + x, new_y
+        elif x == a:
+            self.rect.center = a, b-10
 
 
 class Attacks(object):
@@ -311,6 +316,7 @@ class Troop(Attacks):
             self.img, self.rectT = self.rotate(self.img)
             self.bullet = Bullet('bullet_icon.png')
             self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
+            print(angle)
 
         def destroy(self):
             pass
@@ -337,14 +343,14 @@ class Troop(Attacks):
                 self.bullet.is_active = True
             elif self.bullet.is_active:
                 pygame.time.wait(8)
-                self.bullet.update_pos(self.angle, self.bullet.rect.y-1)
+                self.bullet.update_pos(self.angle, self.bullet.rect.y-10)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
             if self.bullet.rect.y < 0 or self.bullet.rect.x < 0 or self.bullet.rect.x > sw(100):
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
 
-    angles = list(range(0, 181, 18))
+    angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
     occupied_pos = []
     active_troops = []
