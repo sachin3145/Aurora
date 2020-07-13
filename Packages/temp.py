@@ -337,7 +337,7 @@ class Troop(Attacks):
                 self.bullet.is_active = True
             elif self.bullet.is_active:
                 pygame.time.wait(8)
-                self.bullet.update_pos(self.angle, self.bullet.rect.y+1)
+                self.bullet.update_pos(self.angle, self.bullet.rect.y-1)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
             if self.bullet.rect.y < 0 or self.bullet.rect.x < 0 or self.bullet.rect.x > sw(100):
