@@ -259,7 +259,7 @@ class Bullet:
         if x-a != 0:
             self.rect.center = (x-a)*(new_y-y)/(y-b) + x, new_y
         elif x == a:
-            self.rect.center = a, b-10
+            self.rect.center = a, b-20
 
     def monitor_collision(self):
         pass
