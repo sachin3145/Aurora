@@ -196,6 +196,7 @@ class TextInput(Text):
         self.is_selected = False
 
     def try_selecting(self, event):
+        """Checks if user has selected the input box."""
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
             if self.rect.collidepoint(x, y):
@@ -218,6 +219,7 @@ class TextInput(Text):
         self.take_input(event)
 
     def render(self):
+        """Display the text on screen"""
         pygame.draw.rect(screen, self.color, self.rect, 1)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
         screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 3))
@@ -324,7 +326,11 @@ class Troop(Attacks):
 
         @staticmethod
         def pos(degree, x_radius, y_radius):
-            # pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
+            """
+            Gives co-ordinates on elliptical orbit along which troops will be placed
+            pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
+            """
+
             x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
             y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 16
             return x1, y1
