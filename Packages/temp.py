@@ -326,7 +326,11 @@ class Troop(Attacks):
 
         @staticmethod
         def pos(degree, x_radius, y_radius):
-            # pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
+            """
+            Gives co-ordinates on elliptical orbit along which troops will be placed
+            pygame.draw.ellipse(screen, (255, 255, 255), [sw(5), -sh(63)+128, sw(90), sh(130)], 1)
+            """
+
             x1 = int(math.cos(degree * 2 * math.pi / 360) * x_radius) + sw(50)
             y1 = int(math.sin(degree * 2 * math.pi / 360) * y_radius) + sh(50) - sh(32) + 16
             return x1, y1
