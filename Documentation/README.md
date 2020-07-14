@@ -9,7 +9,9 @@ A project by
 3. mysql-connector-python
 4. pygame
 5. mixer
-3. paint3D
+6. paint3D
+7.flaticon.com
+
 
 # Overview
 We are preparing a game in which we will be playing as a villain and we are the dark forces who want to conquer the universe. We get a chance to conquer our solar system and this will be a level by level process.
