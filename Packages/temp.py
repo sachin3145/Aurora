@@ -357,9 +357,6 @@ class Troop(Attacks):
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
 
-                global current_planet
-                current_planet.raw_damage(self.damage)
-
     angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
     occupied_pos = []
