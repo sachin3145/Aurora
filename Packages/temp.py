@@ -2,6 +2,9 @@ from Aurora.Packages.dependencies import *
 
 
 # -------------------------------------------------------------
+# Global variables
+current_planet = None
+# -------------------------------------------------------------
 
 screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 screen_height = screen.get_height() - 40
@@ -32,14 +35,10 @@ def pix_h(pix):
     return pix*(100/screen_height)
 
 
-def position_troop(x):
-    """This function should return coordinates where a troop should be placed by taking its x co-ordinate
-    formula to be referred : y = -sqrt{r^{2}-x^{2}}"""
-    pass
-
-
 def set_level(levels, n):
-    levels[n-1].place()
+    global current_planet
+    current_planet = levels[n-1]
+    current_planet.place()
 # ----------------------------------------------------------
 
 
@@ -244,6 +243,9 @@ class Planet(object):
     def attack(self):
         pass
 
+    def raw_damage(self, damage):
+        self.health = self.damage - self.defence
+
 
 class Bullet:
 
@@ -256,9 +258,9 @@ class Bullet:
         a, b = self.rect.center              # TROOPS POSITION
         x, y = sw(50), sh(2)+128             # PLANETS POSITION
 
-        if x-a != 0:
+        if x != a:
             self.rect.center = (x-a)*(new_y-y)/(y-b) + x, new_y
-        elif x == a:
+        else:
             self.rect.center = a, b-20
 
     def monitor_collision(self):
@@ -316,7 +318,6 @@ class Troop(Attacks):
             self.img, self.rectT = self.rotate(self.img)
             self.bullet = Bullet('bullet_icon.png')
             self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
-            print(angle)
 
         def destroy(self):
             pass
