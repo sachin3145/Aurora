@@ -250,12 +250,9 @@ class Bullet:
     def __init__(self, file):
         self.icon = pygame.image.load(os.path.join("Images\\icons\\", file)).convert_alpha()
         self.rect = self.icon.get_rect()
-
         self.is_active = False
 
-    def update_pos(self, angle, new_y):
-        angle = 90 - angle
-
+    def update_pos(self, new_y):
         a, b = self.rect.center              # TROOPS POSITION
         x, y = sw(50), sh(2)+128             # PLANETS POSITION
 
@@ -263,6 +260,9 @@ class Bullet:
             self.rect.center = (x-a)*(new_y-y)/(y-b) + x, new_y
         elif x == a:
             self.rect.center = a, b-10
+
+    def monitor_collision(self):
+        pass
 
 
 class Attacks(object):
@@ -343,10 +343,10 @@ class Troop(Attacks):
                 self.bullet.is_active = True
             elif self.bullet.is_active:
                 pygame.time.wait(8)
-                self.bullet.update_pos(self.angle, self.bullet.rect.y-10)
+                self.bullet.update_pos(self.bullet.rect.y-10)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
-            if self.bullet.rect.y < 0 or self.bullet.rect.x < 0 or self.bullet.rect.x > sw(100):
+            if self.bullet.rect.y < sh(2)+128 and sw(50) + 64 > self.bullet.rect.x > sw(50) - 64:
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
 
