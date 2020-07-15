@@ -1,0 +1,2 @@
+ATTACK DAMAGE
+Upgrading this will lead to increase the damage given to the planet per bullet
