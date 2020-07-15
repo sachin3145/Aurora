@@ -34,11 +34,6 @@ def pix_h(pix):
     and returns the corresponding value in percentage."""
     return pix*(100/screen_height)
 
-
-def set_level(levels, n):
-    global current_planet
-    current_planet = levels[n-1]
-    current_planet.place()
 # ----------------------------------------------------------
 
 
@@ -95,6 +90,14 @@ class MenuLoop(object):
             self.running = False
 
 
+class Cache:
+    """This class holds data of the contemporary game"""
+
+    player_name = ''
+    player_id = ''
+    current_planet = None
+
+
 class GameLoop(MenuLoop):
     def __init__(self, player_name):
         super().__init__()
@@ -104,6 +107,15 @@ class GameLoop(MenuLoop):
         self.score = get_player_info('SCORE', player_name)
         self.badges = 'NO BADGES UNLOCKED YET'
         self.progress = get_player_info('PROGRESS', player_name)
+
+        Cache.player_name = self.player_name
+        Cache.player_id = self.player_id
+
+    def set_level(self, levels):
+        Cache.current_planet = levels[self.player_level - 1]
+        Cache.current_planet.place()
+        if Cache.current_planet.health <= 0:
+            self.player_level += 1
 
     def set_attributes(self, seq, category):
         if category == 'spell':
@@ -246,7 +258,8 @@ class Planet(object):
         pass
 
     def raw_damage(self, damage):
-        self.health = self.damage - self.defence
+        if self.health > 0:
+            self.health -= damage - self.defence
 
 
 class Bullet:
@@ -356,6 +369,7 @@ class Troop(Attacks):
             if self.bullet.rect.y < sh(2)+128 and sw(50) + 64 > self.bullet.rect.x > sw(50) - 64:
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
+                Cache.current_planet.raw_damage(self.damage)
 
     angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
