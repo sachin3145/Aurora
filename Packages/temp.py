@@ -258,7 +258,7 @@ class Planet(object):
         pass
 
     def raw_damage(self, damage):
-        if self.health > 0:
+        if self.health > 0 and damage - self.defence > 0:
             self.health -= damage - self.defence
 
 
