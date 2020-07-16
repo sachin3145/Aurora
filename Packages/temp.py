@@ -191,9 +191,10 @@ class Text(object):
         """Clear the text string"""
         self.text = ''
 
-    def render(self):
+    def render(self, alpha=255):
         """Renders text on the screen"""
         text_surface = self.font.render(self.text, True, self.color)
+        text_surface.set_alpha(alpha)
         screen.blit(text_surface, (self.x, self.y))
 
 
@@ -230,10 +231,11 @@ class TextInput(Text):
         self.try_selecting(event)
         self.take_input(event)
 
-    def render(self):
+    def render(self, alpha=255):
         """Display the text on screen"""
         pygame.draw.rect(screen, self.color, self.rect, 1)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
+        text_surface.set_aplha(alpha)
         screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 3))
         self.rect.w = max(self.width, text_surface.get_width() + 15)
 
@@ -389,3 +391,23 @@ class Troop(Attacks):
                 Troop.active_troops.append(trooper)
                 break
         pass
+
+
+class Overlay:
+    @staticmethod
+    def set_overlay():
+        overlay_rect = pygame.Surface((sw(100), sh(50)))
+        overlay_rect.fill((255, 255, 255))
+        overlay_rect.set_alpha(50)
+        screen.blit(overlay_rect, (0, sh(25)))
+
+    @staticmethod
+    def write_overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+        overlay_text = Text(x, y, size)
+        overlay_text.write(text)
+        overlay_text.render(alpha)
+
+    @staticmethod
+    def overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+        Overlay.set_overlay()
+        Overlay.write_overlay(text, x, y, size, alpha)

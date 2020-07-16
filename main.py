@@ -169,5 +169,5 @@ def game(player_name='GUEST'):
 GAMES FLOW OF CONTROL
 """
 
-game()
+menu()
 pygame.quit()
