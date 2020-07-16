@@ -366,10 +366,10 @@ class Troop(Attacks):
                 self.bullet.update_pos(self.bullet.rect.y-10)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
-            if self.bullet.rect.y < sh(2)+128 and sw(50) + 64 > self.bullet.rect.x > sw(50) - 64:
+            if Cache.current_planet.rect.collidepoint(self.bullet.rect.center):
+                Cache.current_planet.raw_damage(self.damage)
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
-                Cache.current_planet.raw_damage(self.damage)
 
     angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
