@@ -83,7 +83,9 @@ class MenuLoop(object):
         self.color = (0, 0, 40)
 
     def set_screen(self):
-        screen.fill(self.color)
+        bg = pygame.image.load("Images\\icons\\bg.png")
+        screen.blit(bg, (0, 0))
+        # screen.fill(self.color)
 
     def handle_quit(self, event):
         if event.type == pygame.QUIT:
@@ -193,8 +195,11 @@ class Text(object):
 
     def render(self, alpha=255):
         """Renders text on the screen"""
-        text_surface = self.font.render(self.text, True, self.color)
-        text_surface.set_alpha(alpha)
+        if alpha == 255:
+            text_surface = self.font.render(self.text, True, self.color)
+        else:
+            text_surface = self.font.render(self.text, False, self.color)
+            text_surface.set_alpha(alpha)
         screen.blit(text_surface, (self.x, self.y))
 
 
@@ -235,7 +240,6 @@ class TextInput(Text):
         """Display the text on screen"""
         pygame.draw.rect(screen, self.color, self.rect, 1)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
-        text_surface.set_aplha(alpha)
         screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 3))
         self.rect.w = max(self.width, text_surface.get_width() + 15)
 
@@ -363,8 +367,8 @@ class Troop(Attacks):
         def fire(self):
             if not self.bullet.is_active:
                 self.bullet.is_active = True
+
             elif self.bullet.is_active:
-                pygame.time.wait(8)
                 self.bullet.update_pos(self.bullet.rect.y-10)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
