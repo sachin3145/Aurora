@@ -115,9 +115,16 @@ class GameLoop(MenuLoop):
 
     def set_level(self, levels):
         Cache.current_planet = levels[self.player_level - 1]
-        Cache.current_planet.place()
         if Cache.current_planet.health <= 0:
-            self.player_level += 1
+            Overlay.overlay('DESTROYED')
+
+            Overlay.half_rect((0, sh(37.5)), (255, 0, 0))
+            Overlay.half_rect((sw(50), sh(37.5)), (0, 255, 0))
+            render_text('GO TO UPGRADES', 0, sh(50) - 16)
+            render_text('PLAY NEXT', sw(50), sh(50) - 16)
+            # self.player_level += 1
+        else:
+            Cache.current_planet.place()
 
     def set_attributes(self, seq, category):
         if category == 'spell':
@@ -347,7 +354,6 @@ class Troop(Attacks):
 
         def health_bar(self, x, y):
             length = int((self.health/self.max_health)*50)
-            print(length)
             bar = pygame.Surface((length, 10))
             bar.fill((0, 255, 0))
             screen.blit(bar, (x, y))
@@ -396,14 +402,14 @@ class Troop(Attacks):
     @classmethod
     def update_troops(cls):
         for i in cls.active_troops:
-            if i.health > 0:
+            if i.health > 0 and Cache.current_planet.health > 0:
                 i.spawn()
                 if Troop.iteration % 3 == 0:       # 3 ----> planet attack frequency
                     effective_damage = (Cache.current_planet.damage / len(Troop.active_troops)) - i.defence
                     if effective_damage > 0:
                         i.health -= effective_damage
 
-            else:
+            elif i.health <= 0:
                 Troop.active_troops.remove(i)
                 Troop.occupied_pos.remove(i.angle//18)
 
@@ -414,28 +420,29 @@ class Troop(Attacks):
                 trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
                 Troop.active_troops.append(trooper)
                 break
-        pass
 
 
 class Overlay:
     @staticmethod
     def set_overlay():
-        overlay_rect = pygame.Surface((sw(100), sh(25)))
+        overlay_rect = pygame.Surface((sw(100), 256))
         overlay_rect.fill((255, 255, 255))
         overlay_rect.set_alpha(50)
-        screen.blit(overlay_rect, (0, sh(37.5)))
+        screen.blit(overlay_rect, (0, sh(2)))
 
     @staticmethod
-    def write_overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+    def write_overlay(text, x=sw(25), y=sh(2)+64, size=128, alpha=255):
         overlay_text = Text(x, y, size)
         overlay_text.write(text)
         overlay_text.render(alpha)
 
     @staticmethod
-    def overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+    def overlay(text, x=sw(25), y=sh(2)+64, size=128, alpha=255):
         Overlay.set_overlay()
         Overlay.write_overlay(text, x, y, size, alpha)
 
     @staticmethod
-    def place_rect():
-        pass
+    def half_rect(pos, color):
+        half_rect = pygame.Surface((sw(50), sh(25)))
+        half_rect.fill(color)
+        screen.blit(half_rect, pos)
