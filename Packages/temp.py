@@ -120,8 +120,8 @@ class GameLoop(MenuLoop):
 
             Overlay.half_rect((0, sh(37.5)), (255, 0, 0))
             Overlay.half_rect((sw(50), sh(37.5)), (0, 255, 0))
-            render_text('GO TO UPGRADES', 0, sh(50) - 16)
-            render_text('PLAY NEXT', sw(50), sh(50) - 16)
+            render_text('GO TO UPGRADES', sw(25), sh(50))
+            render_text('PLAY NEXT', sw(75), sh(50))
             # self.player_level += 1
         else:
             Cache.current_planet.place()
@@ -207,7 +207,9 @@ class Text(object):
         else:
             text_surface = self.font.render(self.text, False, self.color)
             text_surface.set_alpha(alpha)
-        screen.blit(text_surface, (self.x, self.y))
+        rect = text_surface.get_rect()
+        rect.center = self.x, self.y
+        screen.blit(text_surface, rect)
 
 
 class TextInput(Text):
@@ -431,13 +433,14 @@ class Overlay:
         screen.blit(overlay_rect, (0, sh(2)))
 
     @staticmethod
-    def write_overlay(text, x=sw(25), y=sh(2)+64, size=128, alpha=255):
+    def write_overlay(text, x=sw(50), y=sh(2)+128, size=128, alpha=255):
         overlay_text = Text(x, y, size)
         overlay_text.write(text)
+        overlay_text.center = (x, y)
         overlay_text.render(alpha)
 
     @staticmethod
-    def overlay(text, x=sw(25), y=sh(2)+64, size=128, alpha=255):
+    def overlay(text, x=sw(50), y=sh(2)+128, size=128, alpha=255):
         Overlay.set_overlay()
         Overlay.write_overlay(text, x, y, size, alpha)
 

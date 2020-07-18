@@ -61,7 +61,10 @@ with open('./Documentation/HOWTOPLAY.txt') as text:
 GAME LOOPS BELOW
 """
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4a92d0cf737f2b8d322fc7f977b9c8acd55e91fd
 
 def menu():
 
@@ -165,7 +168,10 @@ def game(player_name='GUEST'):
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4a92d0cf737f2b8d322fc7f977b9c8acd55e91fd
 
 """
 GAMES FLOW OF CONTROL
