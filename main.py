@@ -150,6 +150,7 @@ def game(player_name='GUEST'):
         Troop.update_troops()
         batch_place(attacks)
         loop.set_level(levels)
+        Overlay.overlay('DESTROYED')
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -318,6 +318,7 @@ class Troop(Attacks):
     """Class to manage Troops
     Parent class : Attacks"""
     deg = 0
+    iteration = 0
 
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
@@ -335,6 +336,7 @@ class Troop(Attacks):
             self.damage = damage
             self.defence = defence
             self.health = health
+            self.max_health = health
             self.angle = angle
             self.img, self.rectT = self.rotate(self.img)
             self.bullet = Bullet('bullet_icon.png')
@@ -342,6 +344,13 @@ class Troop(Attacks):
 
         def destroy(self):
             pass
+
+        def health_bar(self, x, y):
+            length = int((self.health/self.max_health)*50)
+            print(length)
+            bar = pygame.Surface((length, 10))
+            bar.fill((0, 255, 0))
+            screen.blit(bar, (x, y))
 
         @staticmethod
         def pos(degree, x_radius, y_radius):
@@ -363,6 +372,7 @@ class Troop(Attacks):
         def spawn(self):
             self.fire()
             screen.blit(self.img, self.rectT)
+            self.health_bar(self.rectT.left, self.rectT.top+64)
 
         def fire(self):
             if not self.bullet.is_active:
@@ -376,6 +386,7 @@ class Troop(Attacks):
                 Cache.current_planet.raw_damage(self.damage)
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
+                Troop.iteration += 1
 
     angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
@@ -385,7 +396,16 @@ class Troop(Attacks):
     @classmethod
     def update_troops(cls):
         for i in cls.active_troops:
-            i.spawn()
+            if i.health > 0:
+                i.spawn()
+                if Troop.iteration % 3 == 0:       # 3 ----> planet attack frequency
+                    effective_damage = (Cache.current_planet.damage / len(Troop.active_troops)) - i.defence
+                    if effective_damage > 0:
+                        i.health -= effective_damage
+
+            else:
+                Troop.active_troops.remove(i)
+                Troop.occupied_pos.remove(i.angle//18)
 
     def attack(self):
         for i in Troop.angles:
@@ -400,10 +420,10 @@ class Troop(Attacks):
 class Overlay:
     @staticmethod
     def set_overlay():
-        overlay_rect = pygame.Surface((sw(100), sh(50)))
+        overlay_rect = pygame.Surface((sw(100), sh(25)))
         overlay_rect.fill((255, 255, 255))
         overlay_rect.set_alpha(50)
-        screen.blit(overlay_rect, (0, sh(25)))
+        screen.blit(overlay_rect, (0, sh(37.5)))
 
     @staticmethod
     def write_overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
@@ -415,3 +435,7 @@ class Overlay:
     def overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
         Overlay.set_overlay()
         Overlay.write_overlay(text, x, y, size, alpha)
+
+    @staticmethod
+    def place_rect():
+        pass
