@@ -61,9 +61,6 @@ with open('./Documentation/HOWTOPLAY.txt') as text:
 GAME LOOPS BELOW
 """
 
-FPS = 60
-Clock = pygame.time.Clock()
-
 
 def menu():
 
@@ -166,7 +163,7 @@ def game(player_name='GUEST'):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
-        Clock.tick(FPS)
+
 
 """
 GAMES FLOW OF CONTROL
