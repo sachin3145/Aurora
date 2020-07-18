@@ -61,10 +61,7 @@ with open('./Documentation/HOWTOPLAY.txt') as text:
 GAME LOOPS BELOW
 """
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b91d0b2e003c57456b50876ff86b11fc576af3dc
 def menu():
 
     loop = MenuLoop()
@@ -166,11 +163,14 @@ def game(player_name='GUEST'):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
+                if loop.index == 'options' and sh(37.5) < y < sh(62.5):
+                    if sw(0) < x < sw(50):
+                        loop.index = 'upgrades'
+                    else:
+                        loop.player_level += 1
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b91d0b2e003c57456b50876ff86b11fc576af3dc
+
 """
 GAMES FLOW OF CONTROL
 """

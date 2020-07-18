@@ -109,6 +109,7 @@ class GameLoop(MenuLoop):
         self.score = get_player_info('SCORE', player_name)
         self.badges = 'NO BADGES UNLOCKED YET'
         self.progress = get_player_info('PROGRESS', player_name)
+        self.index = ''
 
         Cache.player_name = self.player_name
         Cache.player_id = self.player_id
@@ -116,13 +117,14 @@ class GameLoop(MenuLoop):
     def set_level(self, levels):
         Cache.current_planet = levels[self.player_level - 1]
         if Cache.current_planet.health <= 0:
+            self.index = 'options'
             Overlay.overlay('DESTROYED')
 
-            Overlay.half_rect((0, sh(37.5)), (255, 0, 0))
-            Overlay.half_rect((sw(50), sh(37.5)), (0, 255, 0))
-            render_text('GO TO UPGRADES', sw(25), sh(50))
-            render_text('PLAY NEXT', sw(75), sh(50))
-            # self.player_level += 1
+            if self.player_level < 8:
+                Overlay.half_rect((sw(25), sh(50)), (255, 0, 0))
+                Overlay.half_rect((sw(75), sh(50)), (0, 255, 0))
+                render_text('GO TO UPGRADES', sw(25), sh(50))
+                render_text('PLAY NEXT', sw(75), sh(50))
         else:
             Cache.current_planet.place()
 
@@ -449,4 +451,6 @@ class Overlay:
     def half_rect(pos, color):
         half_rect = pygame.Surface((sw(50), sh(25)))
         half_rect.fill(color)
-        screen.blit(half_rect, pos)
+        rect = half_rect.get_rect()
+        rect.center = pos
+        hover_place(half_rect, rect)
