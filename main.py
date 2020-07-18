@@ -51,7 +51,7 @@ attacks = attacks[::-1]
 levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
 
 # authentication input box
-username = TextInput(sw(50), sh(30), 64)
+username = TextInput(sw(75), sh(30)-1, 64)
 
 # how to play text
 with open('./Documentation/HOWTOPLAY.txt') as text:
@@ -61,10 +61,6 @@ with open('./Documentation/HOWTOPLAY.txt') as text:
 GAME LOOPS BELOW
 """
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4a92d0cf737f2b8d322fc7f977b9c8acd55e91fd
 
 def menu():
 
@@ -90,13 +86,13 @@ def menu():
             batch_place(auth_controls)
         elif loop.index == 'login':
             change_active_state(auth_controls, False)
-            render_text('USERNAME', sw(10), sh(30), 64)
+            render_text('USERNAME', sw(25), sh(30), 64)
             username.render()
             if player_exists(username.text.upper()):
                 cont.is_active = True
                 cont.place()
             else:
-                render_text('PLEASE ENTER YOUR USERNAME', cont.x, cont.y, 32)
+                render_text('PLEASE ENTER YOUR USERNAME', cont.rect.center[0], cont.rect.center[1], 32)
         elif loop.index == 'register':
             cont.is_active = True
             change_active_state(auth_controls, False)
@@ -105,9 +101,9 @@ def menu():
             if username.text.upper() != '' and not player_exists(username.text.upper()):
                 cont.place()
             elif username.text.upper() == '':
-                render_text('PLEASE CHOOSE A USERNAME', cont.x, cont.y, 32)
+                render_text('PLEASE CHOOSE A USERNAME', cont.rect.center[0], cont.rect.center[1], 32)
             else:
-                render_text('USERNAME NOT AVAILABLE', cont.x, cont.y, 32)
+                render_text('USERNAME NOT AVAILABLE', cont.rect.center[0], cont.rect.center[1], 32)
 
         pygame.display.update()
         for event in pygame.event.get():
@@ -167,11 +163,6 @@ def game(player_name='GUEST'):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 4a92d0cf737f2b8d322fc7f977b9c8acd55e91fd
 
 """
 GAMES FLOW OF CONTROL

@@ -217,6 +217,7 @@ class TextInput(Text):
         super().__init__(x, y, size)
         self.width = 500
         self.rect = pygame.Rect(self.x, self.y, self.width, size+2)
+        self.rect.center = self.x, self.y
         self.active_color = pygame.Color('green')
         self.passive_color = pygame.Color('lightskyblue')
         self.color = self.passive_color
