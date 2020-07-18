@@ -128,6 +128,17 @@ class GameLoop(MenuLoop):
         else:
             Cache.current_planet.place()
 
+    @staticmethod
+    def progress_bar(x=sw(5), y=sh(5)):
+        bar_outline = pygame.image.load('Images\\icons\\progress_bar.png').convert_alpha()
+        length = int(200 - (Cache.current_planet.health / Cache.current_planet.max_health) * 200)
+        if length > 200:
+            length = 200
+        bar = pygame.Surface((length, 20))
+        bar.fill((0, 255, 0))
+        screen.blit(bar, (x, y))
+        screen.blit(bar_outline, (x-30, y-9))
+
     def set_attributes(self, seq, category):
         if category == 'spell':
             for spell in seq:
@@ -265,8 +276,9 @@ class Planet(object):
         self.rect.center = (sw(50), sh(2)+128)
 
         self.base_rating = base_rating
-        self.damage = base_rating*0.1
+        self.damage = base_rating*0.075
         self.health = base_rating
+        self.max_health = base_rating
         self.defence = base_rating*0.01
 
     def place(self):
@@ -320,9 +332,10 @@ class Spell(Attacks):
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
         super().__init__(x, y, file, base_dir)
+        self.damage = 0
 
     def attack(self):
-        print(self)
+        Cache.current_planet.raw_damage(self.damage)
         pass
 
 

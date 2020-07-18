@@ -11,14 +11,14 @@ incinerate = Spell(sw(4.76), sh(92.86), 'incinerate.png')
 plasma_discharge = Spell(sw(7.66), sh(92.86), 'plasma_discharge.png')
 god_of_chaos = Spell(sw(10.61), sh(92.86), 'god_of_chaos.png')
 
-mercury = Planet('mercury.png', 200)
-venus = Planet('venus.png', 400)
-earth = Planet('earth.png', 1200)
-mars = Planet('mars.png', 800)
-jupiter = Planet('jupiter.png', 3000)
-saturn = Planet('saturn.png', 2400)
-uranus = Planet('uranus.png', 1600)
-neptune = Planet('neptune.png', 5000)
+mercury = Planet('mercury.png', 500)
+venus = Planet('venus.png', 1000)
+earth = Planet('earth.png', 3000)
+mars = Planet('mars.png', 2000)
+jupiter = Planet('jupiter.png', 7500)
+saturn = Planet('saturn.png', 6000)
+uranus = Planet('uranus.png', 4000)
+neptune = Planet('neptune.png', 12500)
 
 start = Control(sh(50)-100, 'start_icon.png')
 high = Control(sh(50), 'high.png')
@@ -76,7 +76,7 @@ def menu():
             change_active_state(controls, False)
             y = sw(5)
             for htp_text in htp_text_list:
-                render_text(htp_text, sw(9), y)
+                render_text(htp_text, sw(50), y)
                 y += 40
         elif loop.index == 'high':
             pass
@@ -150,6 +150,8 @@ def game(player_name='GUEST'):
         Troop.update_troops()
         batch_place(attacks)
         loop.set_level(levels)
+        if loop.index != 'options':
+            loop.progress_bar()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -164,6 +166,7 @@ def game(player_name='GUEST'):
                 x, y = pygame.mouse.get_pos()
                 clicked(attacks, x, y)
                 if loop.index == 'options' and sh(37.5) < y < sh(62.5):
+                    loop.index = ''
                     if sw(0) < x < sw(50):
                         loop.index = 'upgrades'
                     else:
