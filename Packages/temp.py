@@ -83,7 +83,9 @@ class MenuLoop(object):
         self.color = (0, 0, 40)
 
     def set_screen(self):
-        screen.fill(self.color)
+        bg = pygame.image.load("Images\\icons\\bg.png")
+        screen.blit(bg, (0, 0))
+        # screen.fill(self.color)
 
     def handle_quit(self, event):
         if event.type == pygame.QUIT:
@@ -191,9 +193,13 @@ class Text(object):
         """Clear the text string"""
         self.text = ''
 
-    def render(self):
+    def render(self, alpha=255):
         """Renders text on the screen"""
-        text_surface = self.font.render(self.text, True, self.color)
+        if alpha == 255:
+            text_surface = self.font.render(self.text, True, self.color)
+        else:
+            text_surface = self.font.render(self.text, False, self.color)
+            text_surface.set_alpha(alpha)
         screen.blit(text_surface, (self.x, self.y))
 
 
@@ -230,7 +236,7 @@ class TextInput(Text):
         self.try_selecting(event)
         self.take_input(event)
 
-    def render(self):
+    def render(self, alpha=255):
         """Display the text on screen"""
         pygame.draw.rect(screen, self.color, self.rect, 1)
         text_surface = self.font.render(self.text, True, (255, 255, 255))
@@ -258,7 +264,7 @@ class Planet(object):
         pass
 
     def raw_damage(self, damage):
-        if self.health > 0:
+        if self.health > 0 and damage - self.defence > 0:
             self.health -= damage - self.defence
 
 
@@ -361,15 +367,15 @@ class Troop(Attacks):
         def fire(self):
             if not self.bullet.is_active:
                 self.bullet.is_active = True
+
             elif self.bullet.is_active:
-                pygame.time.wait(8)
                 self.bullet.update_pos(self.bullet.rect.y-10)
                 screen.blit(self.bullet.icon, self.bullet.rect)
 
-            if self.bullet.rect.y < sh(2)+128 and sw(50) + 64 > self.bullet.rect.x > sw(50) - 64:
+            if Cache.current_planet.rect.collidepoint(self.bullet.rect.center):
+                Cache.current_planet.raw_damage(self.damage)
                 self.bullet.is_active = False
                 self.bullet.rect.center = self.rectT.center
-                Cache.current_planet.raw_damage(self.damage)
 
     angles = list(range(18, 180, 18))
     # Occupied pos = angles/18
@@ -389,3 +395,23 @@ class Troop(Attacks):
                 Troop.active_troops.append(trooper)
                 break
         pass
+
+
+class Overlay:
+    @staticmethod
+    def set_overlay():
+        overlay_rect = pygame.Surface((sw(100), sh(50)))
+        overlay_rect.fill((255, 255, 255))
+        overlay_rect.set_alpha(50)
+        screen.blit(overlay_rect, (0, sh(25)))
+
+    @staticmethod
+    def write_overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+        overlay_text = Text(x, y, size)
+        overlay_text.write(text)
+        overlay_text.render(alpha)
+
+    @staticmethod
+    def overlay(text, x=sw(25), y=sh(50)-64, size=128, alpha=255):
+        Overlay.set_overlay()
+        Overlay.write_overlay(text, x, y, size, alpha)
