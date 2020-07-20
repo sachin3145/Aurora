@@ -145,6 +145,8 @@ def game(player_name='GUEST'):
     loop = GameLoop(player_name)
     loop.set_attributes(spells, 'spell')
     loop.set_attributes(troops, 'troop')
+    loop.check_unlocks(troops, 'troop')
+    loop.check_unlocks(spells, 'spell')
     while loop.running:
         loop.set_screen()
         Troop.update_troops()

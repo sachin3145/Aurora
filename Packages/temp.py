@@ -37,10 +37,14 @@ def pix_h(pix):
 # ----------------------------------------------------------
 
 
-def hover_place(icon, rect, hover=True):
+def hover_place(icon, rect, hover=True, no_shadow=True):
     """This function places an image over a rect,
     The images placed have a default hover effect which can be removed."""
-    if hover and rect.collidepoint(pygame.mouse.get_pos()):
+    if not no_shadow:
+        shadow = icon.copy()
+        shadow.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_SUB)
+        screen.blit(shadow, rect)
+    elif hover and rect.collidepoint(pygame.mouse.get_pos()):
         hicon = icon.copy()
         hicon.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
         screen.blit(hicon, rect)
@@ -82,7 +86,8 @@ class MenuLoop(object):
         self.index = 'home'
         self.color = (0, 0, 40)
 
-    def set_screen(self):
+    @staticmethod
+    def set_screen():
         bg = pygame.image.load("Images\\icons\\bg.png")
         screen.blit(bg, (0, 0))
         # screen.fill(self.color)
@@ -113,6 +118,12 @@ class GameLoop(MenuLoop):
 
         Cache.player_name = self.player_name
         Cache.player_id = self.player_id
+
+    @staticmethod
+    def check_unlocks(attack, a_type):
+        for x in attack:
+            x.is_active = is_unlocked(Cache.player_name, x.name[:-4], a_type)
+            print(x.is_active)
 
     def set_level(self, levels):
         Cache.current_planet = levels[self.player_level - 1]
@@ -323,7 +334,7 @@ class Attacks(object):
         self.name = file
 
     def place(self):
-        hover_place(self.icon, self.rect)
+        hover_place(self.icon, self.rect, True, self.is_active)
 
 
 class Spell(Attacks):
@@ -366,9 +377,6 @@ class Troop(Attacks):
             self.img, self.rectT = self.rotate(self.img)
             self.bullet = Bullet('bullet_icon.png')
             self.bullet.icon, self.bullet.rect = self.rotate(self.bullet.icon)
-
-        def destroy(self):
-            pass
 
         def health_bar(self, x, y):
             length = int((self.health/self.max_health)*50)
