@@ -96,7 +96,7 @@ def menu():
         elif loop.index == 'register':
             cont.is_active = True
             change_active_state(auth_controls, False)
-            render_text('USERNAME', sw(10), sh(30), 64)
+            render_text('USERNAME', sw(25), sh(30), 64)
             username.render()
             if username.text.upper() != '' and not player_exists(username.text.upper()):
                 cont.place()

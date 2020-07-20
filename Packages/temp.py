@@ -174,11 +174,13 @@ class GameLoop(MenuLoop):
         if category == 'spell':
             for spell in seq:
                 update('spells', f'{spell.name[:-4]}', f'"{spell.damage}"', self.player_id)
+                update('player_spells', f'{spell.name[:-4]}', spell.is_active, self.player_id)
         elif category == 'troop':
             for troop in seq:
                 update(f'{troop.name[:-4]}', 'ATTACK', f'"{troop.damage}"', self.player_id)
                 update(f'{troop.name[:-4]}', 'DEFENCE', f'"{troop.defence}"', self.player_id)
                 update(f'{troop.name[:-4]}', 'HEALTH', f'"{troop.health}"', self.player_id)
+                update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
             update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
             update('game_stats', 'SCORE', f'"{self.score}"', self.player_id)
