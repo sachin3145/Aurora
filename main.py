@@ -43,7 +43,7 @@ sun = pygame.image.load('Images\\Planet\\sun.png')
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
-troops = [demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta]
+troops = [delta, tardis, benzamite, mandalore, nemesis, armada, elysium, demogorgon]
 spells = [ray_of_sickness, incinerate, plasma_discharge, god_of_chaos]
 attacks = spells + troops
 attacks = attacks[::-1]
@@ -173,6 +173,8 @@ def game(player_name='GUEST'):
                         loop.index = 'upgrades'
                     else:
                         loop.player_level += 1
+                        loop.update_unlocks(troops, 'troop')
+                        loop.update_unlocks(spells, 'spell')
 
 
 

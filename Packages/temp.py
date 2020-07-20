@@ -101,7 +101,7 @@ class Cache:
     """This class holds data of the contemporary game"""
 
     player_name = ''
-    player_id = ''
+    player_level = 0
     current_planet = None
 
 
@@ -117,15 +117,22 @@ class GameLoop(MenuLoop):
         self.index = ''
 
         Cache.player_name = self.player_name
-        Cache.player_id = self.player_id
 
     @staticmethod
     def check_unlocks(attack, a_type):
         for x in attack:
             x.is_active = is_unlocked(Cache.player_name, x.name[:-4], a_type)
 
+    @staticmethod
+    def update_unlocks(attack, a_type):
+        if a_type == 'troop':
+            attack[Cache.player_level].is_active = 1
+        elif a_type == 'spell':
+            attack[Cache.player_level//2].is_active = 1
+
     def set_level(self, levels):
         Cache.current_planet = levels[self.player_level - 1]
+        Cache.player_level = self.player_level
         if Cache.current_planet.health <= 0:
             self.index = 'options'
             Overlay.overlay('DESTROYED')
