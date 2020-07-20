@@ -55,7 +55,7 @@ def hover_place(icon, rect, hover=True, no_shadow=True):
 def clicked(attacks, x, y):
     """Calls the attack method of a image in a given sequence if it has been clicked"""
     for i in range(len(attacks)):
-        if attacks[i].rect.collidepoint(x, y):
+        if attacks[i].rect.collidepoint(x, y) and attacks[i].is_active:
             attacks[i].attack()
             break
 
@@ -123,7 +123,6 @@ class GameLoop(MenuLoop):
     def check_unlocks(attack, a_type):
         for x in attack:
             x.is_active = is_unlocked(Cache.player_name, x.name[:-4], a_type)
-            print(x.is_active)
 
     def set_level(self, levels):
         Cache.current_planet = levels[self.player_level - 1]
