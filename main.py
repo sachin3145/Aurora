@@ -43,7 +43,7 @@ sun = pygame.image.load('Images\\Planet\\sun.png')
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
-troops = [demogorgon, elysium, armada, nemesis, mandalore, benzamite, tardis, delta]
+troops = [delta, tardis, benzamite, mandalore, nemesis, armada, elysium, demogorgon]
 spells = [ray_of_sickness, incinerate, plasma_discharge, god_of_chaos]
 attacks = spells + troops
 attacks = attacks[::-1]
@@ -96,7 +96,7 @@ def menu():
         elif loop.index == 'register':
             cont.is_active = True
             change_active_state(auth_controls, False)
-            render_text('USERNAME', sw(10), sh(30), 64)
+            render_text('USERNAME', sw(25), sh(30), 64)
             username.render()
             if username.text.upper() != '' and not player_exists(username.text.upper()):
                 cont.place()
@@ -145,6 +145,8 @@ def game(player_name='GUEST'):
     loop = GameLoop(player_name)
     loop.set_attributes(spells, 'spell')
     loop.set_attributes(troops, 'troop')
+    loop.check_unlocks(troops, 'troop')
+    loop.check_unlocks(spells, 'spell')
     while loop.running:
         loop.set_screen()
         Troop.update_troops()
@@ -171,6 +173,8 @@ def game(player_name='GUEST'):
                         loop.index = 'upgrades'
                     else:
                         loop.player_level += 1
+                        loop.update_unlocks(troops, 'troop')
+                        loop.update_unlocks(spells, 'spell')
 
 
 
