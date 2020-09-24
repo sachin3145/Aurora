@@ -116,11 +116,12 @@ class GameLoop(MenuLoop):
         self.progress = get_player_info('PROGRESS', player_name)
         self.index = ''
         Cache.player_name = self.player_name
+        Cache.cp = self.cp
 
     def set_screen(self):
         super().set_screen()
         render_text('CP : ',  sw(87), sh(7), 32)
-        render_text(str(self.cp), sw(91), sh(7), 32)
+        render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
 
     @staticmethod
     def check_unlocks(attack, a_type):
@@ -152,7 +153,8 @@ class GameLoop(MenuLoop):
     @staticmethod
     def progress_bar(x=sw(5), y=sh(5)):
         bar_outline = pygame.image.load('Images\\icons\\progress_bar.png').convert_alpha()
-        length = int(200 - (Cache.current_planet.health / Cache.current_planet.max_health) * 200)
+        # length = int(200 - (Cache.current_planet.health / Cache.current_planet.max_health) * 200)
+        length = int((Cache.current_planet.health / Cache.current_planet.max_health) * 200)
         if length > 200:
             length = 200
         bar = pygame.Surface((length, 20))
@@ -187,7 +189,7 @@ class GameLoop(MenuLoop):
                 update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
             update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
-            update('game_stats', 'CP', f'"{self.cp}"', self.player_id)
+            update('game_stats', 'CP', f'"{Cache.cp}"', self.player_id)
             update('game_stats', 'BADGES', f'"{self.badges}"', self.player_id)
             update('game_stats', 'PROGRESS', f'"{self.progress}"', self.player_id)
 
@@ -313,6 +315,7 @@ class Planet(object):
     def raw_damage(self, damage):
         if self.health > 0 and damage - self.defence > 0:
             self.health -= damage - self.defence
+            Cache.cp += damage - self.defence
 
 
 class Bullet:
