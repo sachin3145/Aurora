@@ -153,7 +153,7 @@ def game(player_name='GUEST'):
         batch_place(attacks)
         loop.set_level(levels)
         if loop.index != 'options':
-            loop.progress_bar()
+            loop.planet_health_bar()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
