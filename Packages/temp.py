@@ -111,11 +111,10 @@ class GameLoop(MenuLoop):
         self.player_name = player_name
         self.player_id = get_player_id(player_name)
         self.player_level = get_player_info('PLAYER_LEVEL', player_name)
-        self.score = get_player_info('SCORE', player_name)
+        self.cp = get_player_info('CP', player_name)
         self.badges = 'NO BADGES UNLOCKED YET'
         self.progress = get_player_info('PROGRESS', player_name)
         self.index = ''
-
         Cache.player_name = self.player_name
 
     @staticmethod
@@ -183,7 +182,7 @@ class GameLoop(MenuLoop):
                 update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
             update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
-            update('game_stats', 'SCORE', f'"{self.score}"', self.player_id)
+            update('game_stats', 'CP', f'"{self.cp}"', self.player_id)
             update('game_stats', 'BADGES', f'"{self.badges}"', self.player_id)
             update('game_stats', 'PROGRESS', f'"{self.progress}"', self.player_id)
 
