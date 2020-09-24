@@ -117,9 +117,13 @@ class GameLoop(MenuLoop):
         self.index = ''
         Cache.player_name = self.player_name
         Cache.cp = self.cp
+        self.cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
+        self.cp_rect =self.cp_icon.get_rect()
+        self.cp_rect.center = (sw(87)-75, sh(7)-5)
 
     def set_screen(self):
         super().set_screen()
+        screen.blit(self.cp_icon, self.cp_rect)
         render_text('CP : ',  sw(87), sh(7), 32)
         render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
 
