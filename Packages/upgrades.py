@@ -12,7 +12,7 @@
 #     def attack_speed(self):
 #
 #     def max_health(self):
-#
+#         max_health += max/4
 #     def shield(self,defense):
 #         import random
 #         x=50
