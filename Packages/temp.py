@@ -117,6 +117,11 @@ class GameLoop(MenuLoop):
         self.index = ''
         Cache.player_name = self.player_name
 
+    def set_screen(self):
+        super().set_screen()
+        render_text('CP : ',  sw(87), sh(7), 32)
+        render_text(str(self.cp), sw(91), sh(7), 32)
+
     @staticmethod
     def check_unlocks(attack, a_type):
         for x in attack:
