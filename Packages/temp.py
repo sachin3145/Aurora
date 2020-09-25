@@ -104,6 +104,10 @@ class Cache:
     player_level = 0
     current_planet = None
 
+    @staticmethod
+    def energy():
+        return 10*Cache.player_level
+
 
 class GameLoop(MenuLoop):
     def __init__(self, player_name):
@@ -155,8 +159,8 @@ class GameLoop(MenuLoop):
             Cache.current_planet.place()
 
     @staticmethod
-    def progress_bar(x=sw(5), y=sh(5)):
-        bar_outline = pygame.image.load('Images\\icons\\progress_bar.png').convert_alpha()
+    def planet_health_bar(x=sw(5), y=sh(5)):
+        bar_outline = pygame.image.load('Images\\icons\\planet_health_bar.png').convert_alpha()
         # length = int(200 - (Cache.current_planet.health / Cache.current_planet.max_health) * 200)
         length = int((Cache.current_planet.health / Cache.current_planet.max_health) * 200)
         if length > 200:
