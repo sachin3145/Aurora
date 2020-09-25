@@ -122,7 +122,7 @@ class GameLoop(MenuLoop):
         Cache.player_name = self.player_name
         Cache.cp = self.cp
         self.cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
-        self.cp_rect =self.cp_icon.get_rect()
+        self.cp_rect = self.cp_icon.get_rect()
         self.cp_rect.center = (sw(87)-75, sh(7)-5)
 
     def set_screen(self):
@@ -159,16 +159,30 @@ class GameLoop(MenuLoop):
             Cache.current_planet.place()
 
     @staticmethod
-    def planet_health_bar(x=sw(5), y=sh(5)):
-        bar_outline = pygame.image.load('Images\\icons\\planet_health_bar.png').convert_alpha()
-        # length = int(200 - (Cache.current_planet.health / Cache.current_planet.max_health) * 200)
-        length = int((Cache.current_planet.health / Cache.current_planet.max_health) * 200)
+    def bars(x, y, length, color):
         if length > 200:
             length = 200
         bar = pygame.Surface((length, 20))
-        bar.fill((0, 255, 0))
+        bar.fill(color)
         screen.blit(bar, (x, y))
-        screen.blit(bar_outline, (x-30, y-9))
+
+
+
+    @staticmethod
+    def planet_health_bar(x=sw(5), y=sh(5)):
+        health_bar_outline = pygame.image.load('Images\\icons\\planet_health_bar.png').convert_alpha()
+        length = int((Cache.current_planet.health / Cache.current_planet.max_health) * 200)
+        GameLoop.bars(x, y, length, (0, 255, 0))
+        screen.blit(health_bar_outline, (x-30, y-9))
+
+    @staticmethod
+    def energy_bar():
+        x, y = pygame.mouse.get_pos()
+        energy_bar_outline = pygame.image.load('Images\\icons\\energy_bar.png').convert_alpha()
+        length = int((Cache.energy()/Cache.player_level) * 20)
+        GameLoop.bars(x, y, length, (0, 0, 255))
+        screen.blit(energy_bar_outline, (x, y))
+        render_text(f'{x}, {y}', sw(50), sh(50))
 
     def set_attributes(self, seq, category):
         if category == 'spell':

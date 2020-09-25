@@ -154,6 +154,7 @@ def game(player_name='GUEST'):
         loop.set_level(levels)
         if loop.index != 'options':
             loop.planet_health_bar()
+            loop.energy_bar()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
