@@ -182,7 +182,7 @@ class GameLoop(MenuLoop):
         length = int((Cache.energy()/Cache.player_level) * 20)
         GameLoop.bars(x, y, length, (0, 0, 255))
         screen.blit(energy_bar_outline, (x, y))
-        render_text(f'{x}, {y}', sw(50), sh(50))
+        render_text(f'{pix_w(x)}, {pix_h(y)}', sw(50), sh(50))
 
     def set_attributes(self, seq, category):
         if category == 'spell':
