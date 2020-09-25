@@ -122,7 +122,7 @@ class GameLoop(MenuLoop):
         Cache.player_name = self.player_name
         Cache.cp = self.cp
         self.cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
-        self.cp_rect =self.cp_icon.get_rect()
+        self.cp_rect = self.cp_icon.get_rect()
         self.cp_rect.center = (sw(87)-75, sh(7)-5)
 
     def set_screen(self):
@@ -177,8 +177,12 @@ class GameLoop(MenuLoop):
 
     @staticmethod
     def energy_bar():
-        # energy_bar_outline = pygame.image.load('Images\\icons\\planet_health_bar.png').convert_alpha()
-        pass
+        x, y = pygame.mouse.get_pos()
+        energy_bar_outline = pygame.image.load('Images\\icons\\energy_bar.png').convert_alpha()
+        length = int((Cache.energy()/Cache.player_level) * 20)
+        GameLoop.bars(x, y, length, (0, 0, 255))
+        screen.blit(energy_bar_outline, (x, y))
+        render_text(f'{x}, {y}', sw(50), sh(50))
 
     def set_attributes(self, seq, category):
         if category == 'spell':
