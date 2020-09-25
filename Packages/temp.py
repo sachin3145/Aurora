@@ -103,10 +103,11 @@ class Cache:
     player_name = ''
     player_level = 0
     current_planet = None
+    energy = 10
 
     @staticmethod
-    def energy():
-        return 10*Cache.player_level
+    def get_energy():
+        return 10*(Cache.player_level+1)
 
 
 class GameLoop(MenuLoop):
@@ -130,6 +131,8 @@ class GameLoop(MenuLoop):
         screen.blit(self.cp_icon, self.cp_rect)
         render_text('CP : ',  sw(87), sh(7), 32)
         render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
+        # render_text(f'Level = {Cache.player_level}', sw(50), sh(60))
+        # render_text(f'Energy = {Cache.energy}', sw(50), sh(70))
 
     @staticmethod
     def check_unlocks(attack, a_type):
@@ -155,6 +158,7 @@ class GameLoop(MenuLoop):
                 Overlay.half_rect((sw(75), sh(50)), (0, 255, 0))
                 render_text('GO TO UPGRADES', sw(25), sh(50))
                 render_text('PLAY NEXT', sw(75), sh(50))
+                Cache.energy = Cache.get_energy()
         else:
             Cache.current_planet.place()
 
@@ -179,7 +183,8 @@ class GameLoop(MenuLoop):
     def energy_bar():
         x, y = pygame.mouse.get_pos()
         energy_bar_outline = pygame.image.load('Images\\icons\\energy_bar.png').convert_alpha()
-        length = int((Cache.energy()/Cache.player_level) * 20)
+        length = int((Cache.energy/Cache.player_level) * 20)
+        # render_text(f'{length}', sw(50), sh(80))
         GameLoop.bars(x, y, length, (0, 0, 255))
         screen.blit(energy_bar_outline, (x, y))
         render_text(f'{pix_w(x)}, {pix_h(y)}', sw(50), sh(50))
@@ -478,7 +483,8 @@ class Troop(Attacks):
 
     def attack(self):
         for i in Troop.angles:
-            if i//18 not in Troop.occupied_pos:
+            if i//18 not in Troop.occupied_pos and Cache.energy - 1 >= 0:
+                Cache.energy -= 1
                 Troop.occupied_pos.append(i // 18)
                 trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
                 Troop.active_troops.append(trooper)
