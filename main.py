@@ -57,6 +57,9 @@ username = TextInput(sw(75), sh(30)-1, 64)
 with open('./Documentation/HOWTOPLAY.txt') as text:
     htp_text_list = text.read().splitlines()
 
+
+
+
 """
 GAME LOOPS BELOW
 """
@@ -140,7 +143,7 @@ def menu():
                         loop.index = 'start'
 
 
-pygame.time.set_timer(pygame.USEREVENT + 1, 3000)
+pygame.time.set_timer(pygame.USEREVENT + 1, 1)
 
 
 # Main loop
@@ -195,7 +198,20 @@ def game(player_name='GUEST'):
 
                 for troop in troops:
                     pygame.draw.circle(screen, (255, 255, 255), [sw(x), sh(y)], 40)
+
                     troop.place(sw(x), sh(y), upgrade_screen)
+                    render_text(f'Attack: {troop.damage}'.ljust(12), sw(x)-55, sh(y)+70, 20)
+                    troop.attack_upgrade_icon_rect.center = (sw(x)+55, sh(y)+70)
+                    hover_place(troop.attack_upgrade_icon, troop.attack_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+
+                    render_text(f'Defence: {troop.defence}'.ljust(12), sw(x) - 55, sh(y) + 110, 20)
+                    troop.defence_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 110)
+                    hover_place(troop.defence_upgrade_icon, troop.defence_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+
+                    render_text(f'Health: {troop.health}'.ljust(12), sw(x) - 55, sh(y) + 150, 20)
+                    troop.attack_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 150)
+                    hover_place(troop.health_upgrade_icon, troop.health_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+
                     if x == 80:
                         x = 20
                         y = 60
