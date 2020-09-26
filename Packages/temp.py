@@ -424,6 +424,8 @@ class Troop(Attacks):
         self.health = 0
         self.health_upgrade_icon = self.attack_upgrade_icon = self.defence_upgrade_icon = Troop.upgrade_icon
         self.health_upgrade_icon_rect = self.attack_upgrade_icon_rect = self.defence_upgrade_icon_rect = Troop.upgrade_icon_rect
+        self.health_upgrade_price = self.attack_upgrade_price = 5
+        self.defence_upgrade_price = 10
         self.id = Troop.id + 1
         Troop.id += 1
         self.file = file
