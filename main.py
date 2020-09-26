@@ -198,6 +198,7 @@ def game(player_name='GUEST'):
                 x = 20
                 y = 20
 
+                upgrade_screen.blit(bg, (0, 0))
                 upgrade_screen.blit(cp_icon, cp_rect)
                 render_text('CP : ', sw(87), sh(7), 32)
                 render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
@@ -219,7 +220,7 @@ def game(player_name='GUEST'):
                         render_text(str(troop.defence_upgrade_price), sw(x) + 55, sh(y) + 110, 10)
 
                         render_text(f'Health: {troop.health}'.ljust(12), sw(x) - 55, sh(y) + 150, 20)
-                        troop.attack_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 150)
+                        troop.health_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 150)
                         hover_place(troop.health_upgrade_icon, troop.health_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
                         render_text(str(troop.health_upgrade_price), sw(x) + 55, sh(y) + 150, 10)
 
@@ -229,6 +230,7 @@ def game(player_name='GUEST'):
                     else:
                         x += 20
 
+                pygame.display.update()
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -244,16 +246,16 @@ def game(player_name='GUEST'):
                                     troop.health_upgrade_price *= 2
 
                                 elif troop.attack_upgrade_icon_rect.collidepoint(x, y) and Cache.cp - troop.attack_upgrade_price >= 0:
-                                    Cache.cp -= troop.health_upgrade_price
+                                    Cache.cp -= troop.attack_upgrade_price
                                     troop.upgrade_damage()
                                     troop.attack_upgrade_price *= 2
 
                                 elif troop.defence_upgrade_icon_rect.collidepoint(x, y) and Cache.cp - troop.defence_upgrade_price >= 0:
-                                    Cache.cp -= troop.health_upgrade_price
+                                    Cache.cp -= troop.defence_upgrade_price
                                     troop.upgrade_defence()
                                     troop.defence_upgrade_price *= 2
 
-                pygame.display.update()
+
 
 """
 GAMES FLOW OF CONTROL

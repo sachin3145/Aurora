@@ -412,9 +412,6 @@ class Troop(Attacks):
     Parent class : Attacks"""
     deg = 0
     iteration = 0
-    upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png')
-    upgrade_icon_rect = upgrade_icon.get_rect()
-
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
         # calling initializer of parent class to set common variables up
@@ -422,9 +419,14 @@ class Troop(Attacks):
         self.damage = 0
         self.defence = 0
         self.health = 0
-        self.health_upgrade_icon = self.attack_upgrade_icon = self.defence_upgrade_icon = Troop.upgrade_icon
-        self.health_upgrade_icon_rect = self.attack_upgrade_icon_rect = self.defence_upgrade_icon_rect = Troop.upgrade_icon_rect
-        self.health_upgrade_price = self.attack_upgrade_price = 5
+        self.health_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.attack_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.defence_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.health_upgrade_icon_rect = self.health_upgrade_icon.get_rect()
+        self.attack_upgrade_icon_rect = self.attack_upgrade_icon.get_rect()
+        self.defence_upgrade_icon_rect = self.defence_upgrade_icon.get_rect()
+        self.health_upgrade_price = 5
+        self.attack_upgrade_price = 5
         self.defence_upgrade_price = 10
         self.id = Troop.id + 1
         Troop.id += 1
@@ -514,14 +516,16 @@ class Troop(Attacks):
                 break
 
     def upgrade_health(self):
-        self.health += self.health/4
+        self.health += int(self.health/4)
 
     def upgrade_damage(self):
-        self.damage += self.damage/10
+        self.damage += int(self.damage/10)
 
     def upgrade_defence(self):
-        self.defence += self.defence/4
-
+        if int(self.defence/4) > 1:
+            self.defence += int(self.defence/4)
+        else:
+            self.defence += 1
 
 class Overlay:
     @staticmethod
