@@ -390,7 +390,7 @@ class Spell(Attacks):
         super().__init__(x, y, file, base_dir)
         self.damage = 0
         self.id = Spell.energy_cost * 5
-        Spell.energy_cost += 1
+        Spell.energy_cost += 2
 
     def attack(self):
         if Cache.energy - self.energy_cost >= 0:
