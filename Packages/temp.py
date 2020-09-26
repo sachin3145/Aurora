@@ -170,8 +170,6 @@ class GameLoop(MenuLoop):
         bar.fill(color)
         screen.blit(bar, (x, y))
 
-
-
     @staticmethod
     def planet_health_bar(x=sw(5), y=sh(5)):
         health_bar_outline = pygame.image.load('Images\\icons\\planet_health_bar.png').convert_alpha()
@@ -186,7 +184,17 @@ class GameLoop(MenuLoop):
         GameLoop.bars(x, y, length, (0, 0, 255))
         screen.blit(energy_bar_outline, (x-30, y-5))
         render_text(f'{Cache.energy}', x+100, y+12, 15)
-        # render_text(f'{pix_w(pygame.mouse.get_pos()[0])}, {pix_h(pygame.mouse.get_pos()[1])}', sw(50), sh(50))
+
+        # # increasing energy event
+        #
+        # def re():
+        #     Cache.energy += 1
+        #
+        # conditions = {'recover_energy':re()}
+        #
+        # recover_energy = pygame.USEREVENT+1
+        # my_event = pygame.event.Event(recover_energy, conditions)
+        # pygame.time.set_timer(, 5000)
 
     def set_attributes(self, seq, category):
         if category == 'spell':
