@@ -140,6 +140,9 @@ def menu():
                         loop.index = 'start'
 
 
+pygame.time.set_timer(pygame.USEREVENT + 1, 5000)
+
+
 # Main loop
 def game(player_name='GUEST'):
     loop = GameLoop(player_name)
@@ -176,6 +179,8 @@ def game(player_name='GUEST'):
                         loop.player_level += 1
                         loop.update_unlocks(troops, 'troop')
                         loop.update_unlocks(spells, 'spell')
+            elif event.type == pygame.USEREVENT+1:
+                Cache.recover_energy()
 
 
 def upgrades(player_name='GUEST'):

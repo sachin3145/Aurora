@@ -109,6 +109,11 @@ class Cache:
     def get_energy():
         return 10*(Cache.player_level+1)
 
+    @staticmethod
+    def recover_energy():
+        if Cache.energy + 1 <= Cache.player_level * 10:
+            Cache.energy += 1
+
 
 class GameLoop(MenuLoop):
     def __init__(self, player_name):
@@ -184,17 +189,6 @@ class GameLoop(MenuLoop):
         GameLoop.bars(x, y, length, (0, 0, 255))
         screen.blit(energy_bar_outline, (x-30, y-5))
         render_text(f'{Cache.energy}', x+100, y+12, 15)
-
-        # # increasing energy event
-        #
-        # def re():
-        #     Cache.energy += 1
-        #
-        # conditions = {'recover_energy':re()}
-        #
-        # recover_energy = pygame.USEREVENT+1
-        # my_event = pygame.event.Event(recover_energy, conditions)
-        # pygame.time.set_timer(, 5000)
 
     def set_attributes(self, seq, category):
         if category == 'spell':
