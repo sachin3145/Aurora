@@ -113,6 +113,8 @@ class Cache:
     def recover_energy():
         if Cache.energy + Cache.player_level <= Cache.player_level * 10:
             Cache.energy += Cache.player_level
+        else:
+            Cache.energy = 10*(Cache.player_level+1)
 
 
 class GameLoop(MenuLoop):

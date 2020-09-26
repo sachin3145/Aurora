@@ -57,6 +57,10 @@ username = TextInput(sw(75), sh(30)-1, 64)
 with open('./Documentation/HOWTOPLAY.txt') as text:
     htp_text_list = text.read().splitlines()
 
+
+upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png')
+upfrade_icon_rect = upgrade_icon.get_rect()
+
 """
 GAME LOOPS BELOW
 """
@@ -196,6 +200,10 @@ def game(player_name='GUEST'):
                 for troop in troops:
                     pygame.draw.circle(screen, (255, 255, 255), [sw(x), sh(y)], 40)
                     troop.place(sw(x), sh(y), upgrade_screen)
+                    sep = 70
+                    for i in range(3):
+                        pass
+
                     if x == 80:
                         x = 20
                         y = 60
