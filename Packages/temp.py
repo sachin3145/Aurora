@@ -383,17 +383,23 @@ class Attacks(object):
 class Spell(Attacks):
     """Class to manage Spells
     Parent class : Attacks"""
+    energy_cost = 1
+
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
         super().__init__(x, y, file, base_dir)
         self.damage = 0
+        self.id = Spell.energy_cost * 5
+        Spell.energy_cost += 1
 
     def attack(self):
-        Cache.current_planet.raw_damage(self.damage)
-        pass
+        if Cache.energy - self.energy_cost >= 0:
+            Cache.energy -= self.energy_cost
+            Cache.current_planet.raw_damage(self.damage)
 
 
 class Troop(Attacks):
+    id = 0
     """Class to manage Troops
     Parent class : Attacks"""
     deg = 0
@@ -406,6 +412,8 @@ class Troop(Attacks):
         self.damage = 0
         self.defence = 0
         self.health = 0
+        self.id = Troop.id + 1
+        Troop.id += 1
         self.file = file
 
     class BattleTroop:
@@ -484,8 +492,8 @@ class Troop(Attacks):
 
     def attack(self):
         for i in Troop.angles:
-            if i//18 not in Troop.occupied_pos and Cache.energy - 1 >= 0:
-                Cache.energy -= 1
+            if i//18 not in Troop.occupied_pos and Cache.energy - self.id >= 0:
+                Cache.energy -= self.id
                 Troop.occupied_pos.append(i // 18)
                 trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
                 Troop.active_troops.append(trooper)
