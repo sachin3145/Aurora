@@ -107,6 +107,7 @@ class Cache:
 
     @staticmethod
     def get_energy():
+        # player_level+1 because its called just before next level starts
         return 10*(Cache.player_level+1)
 
     @staticmethod
@@ -114,7 +115,7 @@ class Cache:
         if Cache.energy + Cache.player_level <= Cache.player_level * 10:
             Cache.energy += Cache.player_level
         else:
-            Cache.energy = 10*(Cache.player_level+1)
+            Cache.energy = 10*Cache.player_level
 
 
 class GameLoop(MenuLoop):
@@ -411,6 +412,8 @@ class Troop(Attacks):
     Parent class : Attacks"""
     deg = 0
     iteration = 0
+    upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png')
+    upgrade_icon_rect = upgrade_icon.get_rect()
 
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
@@ -419,6 +422,8 @@ class Troop(Attacks):
         self.damage = 0
         self.defence = 0
         self.health = 0
+        self.health_upgrade_icon = self.attack_upgrade_icon = self.defence_upgrade_icon = Troop.upgrade_icon
+        self.health_upgrade_icon_rect = self.attack_upgrade_icon_rect = self.defence_upgrade_icon_rect = Troop.upgrade_icon_rect
         self.id = Troop.id + 1
         Troop.id += 1
         self.file = file
