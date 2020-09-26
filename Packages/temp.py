@@ -180,14 +180,13 @@ class GameLoop(MenuLoop):
         screen.blit(health_bar_outline, (x-30, y-9))
 
     @staticmethod
-    def energy_bar():
-        x, y = pygame.mouse.get_pos()
+    def energy_bar(x=sw(5), y=sh(9)):
         energy_bar_outline = pygame.image.load('Images\\icons\\energy_bar.png').convert_alpha()
         length = int((Cache.energy/Cache.player_level) * 20)
         # render_text(f'{length}', sw(50), sh(80))
         GameLoop.bars(x, y, length, (0, 0, 255))
-        screen.blit(energy_bar_outline, (x, y))
-        render_text(f'{pix_w(x)}, {pix_h(y)}', sw(50), sh(50))
+        screen.blit(energy_bar_outline, (x-sw(1.75), y))
+        render_text(f'{pix_w(pygame.mouse.get_pos()[0])}, {pix_h(pygame.mouse.get_pos()[1])}', sw(50), sh(50))
 
     def set_attributes(self, seq, category):
         if category == 'spell':
