@@ -37,19 +37,19 @@ def pix_h(pix):
 # ----------------------------------------------------------
 
 
-def hover_place(icon, rect, hover=True, no_shadow=True):
+def hover_place(icon, rect, hover=True, display=screen, no_shadow=True):
     """This function places an image over a rect,
     The images placed have a default hover effect which can be removed."""
     if not no_shadow:
         shadow = icon.copy()
         shadow.fill((255, 255, 255), special_flags=pygame.BLEND_RGB_SUB)
-        screen.blit(shadow, rect)
+        display.blit(shadow, rect)
     elif hover and rect.collidepoint(pygame.mouse.get_pos()):
         hicon = icon.copy()
         hicon.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
-        screen.blit(hicon, rect)
+        display.blit(hicon, rect)
     else:
-        screen.blit(icon, rect)
+        display.blit(icon, rect)
 
 
 def clicked(attacks, x, y):
@@ -111,8 +111,8 @@ class Cache:
 
     @staticmethod
     def recover_energy():
-        if Cache.energy + 1 <= Cache.player_level * 10:
-            Cache.energy += 1
+        if Cache.energy + Cache.player_level <= Cache.player_level * 10:
+            Cache.energy += Cache.player_level
 
 
 class GameLoop(MenuLoop):
@@ -376,8 +376,10 @@ class Attacks(object):
         self.rect.center = (self.x, self.y)
         self.name = file
 
-    def place(self):
-        hover_place(self.icon, self.rect, True, self.is_active)
+    def place(self, x=None, y=None, display = screen):
+        if x and y:
+            self.rect.center = (x, y)
+        hover_place(self.icon, self.rect, True, display, self.is_active)
 
 
 class Spell(Attacks):
@@ -389,7 +391,7 @@ class Spell(Attacks):
         base_dir = 'Images\\32px\\'
         super().__init__(x, y, file, base_dir)
         self.damage = 0
-        self.id = Spell.energy_cost * 5
+        self.energy_cost = Spell.energy_cost * 5
         Spell.energy_cost += 2
 
     def attack(self):
@@ -498,6 +500,15 @@ class Troop(Attacks):
                 trooper = self.BattleTroop(self.file, i, self.damage, self.defence, self.health)
                 Troop.active_troops.append(trooper)
                 break
+
+    def upgrade_health(self):
+        self.health += self.health/4
+
+    def upgrade_damage(self):
+        self.damage += self.damage/10
+
+    def upgrade_defence(self):
+        self.defence += self.defence/4
 
 
 class Overlay:

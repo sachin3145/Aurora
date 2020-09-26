@@ -140,7 +140,7 @@ def menu():
                         loop.index = 'start'
 
 
-pygame.time.set_timer(pygame.USEREVENT + 1, 5000)
+pygame.time.set_timer(pygame.USEREVENT + 1, 3000)
 
 
 # Main loop
@@ -175,6 +175,7 @@ def game(player_name='GUEST'):
                     loop.index = ''
                     if sw(0) < x < sw(50):
                         loop.index = 'upgrades'
+                        upgrades()
                     else:
                         loop.player_level += 1
                         loop.update_unlocks(troops, 'troop')
@@ -182,10 +183,30 @@ def game(player_name='GUEST'):
             elif event.type == pygame.USEREVENT+1:
                 Cache.recover_energy()
 
+        def upgrades():
+            upgrade_screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
+            bg = pygame.image.load("Images\\icons\\bg.png")
+            upgrade_screen.blit(bg, (0, 0))
+            flag = True
 
-def upgrades(player_name='GUEST'):
+            while flag:
+                x = 20
+                y = 20
 
-    pass
+                for troop in troops:
+                    pygame.draw.circle(screen, (255, 255, 255), [sw(x), sh(y)], 40)
+                    troop.place(sw(x), sh(y), upgrade_screen)
+                    if x == 80:
+                        x = 20
+                        y = 40
+                    else:
+                        x += 40
+                pygame.display.update()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        loop.index = ''
+                        flag = False
 
 
 """
