@@ -104,6 +104,7 @@ class Cache:
     player_level = 0
     current_planet = None
     energy = 10
+    time_left = 300
 
     @staticmethod
     def get_energy():
@@ -139,8 +140,7 @@ class GameLoop(MenuLoop):
         screen.blit(self.cp_icon, self.cp_rect)
         render_text('CP : ',  sw(87), sh(7), 32)
         render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
-        # render_text(f'Level = {Cache.player_level}', sw(50), sh(60))
-        # render_text(f'Energy = {Cache.energy}', sw(50), sh(70))
+        render_text(f'{Cache.time_left//60}:{Cache.time_left%60}', sw(50), sh(95), 32)
 
     @staticmethod
     def check_unlocks(attack, a_type):
@@ -167,6 +167,7 @@ class GameLoop(MenuLoop):
                 render_text('GO TO UPGRADES', sw(25), sh(50))
                 render_text('PLAY NEXT', sw(75), sh(50))
                 Cache.energy = Cache.get_energy()
+                Cache.time_left = 300
         else:
             Cache.current_planet.place()
 
@@ -526,6 +527,7 @@ class Troop(Attacks):
             self.defence += int(self.defence/4)
         else:
             self.defence += 1
+
 
 class Overlay:
     @staticmethod

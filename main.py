@@ -145,7 +145,8 @@ def menu():
                         loop.index = 'start'
 
 
-pygame.time.set_timer(pygame.USEREVENT + 1, 1)
+pygame.time.set_timer(pygame.USEREVENT + 1, 3000)
+pygame.time.set_timer(pygame.USEREVENT + 2, 1000)
 
 
 # Main loop
@@ -187,6 +188,12 @@ def game(player_name='GUEST'):
                         loop.update_unlocks(spells, 'spell')
             elif event.type == pygame.USEREVENT+1:
                 Cache.recover_energy()
+            elif event.type == pygame.USEREVENT+2:
+                if loop.index == '':
+                    Cache.time_left -= 1
+                    if Cache.time_left < 0:
+                        pygame.time.wait(5000)
+                        loop.running = False
 
         def upgrades():
             upgrade_screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
