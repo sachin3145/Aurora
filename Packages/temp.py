@@ -378,8 +378,11 @@ class Attacks(object):
 
     def place(self, x=None, y=None, display = screen):
         if x and y:
-            self.rect.center = (x, y)
-        hover_place(self.icon, self.rect, True, display, self.is_active)
+            rect = self.icon.get_rect()
+            rect.center = (x, y)
+            hover_place(self.icon, rect, True, display, self.is_active)
+        else:
+            hover_place(self.icon, self.rect, True, display, self.is_active)
 
 
 class Spell(Attacks):
