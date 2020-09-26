@@ -178,6 +178,10 @@ def game(player_name='GUEST'):
                         loop.update_unlocks(spells, 'spell')
 
 
+def upgrades(player_name='GUEST'):
+
+    pass
+
 
 """
 GAMES FLOW OF CONTROL
