@@ -198,9 +198,9 @@ def game(player_name='GUEST'):
                     troop.place(sw(x), sh(y), upgrade_screen)
                     if x == 80:
                         x = 20
-                        y = 40
+                        y = 60
                     else:
-                        x += 40
+                        x += 20
                 pygame.display.update()
 
                 for event in pygame.event.get():
