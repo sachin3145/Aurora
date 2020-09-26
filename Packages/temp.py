@@ -380,9 +380,9 @@ class Attacks(object):
         if x and y:
             rect = self.icon.get_rect()
             rect.center = (x, y)
-            hover_place(self.icon, rect, True, display, self.is_active)
         else:
-            hover_place(self.icon, self.rect, True, display, self.is_active)
+            rect = self.rect
+        hover_place(self.icon, rect, True, display, self.is_active)
 
 
 class Spell(Attacks):
