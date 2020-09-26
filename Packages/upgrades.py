@@ -9,10 +9,13 @@
 #         self.file = file
 #     def attack_damage(self,damage):
 #         damage += damage/10
+#         cost += cost / 3
 #     def attack_speed(self):
 #
+#         cost += cost / 3
 #     def max_health(self):
-#         max_health += max/4
+#         max_health += max_health/4
+#         cost += cost / 3
 #     def shield(self,defense):
 #         import random
 #         x=50
@@ -21,4 +24,4 @@
 #         defense += health + shld
 #         x =+ 25
 #         y += 25
-
+#         cost += cost / 3
