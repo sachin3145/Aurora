@@ -103,7 +103,6 @@ class Cache:
     player_name = ''
     player_level = 0
     current_planet = None
-    energy = 10
     time_left = 300
 
     @staticmethod
@@ -134,6 +133,7 @@ class GameLoop(MenuLoop):
         self.cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
         self.cp_rect = self.cp_icon.get_rect()
         self.cp_rect.center = (sw(87)-75, sh(7)-5)
+        Cache.energy = 10*self.player_level
 
     def set_screen(self):
         super().set_screen()
@@ -204,6 +204,9 @@ class GameLoop(MenuLoop):
                 troop.damage = data['attack']
                 troop.defence = data['defence']
                 troop.health = data['health']
+                troop.attack_upgrade_price = data['au_price']
+                troop.defence_upgrade_price = data['du_price']
+                troop.health_upgrade_price = data['hu_price']
 
     def save_progress(self, category, seq=None):
         if seq is None:
@@ -218,6 +221,9 @@ class GameLoop(MenuLoop):
                 update(f'{troop.name[:-4]}', 'ATTACK', f'"{troop.damage}"', self.player_id)
                 update(f'{troop.name[:-4]}', 'DEFENCE', f'"{troop.defence}"', self.player_id)
                 update(f'{troop.name[:-4]}', 'HEALTH', f'"{troop.health}"', self.player_id)
+                update(f'{troop.name[:-4]}', 'ATTACK_UPGRADE_PRICE', f'"{troop.attack_upgrade_price}"', self.player_id)
+                update(f'{troop.name[:-4]}', 'DEFENCE_UPGRADE_PRICE', f'"{troop.defence_upgrade_price}"', self.player_id)
+                update(f'{troop.name[:-4]}', 'HEALTH_UPGRADE_PRICE', f'"{troop.health_upgrade_price}"', self.player_id)
                 update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
             update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
@@ -413,6 +419,7 @@ class Troop(Attacks):
     Parent class : Attacks"""
     deg = 0
     iteration = 0
+
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
         # calling initializer of parent class to set common variables up
@@ -426,9 +433,7 @@ class Troop(Attacks):
         self.health_upgrade_icon_rect = self.health_upgrade_icon.get_rect()
         self.attack_upgrade_icon_rect = self.attack_upgrade_icon.get_rect()
         self.defence_upgrade_icon_rect = self.defence_upgrade_icon.get_rect()
-        self.health_upgrade_price = 5
-        self.attack_upgrade_price = 5
-        self.defence_upgrade_price = 10
+        self.health_upgrade_price = self.attack_upgrade_price = self.defence_upgrade_price = 0
         self.id = Troop.id + 1
         Troop.id += 1
         self.file = file
