@@ -104,6 +104,7 @@ class Cache:
     player_level = 0
     current_planet = None
     energy = 10
+    time_left = 300
 
     @staticmethod
     def get_energy():
@@ -139,8 +140,7 @@ class GameLoop(MenuLoop):
         screen.blit(self.cp_icon, self.cp_rect)
         render_text('CP : ',  sw(87), sh(7), 32)
         render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
-        # render_text(f'Level = {Cache.player_level}', sw(50), sh(60))
-        # render_text(f'Energy = {Cache.energy}', sw(50), sh(70))
+        render_text(f'{Cache.time_left//60}:{Cache.time_left%60}', sw(50), sh(95), 32)
 
     @staticmethod
     def check_unlocks(attack, a_type):
@@ -167,6 +167,7 @@ class GameLoop(MenuLoop):
                 render_text('GO TO UPGRADES', sw(25), sh(50))
                 render_text('PLAY NEXT', sw(75), sh(50))
                 Cache.energy = Cache.get_energy()
+                Cache.time_left = 300
         else:
             Cache.current_planet.place()
 
@@ -412,9 +413,6 @@ class Troop(Attacks):
     Parent class : Attacks"""
     deg = 0
     iteration = 0
-    upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png')
-    upgrade_icon_rect = upgrade_icon.get_rect()
-
     def __init__(self, x, y, file):
         base_dir = 'Images\\32px\\'
         # calling initializer of parent class to set common variables up
@@ -422,8 +420,15 @@ class Troop(Attacks):
         self.damage = 0
         self.defence = 0
         self.health = 0
-        self.health_upgrade_icon = self.attack_upgrade_icon = self.defence_upgrade_icon = Troop.upgrade_icon
-        self.health_upgrade_icon_rect = self.attack_upgrade_icon_rect = self.defence_upgrade_icon_rect = Troop.upgrade_icon_rect
+        self.health_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.attack_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.defence_upgrade_icon = pygame.image.load('Images\\icons\\upgrade_icon.png').convert_alpha()
+        self.health_upgrade_icon_rect = self.health_upgrade_icon.get_rect()
+        self.attack_upgrade_icon_rect = self.attack_upgrade_icon.get_rect()
+        self.defence_upgrade_icon_rect = self.defence_upgrade_icon.get_rect()
+        self.health_upgrade_price = 5
+        self.attack_upgrade_price = 5
+        self.defence_upgrade_price = 10
         self.id = Troop.id + 1
         Troop.id += 1
         self.file = file
@@ -512,13 +517,16 @@ class Troop(Attacks):
                 break
 
     def upgrade_health(self):
-        self.health += self.health/4
+        self.health += int(self.health/4)
 
     def upgrade_damage(self):
-        self.damage += self.damage/10
+        self.damage += int(self.damage/10)
 
     def upgrade_defence(self):
-        self.defence += self.defence/4
+        if int(self.defence/4) > 1:
+            self.defence += int(self.defence/4)
+        else:
+            self.defence += 1
 
 
 class Overlay:

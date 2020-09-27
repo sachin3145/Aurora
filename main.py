@@ -57,7 +57,9 @@ username = TextInput(sw(75), sh(30)-1, 64)
 with open('./Documentation/HOWTOPLAY.txt') as text:
     htp_text_list = text.read().splitlines()
 
-
+cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
+cp_rect = cp_icon.get_rect()
+cp_rect.center = (sw(87)-75, sh(7)-5)
 
 
 """
@@ -143,7 +145,8 @@ def menu():
                         loop.index = 'start'
 
 
-pygame.time.set_timer(pygame.USEREVENT + 1, 1)
+pygame.time.set_timer(pygame.USEREVENT + 1, 3000)
+pygame.time.set_timer(pygame.USEREVENT + 2, 1000)
 
 
 # Main loop
@@ -185,6 +188,12 @@ def game(player_name='GUEST'):
                         loop.update_unlocks(spells, 'spell')
             elif event.type == pygame.USEREVENT+1:
                 Cache.recover_energy()
+            elif event.type == pygame.USEREVENT+2:
+                if loop.index == '':
+                    Cache.time_left -= 1
+                    if Cache.time_left < 0:
+                        pygame.time.wait(5000)
+                        loop.running = False
 
         def upgrades():
             upgrade_screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
@@ -196,33 +205,63 @@ def game(player_name='GUEST'):
                 x = 20
                 y = 20
 
+                upgrade_screen.blit(bg, (0, 0))
+                upgrade_screen.blit(cp_icon, cp_rect)
+                render_text('CP : ', sw(87), sh(7), 32)
+                render_text(str(int(Cache.cp)).ljust(7), sw(93), sh(7), 32)
+
                 for troop in troops:
                     pygame.draw.circle(screen, (255, 255, 255), [sw(x), sh(y)], 40)
 
                     troop.place(sw(x), sh(y), upgrade_screen)
-                    render_text(f'Attack: {troop.damage}'.ljust(12), sw(x)-55, sh(y)+70, 20)
-                    troop.attack_upgrade_icon_rect.center = (sw(x)+55, sh(y)+70)
-                    hover_place(troop.attack_upgrade_icon, troop.attack_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
 
-                    render_text(f'Defence: {troop.defence}'.ljust(12), sw(x) - 55, sh(y) + 110, 20)
-                    troop.defence_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 110)
-                    hover_place(troop.defence_upgrade_icon, troop.defence_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+                    if troop.is_active:
+                        render_text(f'Attack: {troop.damage}'.ljust(12), sw(x)-55, sh(y)+70, 20)
+                        troop.attack_upgrade_icon_rect.center = (sw(x)+55, sh(y)+70)
+                        hover_place(troop.attack_upgrade_icon, troop.attack_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+                        render_text(str(troop.attack_upgrade_price), sw(x)+55, sh(y)+70, 10)
 
-                    render_text(f'Health: {troop.health}'.ljust(12), sw(x) - 55, sh(y) + 150, 20)
-                    troop.attack_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 150)
-                    hover_place(troop.health_upgrade_icon, troop.health_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+                        render_text(f'Defence: {troop.defence}'.ljust(12), sw(x) - 55, sh(y) + 110, 20)
+                        troop.defence_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 110)
+                        hover_place(troop.defence_upgrade_icon, troop.defence_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+                        render_text(str(troop.defence_upgrade_price), sw(x) + 55, sh(y) + 110, 10)
+
+                        render_text(f'Health: {troop.health}'.ljust(12), sw(x) - 55, sh(y) + 150, 20)
+                        troop.health_upgrade_icon_rect.center = (sw(x) + 55, sh(y) + 150)
+                        hover_place(troop.health_upgrade_icon, troop.health_upgrade_icon_rect, True, upgrade_screen, troop.is_active)
+                        render_text(str(troop.health_upgrade_price), sw(x) + 55, sh(y) + 150, 10)
 
                     if x == 80:
                         x = 20
                         y = 60
                     else:
                         x += 20
+
                 pygame.display.update()
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         loop.index = ''
                         flag = False
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        x, y = pygame.mouse.get_pos()
+                        for troop in troops:
+                            if troop.is_active:
+                                if troop.health_upgrade_icon_rect.collidepoint(x, y) and Cache.cp - troop.health_upgrade_price >= 0:
+                                    Cache.cp -= troop.health_upgrade_price
+                                    troop.upgrade_health()
+                                    troop.health_upgrade_price *= 2
+
+                                elif troop.attack_upgrade_icon_rect.collidepoint(x, y) and Cache.cp - troop.attack_upgrade_price >= 0:
+                                    Cache.cp -= troop.attack_upgrade_price
+                                    troop.upgrade_damage()
+                                    troop.attack_upgrade_price *= 2
+
+                                elif troop.defence_upgrade_icon_rect.collidepoint(x, y) and Cache.cp - troop.defence_upgrade_price >= 0:
+                                    Cache.cp -= troop.defence_upgrade_price
+                                    troop.upgrade_defence()
+                                    troop.defence_upgrade_price *= 2
+
 
 
 """
