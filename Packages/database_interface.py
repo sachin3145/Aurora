@@ -53,7 +53,7 @@ try:
     def get_troop(troop_name, player_id):
         execute_sql('USE AURORA;')
         data = execute_sql(f'SELECT * FROM {troop_name} WHERE PLAYER_ID  = "{player_id}";')[0]
-        return {'attack': data[1], 'defence': data[2], 'health': data[3]}
+        return {'attack': data[1], 'defence': data[2], 'health': data[3], 'au_price': data[4], 'du_price': data[5], 'hu_price': data[6]}
 
     def get_spell(spell, player_id):
         execute_sql('USE AURORA;')
