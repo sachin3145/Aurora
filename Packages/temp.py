@@ -10,13 +10,9 @@ screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 screen_height = screen.get_height() - 40
 screen_width = screen.get_width()
 
-from pygame import mixer
-
-pygame.init()
-
-mixer.music.load('SFX/background.wav')
-mixer.music.play()
-
+def play_music():
+    pygame.mixer.music.load('SFX/background.wav')
+    pygame.mixer.music.play()
 
 
 def sh(percentage):
