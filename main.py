@@ -65,12 +65,12 @@ cp_rect.center = (sw(87)-75, sh(7)-5)
 """
 GAME LOOPS BELOW
 """
+play_music()
 
 
 def menu():
     loop = MenuLoop()
     while loop.running:
-        play_music()
         loop.set_screen()
 
         if loop.index == 'home':
@@ -157,7 +157,6 @@ def game(player_name='GUEST'):
     loop.check_unlocks(troops, 'troop')
     loop.check_unlocks(spells, 'spell')
     while loop.running:
-        play_music()
         loop.set_screen()
         Troop.update_troops()
         batch_place(attacks)
