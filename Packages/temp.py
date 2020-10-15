@@ -12,7 +12,7 @@ screen_width = screen.get_width()
 
 def play_music():
     pygame.mixer.music.load('SFX/background.wav')
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
 
 
 def sh(percentage):
