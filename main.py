@@ -65,6 +65,7 @@ cp_rect.center = (sw(87)-75, sh(7)-5)
 """
 GAME LOOPS BELOW
 """
+play_music()
 
 
 def menu():
