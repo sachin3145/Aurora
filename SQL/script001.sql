@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS game_stats(
     PLAYER_LEVEL INT DEFAULT 1,
     CP INT DEFAULT 0,
     BADGES TEXT,
-    PROGRESS VARCHAR(3) DEFAULT '0%'
+    PROGRESS VARCHAR(5) DEFAULT '0%'
                                        );
 
 -- this table holds data for troops that player has unlocked

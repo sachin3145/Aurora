@@ -10,6 +10,7 @@ screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 screen_height = screen.get_height() - 40
 screen_width = screen.get_width()
 
+
 def play_music():
     pygame.mixer.music.load('SFX/background.wav')
     pygame.mixer.music.play(-1)
@@ -230,10 +231,10 @@ class GameLoop(MenuLoop):
                 update(f'{troop.name[:-4]}', 'HEALTH_UPGRADE_PRICE', f'"{troop.health_upgrade_price}"', self.player_id)
                 update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
-            update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
+            update('game_stats', 'PLAYER_LEVEL', self.player_level+1, self.player_id)
             update('game_stats', 'CP', f'"{Cache.cp}"', self.player_id)
             update('game_stats', 'BADGES', f'"{self.badges}"', self.player_id)
-            update('game_stats', 'PROGRESS', f'"{self.progress}"', self.player_id)
+            update('game_stats', 'PROGRESS', f'"{12.5*self.player_level}%"', self.player_id)
 
     def unlocked_troop(self, troop_name):
         update('player_troops', f'"{troop_name}"', 1, self.player_id)

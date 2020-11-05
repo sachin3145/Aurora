@@ -94,7 +94,7 @@ def menu():
             change_active_state(auth_controls, False)
             render_text('USERNAME', sw(25), sh(30), 64)
             username.render()
-            if player_exists(username.text.upper()):
+            if player_exists(username.text.upper()) and username.text.upper() != 'GUEST':
                 cont.is_active = True
                 cont.place()
             else:
