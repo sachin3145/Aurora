@@ -87,13 +87,19 @@ try:
         player_id = create_player_id(player_name.upper())
 
         # adding data into parent tables
-        p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name.upper()}");')
+        p.execute(f'INSERT INTO game_stats (PLAYER_ID, PLAYER_NAME) VALUES ("{player_id}", "{player_name.upper()}") ;')
 
         # adding data into child tables
         for table in tables:
             p.execute(f'INSERT INTO {table} (PLAYER_ID) VALUES ("{player_id}");')
 
         db.commit()
+
+    def high_scores():
+        p.execute('USE AURORA;')
+        p.execute('SELECT PLAYER_NAME, SCORE FROM GAME_STATS;')
+        return sorted(list(p.fetchall()), key=lambda x: x[1], reverse=True)
+
 
     if __name__ == '__main__':
         execute_sql_from_file('..\\SQL\\script001.sql')

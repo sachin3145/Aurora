@@ -130,11 +130,12 @@ class GameLoop(MenuLoop):
         self.player_id = get_player_id(player_name)
         self.player_level = get_player_info('PLAYER_LEVEL', player_name)
         self.cp = get_player_info('CP', player_name)
-        self.badges = 'NO BADGES UNLOCKED YET'
+        self.score = get_player_info('SCORE', player_name)
         self.progress = get_player_info('PROGRESS', player_name)
         self.index = ''
         Cache.player_name = self.player_name
         Cache.cp = self.cp
+        Cache.score = self.score
         self.cp_icon = pygame.image.load('Images\\icons\\CP_icon.png').convert_alpha()
         self.cp_rect = self.cp_icon.get_rect()
         self.cp_rect.center = (sw(87)-75, sh(7)-5)
@@ -163,6 +164,7 @@ class GameLoop(MenuLoop):
         Cache.current_planet = levels[self.player_level - 1]
         Cache.player_level = self.player_level
         if Cache.current_planet.health <= 0:
+            Cache.score += (Cache.time_left + Cache.player_level*1000)
             self.index = 'options'
             Overlay.overlay('DESTROYED')
 
@@ -231,9 +233,9 @@ class GameLoop(MenuLoop):
                 update(f'{troop.name[:-4]}', 'HEALTH_UPGRADE_PRICE', f'"{troop.health_upgrade_price}"', self.player_id)
                 update('player_troops', f'{troop.name[:-4]}', troop.is_active, self.player_id)
         elif category == 'overall':
-            update('game_stats', 'PLAYER_LEVEL', self.player_level+1, self.player_id)
+            update('game_stats', 'PLAYER_LEVEL', self.player_level, self.player_id)
             update('game_stats', 'CP', f'"{Cache.cp}"', self.player_id)
-            update('game_stats', 'BADGES', f'"{self.badges}"', self.player_id)
+            update('game_stats', 'SCORE', f'"{Cache.score}"', self.player_id)
             update('game_stats', 'PROGRESS', f'"{12.5*self.player_level}%"', self.player_id)
 
     def unlocked_troop(self, troop_name):

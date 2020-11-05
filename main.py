@@ -85,7 +85,18 @@ def menu():
                 render_text(htp_text, sw(50), y)
                 y += 40
         elif loop.index == 'high':
-            pass
+            change_active_state(controls, False)
+            render_text('S. No. ', sw(20), sw(5))
+            render_text('PLAYER NAME', sw(50), sw(5))
+            render_text('SCORE', sw(80), sw(5))
+            y = sw(15)
+            x = 1
+            for name, score in high_scores():
+                render_text(str(x), sw(20), y)
+                render_text(name, sw(50), y)
+                render_text(str(score), sw(80), y)
+                y += 40
+                x += 1
         elif loop.index == 'start':
             change_active_state(controls, False)
             change_active_state(auth_controls, True)
