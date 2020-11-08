@@ -166,15 +166,17 @@ class GameLoop(MenuLoop):
         if Cache.current_planet.health <= 0:
             Cache.score += (Cache.time_left + Cache.player_level*1000)
             self.index = 'options'
-            Overlay.overlay('DESTROYED')
 
             if self.player_level < 8:
+                Overlay.overlay('DESTROYED')
                 Overlay.half_rect((sw(25), sh(50)), (255, 0, 0))
                 Overlay.half_rect((sw(75), sh(50)), (0, 255, 0))
                 render_text('GO TO UPGRADES', sw(25), sh(50))
                 render_text('PLAY NEXT', sw(75), sh(50))
                 Cache.energy = Cache.get_energy()
                 Cache.time_left = 300
+            else:
+                Overlay.overlay('VICTORY')
         else:
             Cache.current_planet.place()
 
