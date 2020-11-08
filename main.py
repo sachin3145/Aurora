@@ -180,6 +180,10 @@ def game(player_name='GUEST'):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if loop.player_name != 'GUEST':
+                    if loop.index == 'options':
+                        loop.player_level += 1
+                        loop.update_unlocks(troops, 'troop')
+                        loop.update_unlocks(spells, 'spell')
                     loop.save_progress('troop', troops)
                     loop.save_progress('spell', spells)
                     loop.save_progress('overall')
@@ -198,6 +202,10 @@ def game(player_name='GUEST'):
                         loop.player_level += 1
                         loop.update_unlocks(troops, 'troop')
                         loop.update_unlocks(spells, 'spell')
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    loop.index = 'upgrades'
+                    upgrades()
             elif event.type == pygame.USEREVENT+1:
                 Cache.recover_energy()
             elif event.type == pygame.USEREVENT+2:
