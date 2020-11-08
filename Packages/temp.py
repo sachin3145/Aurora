@@ -12,7 +12,7 @@ screen_width = screen.get_width()
 
 
 def play_music():
-    pygame.mixer.music.load('SFX/background.wav')
+    pygame.mixer.music.load('SFX/background 2.wav')
     pygame.mixer.music.play(-1)
 
 
@@ -176,6 +176,7 @@ class GameLoop(MenuLoop):
                 Cache.energy = Cache.get_energy()
                 Cache.time_left = 300
             else:
+                self.index = 'victory'
                 Overlay.overlay('VICTORY')
         else:
             Cache.current_planet.place()

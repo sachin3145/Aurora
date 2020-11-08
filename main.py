@@ -170,7 +170,7 @@ def game(player_name='GUEST'):
         Troop.update_troops()
         batch_place(attacks)
         loop.set_level(levels)
-        if loop.index != 'options':
+        if loop.index not in ['options', 'victory']:
             loop.planet_health_bar()
             loop.energy_bar()
         pygame.display.update()
