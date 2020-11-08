@@ -165,9 +165,9 @@ class GameLoop(MenuLoop):
         Cache.player_level = self.player_level
         if Cache.current_planet.health <= 0:
             Cache.score += (Cache.time_left + Cache.player_level*1000)
-            self.index = 'options'
 
             if self.player_level < 8:
+                self.index = 'options'
                 Overlay.overlay('DESTROYED')
                 Overlay.half_rect((sw(25), sh(50)), (255, 0, 0))
                 Overlay.half_rect((sw(75), sh(50)), (0, 255, 0))
