@@ -37,9 +37,6 @@ armada = Troop(sw(94.51), sh(85.99), 'armada.png')
 elysium = Troop(sw(91.58), sh(85.99), 'elysium.png')
 demogorgon = Troop(sw(88.65), sh(85.99), 'demogorgon.png')
 
-# loading images
-sun = pygame.image.load('Images\\Planet\\sun.png')
-
 
 controls = [start, high, htp]
 auth_controls = [login, register, play_as_guest]
@@ -48,7 +45,7 @@ spells = [ray_of_sickness, incinerate, plasma_discharge, god_of_chaos]
 attacks = spells + troops
 attacks = attacks[::-1]
 
-levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]    # sun will be handled separately
+levels = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]
 
 # authentication input box
 username = TextInput(sw(75), sh(30)-1, 64)
