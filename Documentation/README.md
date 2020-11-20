@@ -10,7 +10,7 @@ A project by
 4. pygame
 5. mixer
 6. paint3D
-7.flaticon.com
+7. flaticon.com
 
 
 # Overview
