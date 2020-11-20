@@ -108,8 +108,8 @@ class Cache:
     player_name = ''
     player_level = 0
     current_planet = None
-    time_left = 300
-
+    # time_left = 300
+    time_left = 60
     @staticmethod
     def get_energy():
         # player_level+1 because its called just before next level starts
@@ -174,7 +174,8 @@ class GameLoop(MenuLoop):
                 render_text('GO TO UPGRADES', sw(25), sh(50))
                 render_text('PLAY NEXT', sw(75), sh(50))
                 Cache.energy = Cache.get_energy()
-                Cache.time_left = 300
+                # Cache.time_left = 300
+                Cache.time_left = 60
             else:
                 self.index = 'victory'
                 Overlay.overlay('VICTORY')
