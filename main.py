@@ -11,14 +11,23 @@ incinerate = Spell(sw(4.76), sh(92.86), 'incinerate.png')
 plasma_discharge = Spell(sw(7.66), sh(92.86), 'plasma_discharge.png')
 god_of_chaos = Spell(sw(10.61), sh(92.86), 'god_of_chaos.png')
 
-mercury = Planet('mercury.png', 500)
-venus = Planet('venus.png', 1000)
-earth = Planet('earth.png', 2000)
-mars = Planet('mars.png', 1500)
-jupiter = Planet('jupiter.png',5000)
-saturn = Planet('saturn.png', 4500)
-uranus = Planet('uranus.png', 4000)
-neptune = Planet('neptune.png',7500)
+# mercury = Planet('mercury.png', 500)
+# venus = Planet('venus.png', 1000)
+# earth = Planet('earth.png', 2000)
+# mars = Planet('mars.png', 1500)
+# jupiter = Planet('jupiter.png',5000)
+# saturn = Planet('saturn.png', 4500)
+# uranus = Planet('uranus.png', 4000)
+# neptune = Planet('neptune.png',7500)
+
+mercury = Planet('mercury.png', 50)
+venus = Planet('venus.png', 100)
+earth = Planet('earth.png', 200)
+mars = Planet('mars.png', 150)
+jupiter = Planet('jupiter.png',500)
+saturn = Planet('saturn.png', 450)
+uranus = Planet('uranus.png', 400)
+neptune = Planet('neptune.png',750)
 
 start = Control(sh(50)-100, 'start_icon.png')
 high = Control(sh(50), 'high.png')
@@ -62,11 +71,11 @@ cp_rect.center = (sw(87)-75, sh(7)-5)
 """
 GAME LOOPS BELOW
 """
-play_music()
+# play_music()
 
 
 def menu():
-    play_music()
+    # play_music()
     loop = MenuLoop()
     while loop.running:
         loop.set_screen()
