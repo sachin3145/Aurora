@@ -6,8 +6,6 @@ from Aurora.Packages.database_interface import *
 pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
-
-
 # -------------------------------------------------------------
 # Global variables
 current_planet = None
@@ -20,7 +18,7 @@ screen_width = screen.get_width()
 
 def play_music():
     """Plays music has to be in .wav format"""
-    pygame.mixer.music.load('SFX/background 2.wav')
+    pygame.mixer.music.load('SFX/background.wav')
     pygame.mixer.music.play(-1)     # used to loop the music
 
 
