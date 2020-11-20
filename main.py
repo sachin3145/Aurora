@@ -11,14 +11,8 @@ incinerate = Spell(sw(4.76), sh(92.86), 'incinerate.png')
 plasma_discharge = Spell(sw(7.66), sh(92.86), 'plasma_discharge.png')
 god_of_chaos = Spell(sw(10.61), sh(92.86), 'god_of_chaos.png')
 
-# mercury = Planet('mercury.png', 500)
-# venus = Planet('venus.png', 1000)
-# earth = Planet('earth.png', 2000)
-# mars = Planet('mars.png', 1500)
-# jupiter = Planet('jupiter.png',5000)
-# saturn = Planet('saturn.png', 4500)
-# uranus = Planet('uranus.png', 4000)
-# neptune = Planet('neptune.png',7500)
+# The planets have been intentionally made weak, and the timer has been reduced
+# so that we can present various game cases within a short period of time
 
 mercury = Planet('mercury.png', 50)
 venus = Planet('venus.png', 100)
