@@ -110,7 +110,8 @@ class Cache:
     player_level = 0
     current_planet = None
     # time_left = 300
-    time_left = 10
+    time_left = 60
+
     @staticmethod
     def get_energy():
         # player_level+1 because its called just before next level starts

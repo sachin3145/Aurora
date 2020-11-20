@@ -218,7 +218,10 @@ def game(player_name='GUEST'):
                 if loop.index == '':
                     Cache.time_left -= 1
                     if Cache.time_left < 0:
+                        bg = pygame.image.load("Images\\icons\\bg.png")
+                        screen.blit(bg, (0, 0))
                         Overlay.overlay("GAME OVER")
+                        pygame.display.update()
                         pygame.time.wait(5000)
                         loop.running = False
 
