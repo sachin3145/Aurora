@@ -216,6 +216,7 @@ def game(player_name='GUEST'):
                         Overlay.overlay("GAME OVER")
                         pygame.display.update()
                         pygame.time.wait(5000)
+                        menu()
                         loop.running = False
 
         def upgrades():
