@@ -218,6 +218,7 @@ def game(player_name='GUEST'):
                 if loop.index == '':
                     Cache.time_left -= 1
                     if Cache.time_left < 0:
+                        Overlay.overlay("GAME OVER")
                         pygame.time.wait(5000)
                         loop.running = False
 

@@ -1,2 +1,0 @@
-ATTACK SPEED 
-Upgrading this will lead to increase in the bullet speed and the fire rate of bullets

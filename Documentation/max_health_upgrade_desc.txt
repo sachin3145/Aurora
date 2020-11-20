@@ -1,2 +1,0 @@
-MAX HEALTH
-Upgrading this will increasing the amount of damage the troop can take

@@ -1,2 +1,0 @@
-SHIELD
-Upgrading this will provide you with a shield which can block some random value of damage. Upgrading this further can give you a chance to block higher amounts of damage
