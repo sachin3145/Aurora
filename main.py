@@ -64,11 +64,11 @@ cp_rect.center = (sw(87)-75, sh(7)-5)
 """
 GAME LOOPS BELOW
 """
+
 play_music()
 
 
 def menu():
-    play_music()
     loop = MenuLoop()
     while loop.running:
         loop.set_screen()
@@ -173,6 +173,7 @@ def game(player_name='GUEST'):
         batch_place(attacks)
         loop.set_level(levels)
         if loop.index not in ['options', 'victory']:
+            render_text(f'LEVEL {Cache.player_level}', sw(6.5), sh(2.5), 25)
             loop.planet_health_bar()
             loop.energy_bar()
         pygame.display.update()
@@ -216,7 +217,6 @@ def game(player_name='GUEST'):
                         Overlay.overlay("GAME OVER")
                         pygame.display.update()
                         pygame.time.wait(5000)
-                        menu()
                         loop.running = False
 
         def upgrades():
