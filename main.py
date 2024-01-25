@@ -1,4 +1,4 @@
-from Aurora.Packages.dependencies import *
+from Packages.dependencies import *
 
 # title and icon
 pygame.display.set_caption("The Helios Attack")
